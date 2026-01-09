@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { ArrowLeft, Github, Linkedin, ExternalLink, Calendar, Layers, CheckCircle2, AlertCircle, Code2, ArrowUpRight, Mail } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -48,13 +48,13 @@ const projectsDB = {
 // Animation Variants
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6} }
 };
 
 export default function ProjectDetails() {
   const params = useParams();
-  const projectId = params.projectId;
-  const project = projectsDB[projectId];
+  const projectId = Array.isArray(params.projectId) ? params.projectId[0] : params.projectId;
+  const project = projectsDB[projectId as keyof typeof projectsDB];
 
   // Fallback if project not found
   if (!project) {
@@ -170,7 +170,7 @@ export default function ProjectDetails() {
                 <Layers size={20} className="text-cyan-400" /> Technologies
               </h3>
               <div className="flex flex-wrap gap-2">
-                {project.techStack.map((tech) => (
+                {project.techStack.map((tech: string) => (
                   <span key={tech} className="px-3 py-2 text-sm bg-neutral-950 border border-white/10 rounded-md text-gray-300">
                     {tech}
                   </span>

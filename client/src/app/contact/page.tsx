@@ -1,13 +1,13 @@
 "use client";
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { ArrowUpRight, Github, Linkedin, Mail, MapPin, Send, MessageSquare, Clock, CheckCircle } from "lucide-react";
 import Link from "next/link";
 
 // Animation Variants
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
 };
 
 const staggerContainer = {
@@ -18,7 +18,7 @@ export default function Contact() {
   // Simple state for form handling (Visual only for this demo)
   const [formStatus, setFormStatus] = useState("idle"); // idle, submitting, success
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     setFormStatus("submitting");
     // Simulate network request
@@ -175,7 +175,7 @@ export default function Contact() {
               <div className="space-y-2">
                 <label className="text-sm text-gray-400 ml-1">Message</label>
                 <textarea 
-                  rows="4"
+                  rows={4}
                   placeholder="Tell me about your project..." 
                   className="w-full bg-neutral-950 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all placeholder:text-gray-700 resize-none"
                   required

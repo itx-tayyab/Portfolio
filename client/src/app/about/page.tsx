@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { ArrowRight, ArrowUpRight, Github, Linkedin, Mail, Download, Briefcase, GraduationCap, Code, Cpu } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -8,7 +8,7 @@ import Image from "next/image";
 // Animation Variants
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
 };
 
 const staggerContainer = {

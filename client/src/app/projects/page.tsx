@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, Variants , AnimatePresence} from "framer-motion";
 import { ArrowUpRight, Github, Linkedin, Mail, ExternalLink, Code2, FolderGit2, Smartphone, Globe, Cpu } from "lucide-react";
 import Link from "next/link";
 
@@ -41,9 +41,9 @@ const projectsData = [
 ];
 
 // Animation Variants
-const fadeInUp = {
+const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.4, 0, 0.2, 1] } }
 };
 
 export default function Projects() {
