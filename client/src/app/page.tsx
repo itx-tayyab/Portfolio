@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { motion, Variants } from "framer-motion";
-import { ArrowRight, ArrowUpRight, Github, Linkedin, Mail, Terminal, Database, Smartphone, Layout, Code2 } from "lucide-react";
+import { ArrowRight, Github, Linkedin, Mail, Smartphone, Globe, Database, Layers, MessageSquare, Download, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -19,26 +19,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-neutral-950 text-white selection:bg-cyan-500 selection:text-black font-sans">
       
-      {/* --- NAVIGATION --- */}
-      <nav className="fixed w-full z-50 bg-neutral-950/80 backdrop-blur-md border-b border-white/10">
-        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="text-xl font-bold tracking-tighter bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-            Tayyab Tariq
-          </div>
-          <div className="hidden md:flex space-x-8 text-sm font-medium text-gray-300">
-            <Link href="/" className="hover:text-cyan-400 transition-colors">Home</Link>
-            <Link href="/about" className="hover:text-cyan-400 transition-colors">About</Link>
-            <Link href="/projects" className="hover:text-cyan-400 transition-colors">Projects</Link>
-            <Link href="/contact" className="hover:text-cyan-400 transition-colors">Contact</Link>
-          </div>
-          <Link href="/contact" className="px-4 py-2 text-xs font-semibold bg-white text-black rounded-full hover:bg-cyan-400 transition-all">
-            Let's Talk
-          </Link>
-        </div>
-      </nav>
-
       {/* --- HERO SECTION --- */}
-      {/* Reduced pt-32 to pt-24 and md:pt-48 to md:pt-32 to fix the gap issue */}
       <section className="relative pt-24 pb-20 md:pt-32 md:pb-32 px-6 max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
         <motion.div 
           className="flex-1 space-y-1"
@@ -54,7 +35,7 @@ export default function Home() {
             Available for Freelance & Full-time
           </motion.div>
           
-          <motion.h1 variants={fadeInUp} className="text-5xl md:text-7xl font-bold leading-tight tracking-tight">
+          <motion.h1 variants={fadeInUp} className="text-5xl md:text-5xl font-bold leading-tight tracking-tight">
             Building digital <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600">
               experiences
@@ -66,9 +47,18 @@ export default function Home() {
           </motion.p>
           
           <motion.div variants={fadeInUp} className="flex flex-wrap gap-4 pt-4">
-            <Link href="/projects" className="px-8 py-3 bg-cyan-500 hover:bg-cyan-400 text-black font-bold rounded-lg transition-all flex items-center gap-2">
+            <Link href="/projects" className="px-8 py-3 bg-cyan-500 hover:bg-cyan-400 text-black font-bold rounded-full transition-all flex items-center gap-2">
               View Work <ArrowRight size={18} />
             </Link>
+            
+            {/* Download Resume Button */}
+            <a
+              href="/images/tayyab.pdf"
+              download="tayyab.pdf"
+              className="px-8 py-3 bg-transparent border border-white/20 text-white hover:bg-white hover:text-black font-bold rounded-full transition-all flex items-center gap-2"
+            >
+              Download CV <Download size={18} />
+            </a>
             <div className="flex items-center gap-4 px-4">
               <a href="https://github.com/itx-tayyab" className="p-2 bg-white/5 rounded-full hover:bg-white/10 hover:text-cyan-400 transition-all"><Github size={20} /></a>
               <a href="https://www.linkedin.com/in/tayyab-tariq-a51379260/" className="p-2 bg-white/5 rounded-full hover:bg-white/10 hover:text-cyan-400 transition-all"><Linkedin size={20} /></a>
@@ -145,33 +135,37 @@ export default function Home() {
           viewport={{ once: true }}
           className="group relative grid grid-cols-1 lg:grid-cols-2 gap-0 rounded-3xl overflow-hidden border border-white/10 bg-neutral-900"
         >
-          {/* Content */}
+          {/* LEFT SIDE: Text Content */}
           <div className="p-8 md:p-12 flex flex-col justify-center order-2 lg:order-1">
-            <h3 className="text-2xl font-bold mb-4 text-white">Harmoni</h3>
+            <div className="flex gap-2 mb-6">
+               <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-cyan-300">NestJS</span>
+               <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-purple-300">Next.js</span>
+               <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-blue-300">Socket.io</span>
+            </div>
+            <h3 className="text-2xl font-bold mb-4 text-white">Streamlining Team Efficiency</h3>
             <p className="text-gray-400 leading-relaxed mb-8">
-              All in One platform combining real-time messaging, task management, and file sharing. 
-              Designed with a microservices-ready architecture using NestJS to handle high concurrency and Shadcn for a accessible, clean UI.
+              Designed with a microservices-ready architecture using NestJS to handle high concurrency. It features an AI Meeting Assistant that transcribes conversations and automatically assigns tasks.
             </p>
             <Link href="/projects/harmoni" className="inline-flex items-center gap-2 text-cyan-400 hover:text-white transition-colors font-medium">
               View Case Study <ArrowRight size={16} />
             </Link>
           </div>
 
-          {/* Visual */}
-          <div className="relative h-64 lg:h-auto bg-neutral-800 order-1 lg:order-2 overflow-hidden">
-             <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-purple-500/20"></div>
-             <div className="absolute top-10 left-10 w-full h-full bg-neutral-950 rounded-tl-2xl border-t border-l border-white/10 shadow-2xl p-6 transform transition-transform duration-500 group-hover:scale-[1.02] group-hover:-translate-x-2 group-hover:-translate-y-2">
-                <div className="w-full h-4 bg-white/10 rounded mb-4 w-1/3"></div>
-                <div className="space-y-3">
-                  <div className="w-full h-2 bg-white/5 rounded"></div>
-                  <div className="w-full h-2 bg-white/5 rounded"></div>
-                  <div className="w-3/4 h-2 bg-white/5 rounded"></div>
-                </div>
-                <div className="mt-8 grid grid-cols-2 gap-4">
-                  <div className="h-20 bg-cyan-500/10 rounded-lg border border-cyan-500/20"></div>
-                  <div className="h-20 bg-white/5 rounded-lg border border-white/5"></div>
-                </div>
-             </div>
+          {/* RIGHT SIDE: Project Image (Fixed to be Full Width/Height) */}
+          <div className="relative h-64 lg:h-auto min-h-[300px] w-full bg-neutral-800 order-1 lg:order-2 overflow-hidden group">
+             {/* 
+                NOTE: 'object-cover' forces the image to fill the entire container.
+                Ensure your image file (harmoni.png) does not have transparent borders.
+             */}
+             <Image 
+                src="/images/Harmonihome.png"
+                alt="Harmoni Dashboard"
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-700"
+                priority
+             />
+             {/* Optional: Dark overlay that vanishes on hover */}
+             <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors"></div>
           </div>
         </motion.div>
       </section>
@@ -189,116 +183,80 @@ export default function Home() {
         </div>
       </section>
 
-      {/* --- SERVICES / EXPERTISE --- */}
+      {/* --- REPLACED: NEW "WHAT I DO" SECTION --- */}
       <section className="py-24 max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold">Technical Expertise</h2>
-          <p className="text-gray-400 mt-2">The tools I use to bring ideas to life.</p>
+          <h2 className="text-4xl font-bold mb-4">Services I Offer</h2>
+          <p className="text-gray-400 text-lg">Expert in building modern, high-performance applications.</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="p-8 rounded-2xl bg-gradient-to-b from-neutral-900 to-neutral-950 border border-white/10 hover:border-cyan-500/50 transition-all group">
-            <div className="w-12 h-12 bg-neutral-800 rounded-lg flex items-center justify-center mb-6 text-cyan-400 group-hover:scale-110 transition-transform">
-              <Terminal size={24} />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          {/* Card 1: Mobile */}
+          <div className="group p-8 bg-neutral-900/50 border border-white/5 rounded-3xl hover:bg-neutral-900 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-blue-500/10 hover:border-blue-500/20">
+            <div className="w-14 h-14 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-6 text-blue-400 group-hover:scale-110 transition-transform duration-300">
+              <Smartphone size={28} strokeWidth={1.5} />
             </div>
-            <h3 className="text-xl font-bold mb-3">Backend Engineering</h3>
-            <p className="text-gray-400 text-sm leading-relaxed mb-4">
-              My core interest. Building robust APIs and microservices.
+            <h3 className="text-xl font-bold text-white mb-3">Mobile Development</h3>
+            <p className="text-gray-400 text-sm leading-7">
+              I build high-performance cross-platform mobile apps using Flutter, delivering smooth 60fps experiences, clean UI, and intuitive user journeys.
             </p>
-            <ul className="text-sm text-gray-500 space-y-1 font-mono">
-              <li>• Node.js & Express</li>
-              <li>• NestJS (Architecture)</li>
-              <li>• PostgreSQL / MongoDB</li>
-            </ul>
           </div>
 
-          <div className="p-8 rounded-2xl bg-neutral-900 border border-white/10 hover:border-cyan-500/50 transition-all group">
-            <div className="w-12 h-12 bg-neutral-800 rounded-lg flex items-center justify-center mb-6 text-purple-400 group-hover:scale-110 transition-transform">
-              <Layout size={24} />
+          {/* Card 2: Web */}
+          <div className="group p-8 bg-neutral-900/50 border border-white/5 rounded-3xl hover:bg-neutral-900 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-cyan-500/10 hover:border-cyan-500/20">
+            <div className="w-14 h-14 bg-cyan-500/10 rounded-2xl flex items-center justify-center mb-6 text-cyan-400 group-hover:scale-110 transition-transform duration-300">
+              <Globe size={28} strokeWidth={1.5} />
             </div>
-            <h3 className="text-xl font-bold mb-3">Modern Frontend</h3>
-            <p className="text-gray-400 text-sm leading-relaxed mb-4">
-              Creating responsive, accessible, and attractive interfaces.
+            <h3 className="text-xl font-bold text-white mb-3">Web Development</h3>
+            <p className="text-gray-400 text-sm leading-7">
+              I create responsive, SEO-optimized web applications with Next.js and React, focused on speed, accessibility, and modern design standards.
             </p>
-            <ul className="text-sm text-gray-500 space-y-1 font-mono">
-              <li>• Next.js / React</li>
-              <li>• Tailwind / Bootstrap 5</li>
-              <li>• Shadcn UI / Framer Motion</li>
-            </ul>
           </div>
 
-           <div className="p-8 rounded-2xl bg-neutral-900 border border-white/10 hover:border-cyan-500/50 transition-all group">
-            <div className="w-12 h-12 bg-neutral-800 rounded-lg flex items-center justify-center mb-6 text-blue-400 group-hover:scale-110 transition-transform">
-              <Smartphone size={24} />
+          {/* Card 3: Backend */}
+          <div className="group p-8 bg-neutral-900/50 border border-white/5 rounded-3xl hover:bg-neutral-900 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-purple-500/10 hover:border-purple-500/20">
+            <div className="w-14 h-14 bg-purple-500/10 rounded-2xl flex items-center justify-center mb-6 text-purple-400 group-hover:scale-110 transition-transform duration-300">
+              <Database size={28} strokeWidth={1.5} />
             </div>
-            <h3 className="text-xl font-bold mb-3">App Development</h3>
-            <p className="text-gray-400 text-sm leading-relaxed mb-4">
-              Extending functionality to mobile devices.
+            <h3 className="text-xl font-bold text-white mb-3">Backend Integration</h3>
+            <p className="text-gray-400 text-sm leading-7">
+              I develop and integrate secure, scalable backend systems using Node.js, NestJS, and PostgreSQL, with a strong emphasis on API security and performance.
             </p>
-            <ul className="text-sm text-gray-500 space-y-1 font-mono">
-              <li>• Flutter (Dart)</li>
-              <li>• Cross-platform Logic</li>
-              <li>• Mobile UI/UX</li>
-            </ul>
           </div>
+
+          {/* Card 4: Full Stack */}
+          <div className="group p-8 bg-neutral-900/50 border border-white/5 rounded-3xl hover:bg-neutral-900 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-emerald-500/10 hover:border-emerald-500/20">
+            <div className="w-14 h-14 bg-emerald-500/10 rounded-2xl flex items-center justify-center mb-6 text-emerald-400 group-hover:scale-110 transition-transform duration-300">
+              <Layers size={28} strokeWidth={1.5} />
+            </div>
+            <h3 className="text-xl font-bold text-white mb-3">Full-Stack Solutions</h3>
+            <p className="text-gray-400 text-sm leading-7">
+              From UI/UX design to database architecture, I manage the complete product lifecycle, delivering end-to-end, production-ready solutions.
+            </p>
+          </div>
+
         </div>
       </section>
 
-      {/* --- UPDATED FOOTER (Matching Image) --- */}
-      <footer className="bg-neutral-950 pt-20 pb-12 border-t border-white/5">
-        <div className="max-w-6xl mx-auto px-6">
+      <section className="py-20 px-6">
+        <div className="max-w-5xl mx-auto bg-gradient-to-r from-neutral-900 to-neutral-800 rounded-3xl p-10 md:p-16 border border-white/10 text-center relative overflow-hidden">
+          {/* Glow Effect */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/10 blur-[100px]"></div>
           
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
-            
-            {/* Column 1: Identity (Span 6) */}
-            <div className="md:col-span-6 space-y-6">
-              <h3 className="text-2xl font-bold text-white tracking-tight">Tayyab Tariq</h3>
-              <p className="text-gray-400 max-w-sm leading-relaxed">
-                I build practical, user-focused solutions that balance performance, usability, and scalability. My goal is to create products that are not only functional, but genuinely valuable.
-              </p>
-              <div className="flex gap-4 pt-2">
-                <a href="#" className="p-3 rounded-full border border-white/20 text-gray-400 hover:bg-white hover:text-black transition-all">
-                  <Github size={20} />
-                </a>
-                <a href="#" className="p-3 rounded-full border border-white/20 text-gray-400 hover:bg-white hover:text-black transition-all">
-                  <Linkedin size={20} />
-                </a>
-              </div>
-            </div>
-
-            {/* Column 2: Sitemap (Span 2) */}
-            <div className="md:col-span-2 space-y-6">
-               <h4 className="text-sm font-bold tracking-wider text-gray-500 uppercase">Sitemap</h4>
-               <ul className="space-y-4 text-gray-300 font-medium">
-                 <li><Link href="/" className="hover:text-cyan-400 transition-colors">Home</Link></li>
-                 <li><Link href="/about" className="hover:text-cyan-400 transition-colors">About</Link></li>
-                 <li><Link href="/projects" className="hover:text-cyan-400 transition-colors">Projects</Link></li>
-                 <li><Link href="/services" className="hover:text-cyan-400 transition-colors">Services</Link></li>
-                 <li><Link href="/contact" className="hover:text-cyan-400 transition-colors">Contact</Link></li>
-               </ul>
-            </div>
-
-            {/* Column 3: Get In Touch (Span 4) */}
-            <div className="md:col-span-4 space-y-6">
-               <h4 className="text-sm font-bold tracking-wider text-gray-500 uppercase">Get in touch</h4>
-               <p className="text-gray-400">
-                 Have a project in mind? I’m always open to exploring opportunities that challenge me to create high-quality, scalable solutions.
-               </p>
-               <Link href="/contact" className="inline-flex items-center gap-2 px-6 py-3 bg-[#0091d0] hover:bg-[#007bb0] text-white font-bold rounded-full transition-all shadow-lg hover:shadow-cyan-500/25">
-                 Start a Conversation <ArrowUpRight size={20} />
-               </Link>
-            </div>
+          <h2 className="text-3xl md:text-5xl font-bold mb-6 relative z-10">
+            Have a project in mind?
+          </h2>
+          <p className="text-gray-400 text-lg mb-8 max-w-2xl mx-auto relative z-10">
+            Whether you need a complex backend architecture, a stunning frontend, or a full-stack solution, I am ready to help you bring your vision to life.
+          </p>
+          <div className="relative z-10">
+             <Link href="/contact" className="inline-flex items-center gap-3 px-8 py-4 bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-lg rounded-full transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.5)]">
+               Start a Conversation <MessageSquare size={20} />
+             </Link>
           </div>
-
-          {/* Copyright Bottom */}
-          <div className="pt-8 border-t border-white/10 text-center md:text-left">
-            <p className="text-gray-600 text-center text-sm">
-              &copy; {/*{new Date().getFullYear()}*/} 2025 Tayyab Tariq. All rights reserved.
-            </p>
-          </div>
-
         </div>
-      </footer>
+      </section>
 
     </div>
   );

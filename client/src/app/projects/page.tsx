@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { motion, Variants , AnimatePresence} from "framer-motion";
 import { ArrowUpRight, Github, Linkedin, Mail, ExternalLink, Code2, FolderGit2, Smartphone, Globe, Cpu } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 // --- PROJECT DATA ---
 // You can add more projects here easily
@@ -14,6 +15,7 @@ const projectsData = [
     description: "An All-in-One Collaboration Hub combining real-time messaging, task management, and file sharing.",
     tech: ["NestJS", "Next.js", "Prisma ORM", "PostgreSQL", "Redux", "Redis", "Docker"],
     gradient: "from-indigo-900 via-purple-900 to-cyan-900", 
+    image: "/images/harmoniproject.png",
     link: "/projects/harmoni",
     github: "#"
   },
@@ -24,6 +26,7 @@ const projectsData = [
     description: "A Mobile app where user can easily check cases and all results related to Covid19 in their country.",
     tech: ["Flutter", "Mvvm Architecture", "Provider", "Rest API"],
     gradient: "from-slate-700 to-slate-900",
+    image: "/images/covid19project.png",
     link: "/projects/covid19-tracker-app",
     github: "https://github.com/itx-tayyab/covid19_tracker_app_with_api"
   },
@@ -34,6 +37,7 @@ const projectsData = [
     description: "A Mobile app that provides accurate weather forecasts and real-time updates using the OpenWeather API.",
     tech: ["Flutter", "MVVM Architecture", "Provider", "OpenWeather API"],
     gradient: "from-emerald-800 to-yellow-900/40",
+    image: "/images/weatherproject.png",
     link: "/projects/weather-app",
     github: "https://github.com/itx-tayyab/weather_app"
   },
@@ -56,24 +60,6 @@ export default function Projects() {
 
   return (
     <div className="min-h-screen bg-neutral-950 text-white selection:bg-cyan-500 selection:text-black font-sans">
-      
-      {/* --- NAVIGATION --- */}
-      <nav className="fixed w-full z-50 bg-neutral-950/80 backdrop-blur-md border-b border-white/10">
-        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="text-xl font-bold tracking-tighter bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-            Tayyab Tariq
-          </div>
-          <div className="hidden md:flex space-x-8 text-sm font-medium text-gray-300">
-            <Link href="/" className="hover:text-cyan-400 transition-colors">Home</Link>
-            <Link href="/about" className="hover:text-cyan-400 transition-colors">About</Link>
-            <Link href="/projects" className="text-cyan-400 transition-colors">Projects</Link>
-            <Link href="/contact" className="hover:text-cyan-400 transition-colors">Contact</Link>
-          </div>
-          <Link href="/contact" className="px-4 py-2 text-xs font-semibold bg-white text-black rounded-full hover:bg-cyan-400 transition-all">
-            Let's Talk
-          </Link>
-        </div>
-      </nav>
 
       {/* --- HEADER --- */}
       <section className="pt-40 pb-12 px-6 max-w-6xl mx-auto text-center">
@@ -85,7 +71,7 @@ export default function Projects() {
             Curated <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">Work.</span>
           </h1>
           <p className="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
-            A collection of projects that demonstrate my journey in software engineering, from backend architecture to pixel-perfect mobile apps.
+            A collection of projects that demonstrate my journey in Full Stack development, from backend architecture to pixel-perfect mobile apps.
           </p>
         </motion.div>
       </section>
@@ -124,16 +110,17 @@ export default function Projects() {
                 className="group flex flex-col rounded-3xl bg-neutral-900 border border-white/10 overflow-hidden hover:border-cyan-500/50 transition-all duration-300"
               >
                 
-                {/* Visual Header (Gradient + Icon) */}
-                <div className={`h-48 relative bg-gradient-to-br ${project.gradient} flex items-center justify-center p-6 group-hover:scale-105 transition-transform duration-500`}>
-                   <div className="bg-white/10 p-4 rounded-2xl backdrop-blur-md border border-white/10 text-white shadow-xl">
-                      {project.category.includes('Mobile') ? <Smartphone size={32} /> : 
-                       project.category.includes('AI') ? <Cpu size={32} /> : 
-                       <Globe size={32} />}
-                   </div>
+                {/* Visual Header (Project Image) */}
+                <div className="h-48 relative overflow-hidden bg-neutral-800">
+                   <Image 
+                     src={project.image} 
+                     alt={project.title}
+                     fill
+                     className="object-cover group-hover:scale-110 transition-transform duration-500"
+                   />
                    
                    {/* Overlay link icon on hover */}
-                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
+                   <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
                      <Link href={project.link} className="p-2 bg-white rounded-full text-black hover:scale-110 transition-transform"><ArrowUpRight size={20} /></Link>
                      <a href={project.github} className="p-2 bg-neutral-900 rounded-full text-white hover:scale-110 transition-transform"><Github size={20} /></a>
                    </div>
@@ -170,48 +157,6 @@ export default function Projects() {
           </AnimatePresence>
         </motion.div>
       </section>
-
-      {/* --- FOOTER (Exact Match) --- */}
-      <footer className="bg-neutral-950 pt-20 pb-12 border-t border-white/5">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
-            <div className="md:col-span-6 space-y-6">
-              <h3 className="text-2xl font-bold text-white tracking-tight">Tayyab Tariq</h3>
-              <p className="text-gray-400 max-w-sm leading-relaxed">
-                I build practical, user-focused solutions that balance performance, usability, and scalability. My goal is to create products that are not only functional, but genuinely valuable.
-              </p>
-              <div className="flex gap-4 pt-2">
-                <a href="https://github.com/itx-tayyab" className="p-3 rounded-full border border-white/20 text-gray-400 hover:bg-white hover:text-black transition-all"><Github size={20} /></a>
-                <a href="https://www.linkedin.com/in/tayyab-tariq-a51379260" className="p-3 rounded-full border border-white/20 text-gray-400 hover:bg-white hover:text-black transition-all"><Linkedin size={20} /></a>
-              </div>
-            </div>
-            <div className="md:col-span-2 space-y-6">
-               <h4 className="text-sm font-bold tracking-wider text-gray-500 uppercase">Sitemap</h4>
-               <ul className="space-y-4 text-gray-300 font-medium">
-                 <li><Link href="/" className="hover:text-cyan-400 transition-colors">Home</Link></li>
-                 <li><Link href="/about" className="hover:text-cyan-400 transition-colors">About</Link></li>
-                 <li><Link href="/projects" className="hover:text-cyan-400 transition-colors">Projects</Link></li>
-                 <li><Link href="/services" className="hover:text-cyan-400 transition-colors">Services</Link></li>
-                 <li><Link href="/contact" className="hover:text-cyan-400 transition-colors">Contact</Link></li>
-               </ul>
-            </div>
-            <div className="md:col-span-4 space-y-6">
-               <h4 className="text-sm font-bold tracking-wider text-gray-500 uppercase">Get in touch</h4>
-               <p className="text-gray-400">
-                 Have a project in mind? I’m always open to exploring opportunities that challenge me to create high-quality, scalable solutions.
-               </p>
-               <Link href="/contact" className="inline-flex items-center gap-2 px-6 py-3 bg-[#0091d0] hover:bg-[#007bb0] text-white font-bold rounded-full transition-all shadow-lg hover:shadow-cyan-500/25">
-                 Start a Conversation <ArrowUpRight size={20} />
-               </Link>
-            </div>
-          </div>
-          <div className="pt-8 border-t border-white/10 text-center md:text-left">
-            <p className="text-gray-600 text-center text-sm">
-              &copy; 2025 Tayyab Tariq. All rights reserved.
-            </p>
-          </div>
-        </div>
-      </footer>
 
     </div>
   );
