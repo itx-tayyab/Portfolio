@@ -125,7 +125,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed"
           >
-            A few projects that reflect my ability to build scalable, efficient, and user-focused digital solutions.
+            A few projects that reflect my ability to build scalable, efficient, and user-focused digital solutions
           </motion.p>
         </div>
 
