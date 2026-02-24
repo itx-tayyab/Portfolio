@@ -21,6 +21,17 @@ const projectsData = [
   },
   {
     id: 2,
+    title: "ClientBridge",
+    category: "Full Stack",
+    description: "Introducing ClientBridge, A dedicated collaboration platform where freelancers and clients stay on the same page.",
+    tech: ["Next.js", "Node.js", "Prisma ORM", "PostgreSQL", "Socker.io", "Tailwind CSS"],
+    gradient: "from-emerald-800 to-yellow-900/40",
+    image: "/images/clientbridge.png",
+    link: "/projects/clientbridge",
+    github: "https://github.com/itx-tayyab/ClientBridge"
+  },
+  {
+    id: 3,
     title: "Covid19 Tracker App",
     category: "Mobile",
     description: "A Mobile app where user can easily check cases and all results related to Covid19 in their country.",
@@ -31,7 +42,7 @@ const projectsData = [
     github: "https://github.com/itx-tayyab/covid19_tracker_app_with_api"
   },
   {
-    id: 3,
+    id: 4,
     title: "Weather App",
     category: "Mobile",
     description: "A Mobile app that provides accurate weather forecasts and real-time updates using the OpenWeather API.",
@@ -41,6 +52,7 @@ const projectsData = [
     link: "/projects/weather-app",
     github: "https://github.com/itx-tayyab/weather_app"
   },
+  
   
 ];
 
