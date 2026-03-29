@@ -24,9 +24,10 @@ const projectsDB = {
     
     // CAROUSEL IMAGES (Put images in /public/images/...)
     images: [
-      "/images/harmoni.png", // Replace with actual paths
-      "/images/harmoni-chat.png",
-      "/images/harmoni-tasks.png"
+      "/images/harmonidashboard.png",
+      "/images/harmoniteam.png",
+      "/images/harmoniteampage.png",
+      "/images/harmoniteamember.png",
     ],
     
     problem: "Remote teams often struggle with fragmentation. They use Slack for messaging, Trello for tasks, and Google Drive for files. Switching between these apps kills productivity and breaks flow.",
