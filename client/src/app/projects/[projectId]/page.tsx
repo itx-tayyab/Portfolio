@@ -136,8 +136,10 @@ const projectsDB = {
     gradient: "from-emerald-900 to-green-900",
     
     images: [
-      "/images/clientbridge.png",
-      "/images/clientbridge-dashboard.png"
+      "/images/CBpage1.png",
+      "/images/CBpage2.png",
+      "/images/CBregister.png",
+      "/images/CBlogin.png",
     ],
 
     problem: "Freelancers and clients often struggle to collaborate effectively due to communication gaps.",
