@@ -140,6 +140,10 @@ const projectsDB = {
       "/images/CBpage2.png",
       "/images/CBregister.png",
       "/images/CBlogin.png",
+      "/images/CbFrdash.png",
+      "/images/CbFrproject.png",
+      "/images/CbFrClient.png",
+      "/images/Cbmessage.png",
     ],
 
     problem: "Freelancers and clients often struggle to collaborate effectively due to communication gaps.",
