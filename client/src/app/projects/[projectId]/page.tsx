@@ -27,7 +27,7 @@ const projectsDB = {
       "/images/harmonidashboard.png",
       "/images/harmoniteam.png",
       "/images/harmoniteampage.png",
-      "/images/harmoniteamember.png",
+      "/images/harmoniteamembers.png",
     ],
     
     problem: "Remote teams often struggle with fragmentation. They use Slack for messaging, Trello for tasks, and Google Drive for files. Switching between these apps kills productivity and breaks flow.",
@@ -184,6 +184,7 @@ export default function ProjectDetails() {
   
   // Carousel State
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
   // Fallback if project not found
   if (!project) {
@@ -206,6 +207,16 @@ export default function ProjectDetails() {
     if (project.images && project.images.length > 0) {
       setCurrentImageIndex((prev) => (prev - 1 + project.images.length) % project.images.length);
     }
+  };
+
+  const openLightbox = () => {
+    if (project.images && project.images.length > 0) {
+      setIsLightboxOpen(true);
+    }
+  };
+
+  const closeLightbox = () => {
+    setIsLightboxOpen(false);
   };
 
   return (
@@ -279,21 +290,28 @@ export default function ProjectDetails() {
             <div className="relative w-full aspect-video bg-neutral-900 border border-white/10 rounded-2xl overflow-hidden group">
                {project.images && project.images.length > 0 ? (
                  <>
-                   <Image 
-                     src={project.images[currentImageIndex]} 
-                     alt={`${project.title} screenshot`}
-                     fill
-                     className="object-cover"
-                     priority
-                   />
+                   <button
+                     type="button"
+                     onClick={openLightbox}
+                     className="relative block h-full w-full cursor-zoom-in"
+                     aria-label="Open image viewer"
+                   >
+                     <Image 
+                       src={project.images[currentImageIndex]} 
+                       alt={`${project.title} screenshot`}
+                       fill
+                       className="object-contain"
+                       priority
+                     />
+                   </button>
                    
                    {/* Carousel Controls (Only if > 1 image) */}
                    {project.images.length > 1 && (
                      <>
-                        <button onClick={prevImage} className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-black/50 text-white rounded-full hover:bg-cyan-500 transition-all">
+                        <button type="button" onClick={prevImage} className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-black/50 text-white rounded-full hover:bg-cyan-500 transition-all">
                           <ChevronLeft size={24} />
                         </button>
-                        <button onClick={nextImage} className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-black/50 text-white rounded-full hover:bg-cyan-500 transition-all">
+                        <button type="button" onClick={nextImage} className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-black/50 text-white rounded-full hover:bg-cyan-500 transition-all">
                           <ChevronRight size={24} />
                         </button>
                         {/* Dots */}
@@ -427,6 +445,60 @@ export default function ProjectDetails() {
 
         </div>
       </section>
+
+      <AnimatePresence>
+        {isLightboxOpen && project.images && project.images.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] bg-black/90 p-4 md:p-8"
+          >
+            <button
+              type="button"
+              onClick={closeLightbox}
+              className="absolute right-4 top-4 rounded-full border border-white/20 bg-black/60 px-4 py-2 text-sm text-white hover:bg-black/80"
+            >
+              Close
+            </button>
+
+            <div className="relative mx-auto flex h-full w-full max-w-6xl items-center justify-center">
+              <Image
+                src={project.images[currentImageIndex]}
+                alt={`${project.title} fullscreen screenshot`}
+                fill
+                className="object-contain"
+                sizes="100vw"
+              />
+
+              {project.images.length > 1 && (
+                <>
+                  <button
+                    type="button"
+                    onClick={prevImage}
+                    className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-white/20 p-3 text-white hover:bg-cyan-500"
+                    aria-label="Previous image"
+                  >
+                    <ChevronLeft size={28} />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={nextImage}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white/20 p-3 text-white hover:bg-cyan-500"
+                    aria-label="Next image"
+                  >
+                    <ChevronRight size={28} />
+                  </button>
+
+                  <div className="absolute bottom-6 left-1/2 -translate-x-1/2 rounded-full bg-black/60 px-4 py-2 text-sm text-white">
+                    {currentImageIndex + 1} / {project.images.length}
+                  </div>
+                </>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
     </div>
   );
