@@ -219,7 +219,7 @@ export default function ProjectDetails() {
     <div className="min-h-screen mesh-gradient-bg text-white font-sans selection:bg-cyan-500/30 selection:text-white">
       
       {/* --- HERO HEADER --- */}
-      <section className={`relative pt-40 pb-20 px-6 bg-gradient-to-b ${project.gradient} to-transparent border-b border-white/5`}>
+      <section className={`relative pt-24 md:pt-28 pb-20 px-6 bg-gradient-to-b ${project.gradient} to-transparent border-b border-white/5`}>
         <div className="max-w-5xl mx-auto relative z-10">
           <Link 
             href="/projects" 
