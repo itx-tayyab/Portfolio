@@ -11,7 +11,6 @@ import { useParams } from "next/navigation";
 import Image from "next/image";
 
 // --- MOCK DATA ---
-// Update this with your real data and image paths
 const projectsDB = {
   "harmoni": {
     title: "Harmoni",
@@ -20,9 +19,8 @@ const projectsDB = {
     date: "Dec 2024",
     repoLink: "https://github.com/yourusername/harmoni",
     liveLink: "https://harmoni.app",
-    gradient: "from-indigo-900 to-cyan-900",
+    gradient: "from-indigo-950/40 via-cyan-950/20 to-neutral-950/10",
     
-    // CAROUSEL IMAGES (Put images in /public/images/...)
     images: [
       "/images/harmonidashboard.png",
       "/images/harmoniteam.png",
@@ -61,13 +59,13 @@ const projectsDB = {
     date: "July 2025",
     repoLink: "https://github.com/itx-tayyab/covid19_tracker_app_with_api",
     liveLink: "#",
-    gradient: "from-slate-800 to-gray-900",
+    gradient: "from-slate-900/40 via-neutral-950/20 to-neutral-950/10",
     
     images: [
       "/images/covid-main.png",
       "/images/covid-stats.png"
     ],
-
+ 
     problem: "During the pandemic, accessing consolidated, real-time data on infection rates across specific cities and countries was difficult for the general public.",
     solution: "We built a mobile app that aggregates data from global APIs and presents it in an easy-to-read dashboard, allowing users to filter by country and city.",
     
@@ -77,7 +75,7 @@ const projectsDB = {
       "Search Functionality by Country",
       "Offline Data Caching"
     ],
-
+ 
     techStack: ["Flutter", "MVVM Architecture", "Provider", "Rest API"],
     
     learnings: [
@@ -85,7 +83,7 @@ const projectsDB = {
       "Implementing MVVM for clean code separation",
       "Handling API errors and network timeouts gracefully"
     ],
-
+ 
     achievements: [
       "Achieved 99.9% crash-free sessions",
       "Simplified complex data for non-technical users"
@@ -98,12 +96,12 @@ const projectsDB = {
     date: "August 2025",
     repoLink: "https://github.com/itx-tayyab/weather_app",
     liveLink: "#",
-    gradient: "from-emerald-900 to-green-900",
+    gradient: "from-emerald-950/40 via-neutral-950/20 to-neutral-950/10",
     
     images: [
       "/images/weather-home.png"
     ],
-
+ 
     problem: "Accessing real-time weather data often requires multiple platforms and complex interfaces.",
     solution: "Developed a cross-platform Flutter app integrated with a weather API to provide fast, accurate weather updates in a user-friendly design.",
     
@@ -113,7 +111,7 @@ const projectsDB = {
       "Dynamic Backgrounds based on Weather",
       "Search any City"
     ],
-
+ 
     techStack: ["Flutter", "MVVM Architecture", "Provider", "OpenWeather API"],
     
     learnings: [
@@ -133,7 +131,7 @@ const projectsDB = {
     date: "January 2026",
     repoLink: "https://github.com/itx-tayyab/ClientBridge",
     liveLink: "#",
-    gradient: "from-emerald-900 to-green-900",
+    gradient: "from-teal-950/40 via-neutral-950/20 to-neutral-950/10",
     
     images: [
       "/images/CBpage1.png",
@@ -145,7 +143,7 @@ const projectsDB = {
       "/images/CbFrClient.png",
       "/images/Cbmessage.png",
     ],
-
+ 
     problem: "Freelancers and clients often struggle to collaborate effectively due to communication gaps.",
     solution: "Built a dedicated platform that streamlines communication, task management, and file sharing between freelancers and clients.",
     
@@ -155,11 +153,11 @@ const projectsDB = {
       "File Sharing & Version Control",
       "Client Feedback Integration"
     ],
-
+ 
     techStack: ["React", "Next.js", "Express.js", "Socket.io", "Tailwind CSS"],
     
     learnings: [
-      "Cient invitation and onboarding flows",
+      "Client invitation and onboarding flows",
       "Real-time communication with Socket.io",
       "Implementing secure file uploads and storage"
     ],
@@ -174,7 +172,7 @@ const projectsDB = {
 // Animation Variants
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
 };
 
 export default function ProjectDetails() {
@@ -186,17 +184,15 @@ export default function ProjectDetails() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
-  // Fallback if project not found
   if (!project) {
     return (
-      <div className="min-h-screen bg-neutral-950 flex flex-col items-center justify-center text-white">
-        <h1 className="text-4xl font-bold mb-4">Project Not Found</h1>
-        <Link href="/projects" className="text-cyan-400 hover:underline">Back to Projects</Link>
+      <div className="min-h-screen bg-[#030303] flex flex-col items-center justify-center text-white">
+        <h1 className="text-3xl font-black mb-4">Project Not Found</h1>
+        <Link href="/projects" className="text-cyan-400 hover:underline text-sm font-semibold">Back to Projects</Link>
       </div>
     );
   }
 
-  // Carousel Handlers
   const nextImage = () => {
     if (project.images && project.images.length > 0) {
       setCurrentImageIndex((prev) => (prev + 1) % project.images.length);
@@ -220,36 +216,21 @@ export default function ProjectDetails() {
   };
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-white selection:bg-cyan-500 selection:text-black font-sans">
+    <div className="min-h-screen mesh-gradient-bg text-white font-sans selection:bg-cyan-500/30 selection:text-white">
       
-      {/* --- NAVIGATION --- */}
-      <nav className="fixed w-full z-50 bg-neutral-950/80 backdrop-blur-md border-b border-white/10">
-        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="text-xl font-bold tracking-tighter bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-            Tayyab Tariq
-          </div>
-          <div className="hidden md:flex space-x-8 text-sm font-medium text-gray-300">
-            <Link href="/" className="hover:text-cyan-400 transition-colors">Home</Link>
-            <Link href="/about" className="hover:text-cyan-400 transition-colors">About</Link>
-            <Link href="/projects" className="text-cyan-400 transition-colors">Projects</Link>
-            <Link href="/contact" className="hover:text-cyan-400 transition-colors">Contact</Link>
-          </div>
-          <Link href="/contact" className="px-4 py-2 text-xs font-semibold bg-white text-black rounded-full hover:bg-cyan-400 transition-all">
-            Let's Talk
-          </Link>
-        </div>
-      </nav>
-
       {/* --- HERO HEADER --- */}
-      <section className={`relative pt-40 pb-20 px-6 bg-gradient-to-b ${project.gradient} to-neutral-950 border-b border-white/10`}>
-        <div className="max-w-5xl mx-auto">
-          <Link href="/projects" className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors mb-8 text-sm font-medium">
-            <ArrowLeft size={16} /> Back to Projects
+      <section className={`relative pt-40 pb-20 px-6 bg-gradient-to-b ${project.gradient} to-transparent border-b border-white/5`}>
+        <div className="max-w-5xl mx-auto relative z-10">
+          <Link 
+            href="/projects" 
+            className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors mb-8 text-xs font-semibold uppercase tracking-wider"
+          >
+            <ArrowLeft size={14} /> Back to Projects
           </Link>
           
           <motion.div initial="hidden" animate="visible" variants={fadeInUp}>
             <div className="flex flex-wrap items-center gap-4 mb-4">
-              <span className={`px-3 py-1 rounded-full text-xs font-bold border flex items-center gap-2 ${
+              <span className={`px-3.5 py-1 rounded-full text-[10px] font-bold border flex items-center gap-2 ${
                 project.status === "Completed" 
                   ? "bg-green-500/10 text-green-400 border-green-500/20" 
                   : "bg-orange-500/10 text-orange-400 border-orange-500/20"
@@ -257,21 +238,31 @@ export default function ProjectDetails() {
                 {project.status === "Completed" ? <CheckCircle2 size={12} /> : <AlertCircle size={12} />}
                 {project.status}
               </span>
-              <span className="text-gray-400 text-sm flex items-center gap-2">
-                <Calendar size={14} /> {project.date}
+              <span className="text-gray-400 text-xs font-semibold flex items-center gap-2">
+                <Calendar size={14} className="text-cyan-400" /> {project.date}
               </span>
             </div>
 
-            <h1 className="text-4xl md:text-6xl font-bold mb-4">{project.title}</h1>
-            <p className="text-xl text-gray-300 max-w-2xl">{project.tagline}</p>
+            <h1 className="text-4xl md:text-6xl font-black mb-4 tracking-tight leading-tight">{project.title}</h1>
+            <p className="text-lg md:text-xl text-gray-300 max-w-2xl leading-relaxed">{project.tagline}</p>
 
             <div className="flex flex-wrap gap-4 mt-8">
-              <a href={project.repoLink} target="_blank" className="px-6 py-3 bg-white text-black font-bold rounded-lg hover:bg-cyan-400 transition-all flex items-center gap-2">
-                <Github size={20} /> View Code
+              <a 
+                href={project.repoLink} 
+                target="_blank" 
+                rel="noreferrer"
+                className="px-6 py-3 bg-white text-black font-bold text-sm rounded-full hover:bg-gradient-to-r hover:from-cyan-400 hover:to-purple-500 hover:text-white hover:scale-105 transition-all duration-300 shadow-md hover:shadow-cyan-400/10 flex items-center gap-2"
+              >
+                <Github size={18} /> View Code
               </a>
               {project.liveLink !== "#" && (
-                <a href={project.liveLink} target="_blank" className="px-6 py-3 bg-white/10 text-white font-bold rounded-lg hover:bg-white/20 transition-all flex items-center gap-2">
-                  <ExternalLink size={20} /> Live Demo
+                <a 
+                  href={project.liveLink} 
+                  target="_blank" 
+                  rel="noreferrer"
+                  className="px-6 py-3 bg-white/5 border border-white/10 text-white font-bold text-sm rounded-full hover:bg-white/10 hover:scale-105 transition-all duration-300 flex items-center gap-2"
+                >
+                  <ExternalLink size={18} className="text-cyan-400" /> Live Demo
                 </a>
               )}
             </div>
@@ -281,13 +272,13 @@ export default function ProjectDetails() {
 
       {/* --- MAIN CONTENT GRID --- */}
       <section className="py-20 px-6 max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-20">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16">
           
           {/* LEFT COLUMN (Content) */}
           <div className="lg:col-span-2 space-y-16">
             
             {/* 1. IMAGE CAROUSEL */}
-            <div className="relative w-full aspect-video bg-neutral-900 border border-white/10 rounded-2xl overflow-hidden group">
+            <div className="relative w-full aspect-video bg-neutral-950/60 border border-white/5 rounded-2xl overflow-hidden group shadow-2xl">
                {project.images && project.images.length > 0 ? (
                  <>
                    <button
@@ -305,19 +296,32 @@ export default function ProjectDetails() {
                      />
                    </button>
                    
-                   {/* Carousel Controls (Only if > 1 image) */}
+                   {/* Carousel Controls */}
                    {project.images.length > 1 && (
                      <>
-                        <button type="button" onClick={prevImage} className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-black/50 text-white rounded-full hover:bg-cyan-500 transition-all">
-                          <ChevronLeft size={24} />
+                        <button 
+                          type="button" 
+                          onClick={prevImage} 
+                          className="absolute left-4 top-1/2 -translate-y-1/2 p-2.5 bg-black/60 text-white rounded-full hover:bg-cyan-500 transition-colors border border-white/10"
+                        >
+                          <ChevronLeft size={20} />
                         </button>
-                        <button type="button" onClick={nextImage} className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-black/50 text-white rounded-full hover:bg-cyan-500 transition-all">
-                          <ChevronRight size={24} />
+                        <button 
+                          type="button" 
+                          onClick={nextImage} 
+                          className="absolute right-4 top-1/2 -translate-y-1/2 p-2.5 bg-black/60 text-white rounded-full hover:bg-cyan-500 transition-colors border border-white/10"
+                        >
+                          <ChevronRight size={20} />
                         </button>
                         {/* Dots */}
-                        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 px-3 py-1.5 rounded-full bg-black/50 backdrop-blur border border-white/5">
                           {project.images.map((_, index) => (
-                            <div key={index} className={`w-2 h-2 rounded-full ${index === currentImageIndex ? 'bg-cyan-400' : 'bg-white/30'}`} />
+                            <div 
+                              key={index} 
+                              className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+                                index === currentImageIndex ? 'bg-cyan-400 w-3' : 'bg-white/30'
+                              }`} 
+                            />
                           ))}
                         </div>
                      </>
@@ -329,21 +333,31 @@ export default function ProjectDetails() {
             </div>
 
             {/* 2. PROBLEM & SOLUTION */}
-            <div className="grid grid-cols-1 gap-12">
-               <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-                  <h2 className="text-2xl font-bold mb-4 text-white flex items-center gap-2">
-                    <span className="text-cyan-400">01.</span> The Problem
+            <div className="grid grid-cols-1 gap-10">
+               <motion.div 
+                 initial={{ opacity: 0, y: 20 }} 
+                 whileInView={{ opacity: 1, y: 0 }} 
+                 viewport={{ once: true }}
+                 className="space-y-4"
+               >
+                  <h2 className="text-xl font-bold mb-4 text-white flex items-center gap-2">
+                    <span className="text-cyan-400 font-mono">01.</span> The Problem
                   </h2>
-                  <p className="text-gray-400 leading-relaxed text-lg bg-neutral-900/50 p-6 rounded-xl border border-white/5">
+                  <p className="text-gray-300 leading-relaxed text-base glow-card p-6 border border-white/5">
                     {project.problem}
                   </p>
                </motion.div>
 
-               <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-                  <h2 className="text-2xl font-bold mb-4 text-white flex items-center gap-2">
-                    <span className="text-cyan-400">02.</span> The Solution
+               <motion.div 
+                 initial={{ opacity: 0, y: 20 }} 
+                 whileInView={{ opacity: 1, y: 0 }} 
+                 viewport={{ once: true }}
+                 className="space-y-4"
+               >
+                  <h2 className="text-xl font-bold mb-4 text-white flex items-center gap-2">
+                    <span className="text-cyan-400 font-mono">02.</span> The Solution
                   </h2>
-                  <p className="text-gray-400 leading-relaxed text-lg bg-neutral-900/50 p-6 rounded-xl border border-white/5">
+                  <p className="text-gray-300 leading-relaxed text-base glow-card p-6 border border-white/5">
                     {project.solution}
                   </p>
                </motion.div>
@@ -351,14 +365,22 @@ export default function ProjectDetails() {
 
             {/* 3. KEY FEATURES */}
             {project.features && (
-              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-                <h3 className="text-2xl font-bold mb-6 text-white flex items-center gap-3">
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }} 
+                whileInView={{ opacity: 1, y: 0 }} 
+                viewport={{ once: true }}
+                className="space-y-6"
+              >
+                <h3 className="text-xl font-bold text-white flex items-center gap-3">
                   <ListChecks className="text-purple-400" /> Key Features
                 </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {project.features.map((feature, idx) => (
-                    <div key={idx} className="flex items-start gap-3 p-4 rounded-xl bg-neutral-900 border border-white/10 hover:border-purple-500/30 transition-colors">
-                      <CheckCircle2 size={20} className="text-purple-400 shrink-0 mt-0.5" />
+                    <div 
+                      key={idx} 
+                      className="glow-card flex items-start gap-3 p-5"
+                    >
+                      <CheckCircle2 size={18} className="text-purple-400 shrink-0 mt-0.5" />
                       <span className="text-gray-300 text-sm">{feature}</span>
                     </div>
                   ))}
@@ -368,14 +390,22 @@ export default function ProjectDetails() {
 
             {/* 4. KEY LEARNINGS */}
             {project.learnings && (
-              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-                <h3 className="text-2xl font-bold mb-6 text-white flex items-center gap-3">
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }} 
+                whileInView={{ opacity: 1, y: 0 }} 
+                viewport={{ once: true }}
+                className="space-y-6"
+              >
+                <h3 className="text-xl font-bold text-white flex items-center gap-3">
                   <Lightbulb className="text-yellow-400" /> Key Learnings
                 </h3>
                 <div className="space-y-4">
                   {project.learnings.map((item, idx) => (
-                    <div key={idx} className="p-5 rounded-xl bg-gradient-to-r from-neutral-900 to-neutral-900/50 border-l-4 border-yellow-500/50">
-                      <p className="text-gray-300 italic">"{item}"</p>
+                    <div 
+                      key={idx} 
+                      className="glow-card p-6 border-l-4 border-l-yellow-500/50 rounded-l-none"
+                    >
+                      <p className="text-gray-300 italic text-sm">"{item}"</p>
                     </div>
                   ))}
                 </div>
@@ -388,13 +418,16 @@ export default function ProjectDetails() {
           <div className="lg:col-span-1 space-y-8">
             
             {/* Tech Stack Widget */}
-            <div className="p-6 rounded-2xl bg-neutral-900 border border-white/10">
-              <h3 className="font-bold text-white mb-6 flex items-center gap-2">
-                <Layers size={20} className="text-cyan-400" /> Technologies
+            <div className="p-6.5 rounded-2xl glow-card">
+              <h3 className="font-bold text-white text-sm uppercase tracking-wider mb-6 flex items-center gap-2">
+                <Layers size={18} className="text-cyan-400" /> Technologies
               </h3>
               <div className="flex flex-wrap gap-2">
                 {project.techStack.map((tech) => (
-                  <span key={tech} className="px-3 py-2 text-sm bg-neutral-950 border border-white/10 rounded-md text-gray-300 hover:text-cyan-400 transition-colors cursor-default">
+                  <span 
+                    key={tech} 
+                    className="px-3 py-1.5 text-xs font-semibold bg-neutral-950/80 border border-white/5 rounded-lg text-gray-300 hover:text-cyan-400 hover:border-cyan-500/20 transition-colors cursor-default"
+                  >
                     {tech}
                   </span>
                 ))}
@@ -403,15 +436,15 @@ export default function ProjectDetails() {
 
             {/* Achievements Widget */}
             {project.achievements && (
-              <div className="p-6 rounded-2xl bg-gradient-to-b from-neutral-900 to-neutral-950 border border-white/10">
-                 <h3 className="font-bold text-white mb-6 flex items-center gap-2">
-                  <Trophy size={20} className="text-orange-400" /> Achievements
+              <div className="p-6.5 rounded-2xl glow-card">
+                 <h3 className="font-bold text-white text-sm uppercase tracking-wider mb-6 flex items-center gap-2">
+                  <Trophy size={18} className="text-orange-400" /> Achievements
                 </h3>
                 <ul className="space-y-4">
                   {project.achievements.map((item, idx) => (
-                    <li key={idx} className="flex gap-3 text-sm text-gray-400">
-                      <div className="w-1.5 h-1.5 rounded-full bg-orange-500 mt-2 shrink-0"></div>
-                      {item}
+                    <li key={idx} className="flex gap-3 text-xs leading-relaxed text-gray-400">
+                      <div className="w-1.5 h-1.5 rounded-full bg-orange-500 mt-1.5 shrink-0"></div>
+                      <span>{item}</span>
                     </li>
                   ))}
                 </ul>
@@ -419,22 +452,32 @@ export default function ProjectDetails() {
             )}
 
             {/* Resources Widget */}
-            <div className="p-6 rounded-2xl bg-neutral-900 border border-white/10">
-              <h3 className="font-bold text-white mb-6 flex items-center gap-2">
-                <Code2 size={20} className="text-blue-400" /> Resources
+            <div className="p-6.5 rounded-2xl glow-card">
+              <h3 className="font-bold text-white text-sm uppercase tracking-wider mb-6 flex items-center gap-2">
+                <Code2 size={18} className="text-blue-400" /> Resources
               </h3>
               <ul className="space-y-4">
                 <li>
-                  <a href={project.repoLink} className="flex items-center justify-between text-gray-400 hover:text-cyan-400 transition-colors group">
-                    <span className="text-sm">GitHub Repository</span>
-                    <ArrowUpRight size={16} className="group-hover:translate-x-1 transition-transform"/>
+                  <a 
+                    href={project.repoLink} 
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center justify-between text-gray-400 hover:text-cyan-400 transition-colors group text-sm"
+                  >
+                    <span>GitHub Repository</span>
+                    <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"/>
                   </a>
                 </li>
                 {project.liveLink !== "#" && (
                   <li>
-                    <a href={project.liveLink} className="flex items-center justify-between text-gray-400 hover:text-cyan-400 transition-colors group">
-                      <span className="text-sm">Live Deployment</span>
-                      <ArrowUpRight size={16} className="group-hover:translate-x-1 transition-transform"/>
+                    <a 
+                      href={project.liveLink} 
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex items-center justify-between text-gray-400 hover:text-cyan-400 transition-colors group text-sm"
+                    >
+                      <span>Live Deployment</span>
+                      <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"/>
                     </a>
                   </li>
                 )}
@@ -446,23 +489,24 @@ export default function ProjectDetails() {
         </div>
       </section>
 
+      {/* --- LIGHTBOX MODAL --- */}
       <AnimatePresence>
         {isLightboxOpen && project.images && project.images.length > 0 && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-black/90 p-4 md:p-8"
+            className="fixed inset-0 z-[100] bg-black/95 p-4 md:p-8 flex flex-col justify-center items-center"
           >
             <button
               type="button"
               onClick={closeLightbox}
-              className="absolute right-4 top-4 rounded-full border border-white/20 bg-black/60 px-4 py-2 text-sm text-white hover:bg-black/80"
+              className="absolute right-6 top-6 rounded-full border border-white/10 bg-black/60 px-5 py-2.5 text-xs font-bold text-white hover:bg-white hover:text-black transition-colors"
             >
-              Close
+              Close Viewer
             </button>
 
-            <div className="relative mx-auto flex h-full w-full max-w-6xl items-center justify-center">
+            <div className="relative w-full h-[80vh] max-w-5xl flex items-center justify-center">
               <Image
                 src={project.images[currentImageIndex]}
                 alt={`${project.title} fullscreen screenshot`}
@@ -476,21 +520,21 @@ export default function ProjectDetails() {
                   <button
                     type="button"
                     onClick={prevImage}
-                    className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-white/20 p-3 text-white hover:bg-cyan-500"
+                    className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-white/5 hover:bg-cyan-500 border border-white/10 p-3 text-white transition-all"
                     aria-label="Previous image"
                   >
-                    <ChevronLeft size={28} />
+                    <ChevronLeft size={24} />
                   </button>
                   <button
                     type="button"
                     onClick={nextImage}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white/20 p-3 text-white hover:bg-cyan-500"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white/5 hover:bg-cyan-500 border border-white/10 p-3 text-white transition-all"
                     aria-label="Next image"
                   >
-                    <ChevronRight size={28} />
+                    <ChevronRight size={24} />
                   </button>
 
-                  <div className="absolute bottom-6 left-1/2 -translate-x-1/2 rounded-full bg-black/60 px-4 py-2 text-sm text-white">
+                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-black/70 border border-white/5 px-4 py-1.5 text-xs font-semibold text-gray-300">
                     {currentImageIndex + 1} / {project.images.length}
                   </div>
                 </>
