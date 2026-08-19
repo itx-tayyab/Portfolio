@@ -11,7 +11,7 @@ import Image from "next/image";
 // Animation Variants
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] } }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as any } }
 };
 
 const staggerContainer: Variants = {
@@ -78,7 +78,7 @@ export default function About() {
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as any }}
             className="lg:col-span-5 relative w-full flex justify-center lg:justify-end items-center min-h-[400px]"
           >
             <div className="relative w-full max-w-[350px] sm:max-w-[400px] aspect-square flex items-end justify-center group">
