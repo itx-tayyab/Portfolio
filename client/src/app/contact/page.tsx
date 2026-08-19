@@ -1,9 +1,9 @@
 "use client";
 import React, { useState } from "react";
 import { motion, Variants } from "framer-motion";
-import { 
-  Github, Linkedin, Mail, MapPin, Send, MessageSquare, 
-  Clock, CheckCircle 
+import {
+  Github, Linkedin, Mail, MapPin, Send, MessageSquare,
+  Clock, CheckCircle
 } from "lucide-react";
 import Link from "next/link";
 
@@ -31,31 +31,18 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen mesh-gradient-bg text-white font-sans selection:bg-cyan-500/30 selection:text-white">
-      
+
       {/* --- PAGE HEADER --- */}
-      <section className="pt-40 pb-16 px-6 max-w-6xl mx-auto text-center lg:text-left">
-        <motion.div initial="hidden" animate="visible" variants={staggerContainer}>
-          <motion.span variants={fadeInUp} className="text-cyan-400 font-bold tracking-widest text-xs uppercase mb-4 block">
-            Get in Touch
-          </motion.span>
-          <motion.h1 variants={fadeInUp} className="text-4xl md:text-6xl font-black mb-6 leading-tight">
-            Let’s start a <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500">
-              conversation.
-            </span>
-          </motion.h1>
-          <motion.p variants={fadeInUp} className="text-base sm:text-lg text-gray-400 max-w-xl leading-relaxed">
-            Interested in working together? Whether you have a question about backend architecture, need a full-stack solution, or just want to say hi, I'd love to hear from you.
-          </motion.p>
-        </motion.div>
+      <section className="pt-12 pb-16 px-6 max-w-6xl mx-auto text-center lg:text-left">
+        
       </section>
 
       {/* --- MAIN CONTACT SECTION --- */}
       <section className="pb-24 px-6 max-w-6xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          
+
           {/* Left Column: Contact Info & Status */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -77,7 +64,7 @@ export default function Contact() {
             {/* Direct Contact Details */}
             <div className="space-y-6">
               <h3 className="text-lg font-black text-white tracking-wide uppercase text-xs text-cyan-400">Contact Details</h3>
-              
+
               <a href="mailto:tayyabtariq838@gmail.com" className="flex items-center gap-4 text-gray-300 hover:text-cyan-400 transition-colors group">
                 <div className="w-12 h-12 bg-neutral-900/60 rounded-xl flex items-center justify-center border border-white/5 group-hover:border-cyan-500/30 transition-colors">
                   <Mail size={18} />
@@ -103,16 +90,16 @@ export default function Contact() {
             <div className="space-y-6">
               <h3 className="text-lg font-black text-white tracking-wide uppercase text-xs text-purple-400">Social Profiles</h3>
               <div className="flex gap-4">
-                <a 
-                  href="https://github.com/itx-tayyab" 
+                <a
+                  href="https://github.com/itx-tayyab"
                   target="_blank"
                   rel="noreferrer"
                   className="p-4 bg-white/5 rounded-xl border border-white/5 text-gray-400 hover:bg-white hover:text-black hover:scale-105 transition-all duration-300"
                 >
                   <Github size={20} />
                 </a>
-                <a 
-                  href="https://www.linkedin.com/in/tayyab-tariq-a51379260/" 
+                <a
+                  href="https://www.linkedin.com/in/tayyab-tariq-a51379260/"
                   target="_blank"
                   rel="noreferrer"
                   className="p-4 bg-white/5 rounded-xl border border-white/5 text-gray-400 hover:bg-[#0077b5] hover:text-white hover:border-[#0077b5] hover:scale-105 transition-all duration-300"
@@ -124,7 +111,7 @@ export default function Contact() {
           </motion.div>
 
           {/* Right Column: Form */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
@@ -136,23 +123,23 @@ export default function Contact() {
             <h3 className="text-xl font-bold mb-6 text-white flex items-center gap-2">
               <MessageSquare className="text-cyan-400" size={20} /> Send a Message
             </h3>
-            
+
             <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-xs text-gray-400 font-mono tracking-wider">Your Name</label>
-                  <input 
-                    type="text" 
-                    placeholder="John Doe" 
+                  <input
+                    type="text"
+                    placeholder="John Doe"
                     className="w-full bg-neutral-950/60 border border-white/5 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-500/40 focus:ring-1 focus:ring-cyan-500/40 transition-all placeholder:text-gray-700 text-sm"
                     required
                   />
                 </div>
                 <div className="space-y-2">
                   <label className="text-xs text-gray-400 font-mono tracking-wider">Your Email</label>
-                  <input 
-                    type="email" 
-                    placeholder="john@example.com" 
+                  <input
+                    type="email"
+                    placeholder="john@example.com"
                     className="w-full bg-neutral-950/60 border border-white/5 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-500/40 focus:ring-1 focus:ring-cyan-500/40 transition-all placeholder:text-gray-700 text-sm"
                     required
                   />
@@ -161,31 +148,30 @@ export default function Contact() {
 
               <div className="space-y-2">
                 <label className="text-xs text-gray-400 font-mono tracking-wider">Subject</label>
-                <input 
-                  type="text" 
-                  placeholder="Project Inquiry / Collaboration" 
+                <input
+                  type="text"
+                  placeholder="Project Inquiry / Collaboration"
                   className="w-full bg-neutral-950/60 border border-white/5 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-500/40 focus:ring-1 focus:ring-cyan-500/40 transition-all placeholder:text-gray-700 text-sm"
                 />
               </div>
 
               <div className="space-y-2">
                 <label className="text-xs text-gray-400 font-mono tracking-wider">Message</label>
-                <textarea 
+                <textarea
                   rows={4}
-                  placeholder="Tell me about your project..." 
+                  placeholder="Tell me about your project..."
                   className="w-full bg-neutral-950/60 border border-white/5 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-500/40 focus:ring-1 focus:ring-cyan-500/40 transition-all placeholder:text-gray-700 text-sm resize-none"
                   required
                 ></textarea>
               </div>
 
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 disabled={formStatus === "submitting" || formStatus === "success"}
-                className={`w-full py-4 rounded-xl font-bold text-sm sm:text-base flex items-center justify-center gap-2 transition-all duration-300 ${
-                  formStatus === "success" 
-                    ? "bg-green-500 text-white hover:bg-green-600 shadow-md" 
+                className={`w-full py-4 rounded-xl font-bold text-sm sm:text-base flex items-center justify-center gap-2 transition-all duration-300 ${formStatus === "success"
+                    ? "bg-green-500 text-white hover:bg-green-600 shadow-md"
                     : "bg-white text-black hover:bg-gradient-to-r hover:from-cyan-400 hover:to-purple-500 hover:text-white hover:scale-[1.01] shadow-lg hover:shadow-cyan-400/20"
-                }`}
+                  }`}
               >
                 {formStatus === "idle" && (
                   <>Send Message <Send size={16} /></>
