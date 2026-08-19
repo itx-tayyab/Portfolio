@@ -11,7 +11,7 @@ import Image from "next/image";
 // Animation Variants
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] } }
 };
 
 const staggerContainer: Variants = {
@@ -32,12 +32,12 @@ export default function Home() {
     <div className="min-h-screen mesh-gradient-bg text-white font-sans selection:bg-cyan-500/30 selection:text-white">
       
       {/* --- HERO SECTION --- */}
-      <section className="relative pt-36 pb-20 md:pt-48 md:pb-28 px-6 max-w-6xl mx-auto">
+      <section className="relative pt-20 pb-12 md:pt-24 md:pb-16 px-6 max-w-6xl mx-auto">
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
           
           {/* Left Column: Content */}
           <motion.div 
-            className="flex-1 space-y-6 lg:max-w-2xl text-left"
+            className="flex-1 space-y-4 lg:max-w-2xl text-left"
             initial="hidden"
             animate="visible"
             variants={staggerContainer}
@@ -76,7 +76,7 @@ export default function Home() {
             {/* Stats Row */}
             <motion.div 
               variants={fadeInUp} 
-              className="grid grid-cols-3 gap-4 py-6 border-t border-white/5 max-w-md"
+              className="grid grid-cols-3 gap-4 py-3 border-t border-white/5 max-w-md"
             >
               <div>
                 <h3 className="text-2xl sm:text-3xl font-black tracking-tight bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">3+</h3>
@@ -95,7 +95,7 @@ export default function Home() {
             {/* Buttons and Social Links */}
             <motion.div 
               variants={fadeInUp} 
-              className="flex flex-wrap items-center gap-4 pt-2"
+              className="flex flex-wrap items-center gap-4 pt-1 pb-4"
             >
               <Link 
                 href="/projects" 

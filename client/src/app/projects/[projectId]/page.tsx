@@ -1,10 +1,10 @@
 "use client";
 import React, { useState } from "react";
-import { motion, AnimatePresence, Variants } from "framer-motion";
+import { motion, Variants, AnimatePresence } from "framer-motion";
 import { 
   ArrowLeft, Github, ExternalLink, Calendar, Layers, 
-  CheckCircle2, AlertCircle, Code2, ArrowUpRight, 
-  ChevronLeft, ChevronRight, Trophy, Lightbulb, ListChecks
+  CheckCircle2, AlertCircle, Code2, ArrowRight, Sparkles,
+  Award, RefreshCw, Layout, Terminal, Heart, ArrowUpRight
 } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -20,6 +20,8 @@ const projectsDB = {
     repoLink: "https://github.com/yourusername/harmoni",
     liveLink: "https://harmoni.app",
     gradient: "from-indigo-950/40 via-cyan-950/20 to-neutral-950/10",
+    role: "Lead Full-Stack Architect",
+    category: "Full Stack",
     
     images: [
       "/images/harmonidashboard.png",
@@ -32,24 +34,39 @@ const projectsDB = {
     solution: "Harmoni unifies these three pillars into a single interface. I architected a Microservices-ready backend using NestJS to handle real-time WebSocket connections for messaging while simultaneously managing relational data for tasks in PostgreSQL.",
     
     features: [
-      "Real-time Messaging with Socket.io",
-      "Drag-and-Drop Task Kanban Board",
-      "Secure File Sharing & Preview",
-      "AI Meeting Assistant & Summarizer",
-      "Role-based Access Control (RBAC)"
+      {
+        title: "Real-time Messaging with Socket.io",
+        desc: "A low-latency chat interface with read receipts, typing indicators, and support for group channels."
+      },
+      {
+        title: "Drag-and-Drop Task Kanban Board",
+        desc: "Interactive project boards where teams can plan, organize, and transition tasks across columns using clean, animated drag handlers."
+      },
+      {
+        title: "Secure File Sharing & Preview",
+        desc: "Encrypted document storage with instant media previews and file metadata rendering built directly into the conversation feeds."
+      },
+      {
+        title: "AI Meeting Assistant & Summarizer",
+        desc: "An intelligence layer that transcribes discussions, extracts key action items, and generates automatic meeting summaries."
+      },
+      {
+        title: "Role-based Access Control (RBAC)",
+        desc: "Granular authorization mechanisms protecting sensitive data pipelines and ensuring secure multi-tenant workspace isolation."
+      }
     ],
     
     techStack: ["NestJS", "Next.js", "Socket.io", "PostgreSQL", "Redis", "Shadcn UI"],
     
     learnings: [
-      "Mastered Microservices communication patterns (TCP/Redis)",
-      "Optimized WebSocket performance for 1000+ concurrent users",
-      "Implemented complex state management for real-time updates"
+      "Mastered Microservices communication patterns (TCP/Redis) for high scalability.",
+      "Optimized WebSocket performance for 1000+ concurrent users with Redis adapters.",
+      "Implemented complex state management for real-time updates and optimistic UI updates."
     ],
     
     achievements: [
-      "Reduced context-switching time by 40% in beta testing",
-      "Successfully deployed on AWS with Docker Swarm"
+      { stat: "40%", sub: "Reduction in context-switching time" },
+      { stat: "AWS", sub: "Docker Swarm deployment orchestrations" }
     ]
   },
   "covid19-tracker-app": {
@@ -60,6 +77,8 @@ const projectsDB = {
     repoLink: "https://github.com/itx-tayyab/covid19_tracker_app_with_api",
     liveLink: "#",
     gradient: "from-slate-900/40 via-neutral-950/20 to-neutral-950/10",
+    role: "Flutter Developer",
+    category: "Mobile",
     
     images: [
       "/images/covid-main.png",
@@ -70,23 +89,35 @@ const projectsDB = {
     solution: "We built a mobile app that aggregates data from global APIs and presents it in an easy-to-read dashboard, allowing users to filter by country and city.",
     
     features: [
-      "Global & Country-wise Statistics",
-      "Visual Graphs for Active/Recovered Cases",
-      "Search Functionality by Country",
-      "Offline Data Caching"
+      {
+        title: "Global & Country-wise Statistics",
+        desc: "Combines raw API reports into structured widgets detailing total cases, recoveries, and deaths worldwide."
+      },
+      {
+        title: "Visual Graphs for Active/Recovered Cases",
+        desc: "Clean time-series charts visualizing case trends and progression patterns over time."
+      },
+      {
+        title: "Search Functionality by Country",
+        desc: "A highly-responsive search utility enabling users to query specific national stats instantly."
+      },
+      {
+        title: "Offline Data Caching",
+        desc: "Saves state locally to ensure continuous access to critical records even without network coverage."
+      }
     ],
  
     techStack: ["Flutter", "MVVM Architecture", "Provider", "Rest API"],
     
     learnings: [
-      "Parsing complex nested JSON data in Dart",
-      "Implementing MVVM for clean code separation",
-      "Handling API errors and network timeouts gracefully"
+      "Parsed complex nested JSON data streams in Dart.",
+      "Implemented clean MVVM patterns for UI and business logic separation.",
+      "Handled API errors and network timeouts gracefully with custom error states."
     ],
  
     achievements: [
-      "Achieved 99.9% crash-free sessions",
-      "Simplified complex data for non-technical users"
+      { stat: "99.9%", sub: "Crash-free sessions achieved" },
+      { stat: "API", sub: "Seamless data aggregation wrapper" }
     ]
   },
   "weather-app": {
@@ -97,6 +128,8 @@ const projectsDB = {
     repoLink: "https://github.com/itx-tayyab/weather_app",
     liveLink: "#",
     gradient: "from-emerald-950/40 via-neutral-950/20 to-neutral-950/10",
+    role: "Mobile UI Designer & Developer",
+    category: "Mobile",
     
     images: [
       "/images/weather-home.png"
@@ -106,22 +139,34 @@ const projectsDB = {
     solution: "Developed a cross-platform Flutter app integrated with a weather API to provide fast, accurate weather updates in a user-friendly design.",
     
     features: [
-      "Geolocation-based Weather Detection",
-      "7-Day Forecast",
-      "Dynamic Backgrounds based on Weather",
-      "Search any City"
+      {
+        title: "Geolocation-based Weather Detection",
+        desc: "Accurately detects user coordinates to display local forecast data immediately on startup."
+      },
+      {
+        title: "7-Day Forecast",
+        desc: "Detailed future climate expectations including humidity, wind speeds, and temperature fluctuations."
+      },
+      {
+        title: "Dynamic Backgrounds based on Weather",
+        desc: "Adapts the visual theme of the UI to reflect active atmospheric conditions like rain, snow, or sunshine."
+      },
+      {
+        title: "Search any City",
+        desc: "A autocomplete city query engine linking to global coordinates and weather streams."
+      }
     ],
  
     techStack: ["Flutter", "MVVM Architecture", "Provider", "OpenWeather API"],
     
     learnings: [
-      "Working with Location Services Permissions",
-      "Managing Asynchronous Data Streams in Flutter"
+      "Mastered Location Services Permissions and user-consent handlers in mobile systems.",
+      "Managed asynchronous data streams using Dart streams and Future Builders."
     ],
     
     achievements: [
-      "Reduced API calls by implementing local caching",
-      "Smooth 60fps animations"
+      { stat: "Cache", sub: "Reduced API calls by implementing local caches" },
+      { stat: "60fps", sub: "Smooth custom rendering animations" }
     ]
   },
   "clientbridge": {
@@ -132,6 +177,8 @@ const projectsDB = {
     repoLink: "https://github.com/itx-tayyab/ClientBridge",
     liveLink: "#",
     gradient: "from-teal-950/40 via-neutral-950/20 to-neutral-950/10",
+    role: "Lead Full-Stack Developer",
+    category: "Full Stack",
     
     images: [
       "/images/CBpage1.png",
@@ -148,23 +195,35 @@ const projectsDB = {
     solution: "Built a dedicated platform that streamlines communication, task management, and file sharing between freelancers and clients.",
     
     features: [
-      "Real-time Messaging",
-      "Task Management System",
-      "File Sharing & Version Control",
-      "Client Feedback Integration"
+      {
+        title: "Real-time Messaging",
+        desc: "Ensures instant messaging and updates between freelancers and clients with socket-based channel rooms."
+      },
+      {
+        title: "Task Management System",
+        desc: "Allows tracking project milestones, deliverables, and outstanding issues with structured task cards."
+      },
+      {
+        title: "File Sharing & Version Control",
+        desc: "A centralized hub to upload assets, track feedback revisions, and maintain clean delivery history."
+      },
+      {
+        title: "Client Feedback Integration",
+        desc: "Interactive sign-off widgets enabling clients to approve milestones or request changes instantly."
+      }
     ],
  
     techStack: ["React", "Next.js", "Express.js", "Socket.io", "Tailwind CSS"],
     
     learnings: [
-      "Client invitation and onboarding flows",
-      "Real-time communication with Socket.io",
-      "Implementing secure file uploads and storage"
+      "Designed and refined client invitation and onboarding invitation flows.",
+      "Optimized real-time socket connections for high durability.",
+      "Implemented secure file uploads and storage with clean signature key validations."
     ],
     
     achievements: [
-      "Mastered Prisma ORM to handle intricate One-to-Many and Many-to-Many relationships between Freelancers, Clients, Projects, and Invites.",
-      "Implemented secure JWT authentication and protected routes to ensure clients can only view their own assigned data."
+      { stat: "ORM", sub: "Intricate multi-table relations in Prisma" },
+      { stat: "JWT", sub: "Secure workspace isolation boundaries" }
     ]
   }
 };
@@ -172,7 +231,17 @@ const projectsDB = {
 // Animation Variants
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] } }
+};
+
+const staggerContainer: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15
+    }
+  }
 };
 
 export default function ProjectDetails() {
@@ -180,9 +249,8 @@ export default function ProjectDetails() {
   const projectId = Array.isArray(params.projectId) ? params.projectId[0] : params.projectId;
   const project = projectsDB[projectId as keyof typeof projectsDB];
   
-  // Carousel State
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  // Gallery Slide State
+  const [currentImgIndex, setCurrentImgIndex] = useState(0);
 
   if (!project) {
     return (
@@ -193,356 +261,408 @@ export default function ProjectDetails() {
     );
   }
 
-  const nextImage = () => {
-    if (project.images && project.images.length > 0) {
-      setCurrentImageIndex((prev) => (prev + 1) % project.images.length);
-    }
-  };
+  // Next Project computation
+  const projectKeys = Object.keys(projectsDB);
+  const currentIndex = projectKeys.indexOf(projectId || "");
+  const nextProjectKey = projectKeys[(currentIndex + 1) % projectKeys.length];
+  const nextProject = projectsDB[nextProjectKey as keyof typeof projectsDB];
 
-  const prevImage = () => {
-    if (project.images && project.images.length > 0) {
-      setCurrentImageIndex((prev) => (prev - 1 + project.images.length) % project.images.length);
-    }
-  };
-
-  const openLightbox = () => {
-    if (project.images && project.images.length > 0) {
-      setIsLightboxOpen(true);
-    }
-  };
-
-  const closeLightbox = () => {
-    setIsLightboxOpen(false);
-  };
+  const isMobileApp = project.category === "Mobile";
 
   return (
-    <div className="min-h-screen mesh-gradient-bg text-white font-sans selection:bg-cyan-500/30 selection:text-white">
+    <div className="min-h-screen bg-[#050505] text-white font-sans selection:bg-cyan-500/30 selection:text-white overflow-x-hidden">
       
-      {/* --- HERO HEADER --- */}
-      <section className={`relative pt-24 md:pt-28 pb-20 px-6 bg-gradient-to-b ${project.gradient} to-transparent border-b border-white/5`}>
-        <div className="max-w-5xl mx-auto relative z-10">
+      {/* 1. CINEMATIC HERO */}
+      <section className="relative min-h-[90vh] flex flex-col justify-end px-6 py-20 overflow-hidden">
+        {/* Ambient Project visual backdrop */}
+        <div className="absolute inset-0 z-0">
+          <div className={`absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/70 to-transparent z-10`} />
+          <div className="absolute inset-0 bg-[#050505]/40 backdrop-blur-[2px] z-10" />
+          
+          {/* Ambient light glow */}
+          <div className={`absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br ${project.gradient.includes("indigo") ? "from-indigo-500/10 to-cyan-500/10" : project.gradient.includes("emerald") ? "from-emerald-500/10 to-teal-500/10" : "from-purple-500/10 to-cyan-500/10"} rounded-full blur-[120px]`} />
+          
+          {/* Project cover preview */}
+          {project.images && project.images[0] && (
+            <div className="relative w-full h-full opacity-20 scale-105 filter saturate-[0.8]">
+              <Image
+                src={project.images[0]}
+                alt=""
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
+          )}
+        </div>
+
+        {/* Hero Content */}
+        <div className="max-w-5xl mx-auto w-full relative z-20 mt-32">
           <Link 
             href="/projects" 
-            className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors mb-8 text-xs font-semibold uppercase tracking-wider"
+            className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors mb-12 text-xs font-semibold uppercase tracking-widest group"
           >
-            <ArrowLeft size={14} /> Back to Projects
+            <ArrowLeft size={14} className="group-hover:-translate-x-0.5 transition-transform" /> Back to Projects
           </Link>
           
-          <motion.div initial="hidden" animate="visible" variants={fadeInUp}>
-            <div className="flex flex-wrap items-center gap-4 mb-4">
-              <span className={`px-3.5 py-1 rounded-full text-[10px] font-bold border flex items-center gap-2 ${
+          <motion.div 
+            initial="hidden" 
+            animate="visible" 
+            variants={staggerContainer}
+            className="space-y-6"
+          >
+            {/* Status Pulse */}
+            <motion.div variants={fadeInUp} className="inline-flex items-center gap-2">
+              <span className={`px-3 py-1 rounded-full text-[10px] font-bold border flex items-center gap-1.5 ${
                 project.status === "Completed" 
                   ? "bg-green-500/10 text-green-400 border-green-500/20" 
                   : "bg-orange-500/10 text-orange-400 border-orange-500/20"
               }`}>
-                {project.status === "Completed" ? <CheckCircle2 size={12} /> : <AlertCircle size={12} />}
+                <span className={`h-1.5 w-1.5 rounded-full ${project.status === "Completed" ? "bg-green-400" : "bg-orange-400 animate-pulse"}`} />
                 {project.status}
               </span>
-              <span className="text-gray-400 text-xs font-semibold flex items-center gap-2">
-                <Calendar size={14} className="text-cyan-400" /> {project.date}
-              </span>
-            </div>
+            </motion.div>
 
-            <h1 className="text-4xl md:text-6xl font-black mb-4 tracking-tight leading-tight">{project.title}</h1>
-            <p className="text-lg md:text-xl text-gray-300 max-w-2xl leading-relaxed">{project.tagline}</p>
+            {/* Title */}
+            <motion.h1 
+              variants={fadeInUp} 
+              className="text-5xl sm:text-7xl md:text-8xl font-black tracking-tight leading-[0.95]"
+            >
+              {project.title}
+            </motion.h1>
 
-            <div className="flex flex-wrap gap-4 mt-8">
+            {/* Tagline */}
+            <motion.p 
+              variants={fadeInUp} 
+              className="text-xl sm:text-2xl text-gray-300 font-light max-w-3xl leading-relaxed"
+            >
+              {project.tagline}
+            </motion.p>
+
+            {/* Meta Rows (No Boxes, typographic hierarchy) */}
+            <motion.div 
+              variants={fadeInUp} 
+              className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-10 border-t border-white/10 mt-12 max-w-4xl"
+            >
+              <div>
+                <p className="text-[10px] uppercase tracking-widest text-gray-500 font-mono">Role</p>
+                <p className="text-sm font-semibold text-white mt-1.5">{project.role}</p>
+              </div>
+              <div>
+                <p className="text-[10px] uppercase tracking-widest text-gray-500 font-mono">Timeline</p>
+                <p className="text-sm font-semibold text-white mt-1.5 flex items-center gap-1.5">
+                  <Calendar size={13} className="text-cyan-400" /> {project.date}
+                </p>
+              </div>
+              <div>
+                <p className="text-[10px] uppercase tracking-widest text-gray-500 font-mono">Category</p>
+                <p className="text-sm font-semibold text-white mt-1.5">{project.category}</p>
+              </div>
+              <div>
+                <p className="text-[10px] uppercase tracking-widest text-gray-500 font-mono">Platform</p>
+                <p className="text-sm font-semibold text-white mt-1.5">{isMobileApp ? "Mobile (iOS & Android)" : "Web Application"}</p>
+              </div>
+            </motion.div>
+
+            {/* Actions */}
+            <motion.div variants={fadeInUp} className="flex flex-wrap gap-4 pt-8">
               <a 
                 href={project.repoLink} 
                 target="_blank" 
                 rel="noreferrer"
-                className="px-6 py-3 bg-white text-black font-bold text-sm rounded-full hover:bg-gradient-to-r hover:from-cyan-400 hover:to-purple-500 hover:text-white hover:scale-105 transition-all duration-300 shadow-md hover:shadow-cyan-400/10 flex items-center gap-2"
+                className="px-8 py-3.5 bg-white text-black font-bold text-sm rounded-full hover:bg-gradient-to-r hover:from-cyan-400 hover:to-purple-500 hover:text-white hover:scale-105 transition-all duration-300 shadow-md hover:shadow-cyan-400/20 flex items-center gap-2"
               >
-                <Github size={18} /> View Code
+                <Github size={16} /> View Code
               </a>
               {project.liveLink !== "#" && (
                 <a 
                   href={project.liveLink} 
                   target="_blank" 
                   rel="noreferrer"
-                  className="px-6 py-3 bg-white/5 border border-white/10 text-white font-bold text-sm rounded-full hover:bg-white/10 hover:scale-105 transition-all duration-300 flex items-center gap-2"
+                  className="px-8 py-3.5 bg-white/5 border border-white/10 text-white font-bold text-sm rounded-full hover:bg-white/10 hover:border-white/20 hover:scale-105 transition-all duration-300 flex items-center gap-2"
                 >
-                  <ExternalLink size={18} className="text-cyan-400" /> Live Demo
+                  <ExternalLink size={16} className="text-cyan-400" /> Live Demo
                 </a>
               )}
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* --- MAIN CONTENT GRID --- */}
-      <section className="py-20 px-6 max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16">
-          
-          {/* LEFT COLUMN (Content) */}
-          <div className="lg:col-span-2 space-y-16">
-            
-            {/* 1. IMAGE CAROUSEL */}
-            <div className="relative w-full aspect-video bg-neutral-950/60 border border-white/5 rounded-2xl overflow-hidden group shadow-2xl">
-               {project.images && project.images.length > 0 ? (
-                 <>
-                   <button
-                     type="button"
-                     onClick={openLightbox}
-                     className="relative block h-full w-full cursor-zoom-in"
-                     aria-label="Open image viewer"
-                   >
-                     <Image 
-                       src={project.images[currentImageIndex]} 
-                       alt={`${project.title} screenshot`}
-                       fill
-                       className="object-contain"
-                       priority
-                     />
-                   </button>
-                   
-                   {/* Carousel Controls */}
-                   {project.images.length > 1 && (
-                     <>
-                        <button 
-                          type="button" 
-                          onClick={prevImage} 
-                          className="absolute left-4 top-1/2 -translate-y-1/2 p-2.5 bg-black/60 text-white rounded-full hover:bg-cyan-500 transition-colors border border-white/10"
-                        >
-                          <ChevronLeft size={20} />
-                        </button>
-                        <button 
-                          type="button" 
-                          onClick={nextImage} 
-                          className="absolute right-4 top-1/2 -translate-y-1/2 p-2.5 bg-black/60 text-white rounded-full hover:bg-cyan-500 transition-colors border border-white/10"
-                        >
-                          <ChevronRight size={20} />
-                        </button>
-                        {/* Dots */}
-                        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 px-3 py-1.5 rounded-full bg-black/50 backdrop-blur border border-white/5">
-                          {project.images.map((_, index) => (
-                            <div 
-                              key={index} 
-                              className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
-                                index === currentImageIndex ? 'bg-cyan-400 w-3' : 'bg-white/30'
-                              }`} 
-                            />
-                          ))}
-                        </div>
-                     </>
-                   )}
-                 </>
-               ) : (
-                 <div className="flex items-center justify-center h-full text-gray-600">No Images Available</div>
-               )}
+      {/* 2. OVERVIEW: PROBLEM & SOLUTION (Editorial, Magazine style layout) */}
+      <section className="py-24 px-6 max-w-5xl mx-auto">
+        <div className="space-y-20">
+          {/* Problem */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12 items-start">
+            <div className="md:col-span-4 flex items-baseline gap-2">
+              <span className="text-cyan-400 font-mono text-xs uppercase tracking-widest font-black">01.</span>
+              <h2 className="text-xs uppercase tracking-widest text-gray-400 font-mono font-bold">The Challenge</h2>
             </div>
-
-            {/* 2. PROBLEM & SOLUTION */}
-            <div className="grid grid-cols-1 gap-10">
-               <motion.div 
-                 initial={{ opacity: 0, y: 20 }} 
-                 whileInView={{ opacity: 1, y: 0 }} 
-                 viewport={{ once: true }}
-                 className="space-y-4"
-               >
-                  <h2 className="text-xl font-bold mb-4 text-white flex items-center gap-2">
-                    <span className="text-cyan-400 font-mono">01.</span> The Problem
-                  </h2>
-                  <p className="text-gray-300 leading-relaxed text-base glow-card p-6 border border-white/5">
-                    {project.problem}
-                  </p>
-               </motion.div>
-
-               <motion.div 
-                 initial={{ opacity: 0, y: 20 }} 
-                 whileInView={{ opacity: 1, y: 0 }} 
-                 viewport={{ once: true }}
-                 className="space-y-4"
-               >
-                  <h2 className="text-xl font-bold mb-4 text-white flex items-center gap-2">
-                    <span className="text-cyan-400 font-mono">02.</span> The Solution
-                  </h2>
-                  <p className="text-gray-300 leading-relaxed text-base glow-card p-6 border border-white/5">
-                    {project.solution}
-                  </p>
-               </motion.div>
+            <div className="md:col-span-8">
+              <p className="text-2xl sm:text-3xl font-light text-gray-200 tracking-tight leading-relaxed pl-6 border-l border-cyan-500/20">
+                "{project.problem}"
+              </p>
             </div>
-
-            {/* 3. KEY FEATURES */}
-            {project.features && (
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }} 
-                whileInView={{ opacity: 1, y: 0 }} 
-                viewport={{ once: true }}
-                className="space-y-6"
-              >
-                <h3 className="text-xl font-bold text-white flex items-center gap-3">
-                  <ListChecks className="text-purple-400" /> Key Features
-                </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {project.features.map((feature, idx) => (
-                    <div 
-                      key={idx} 
-                      className="glow-card flex items-start gap-3 p-5"
-                    >
-                      <CheckCircle2 size={18} className="text-purple-400 shrink-0 mt-0.5" />
-                      <span className="text-gray-300 text-sm">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-            )}
-
-            {/* 4. KEY LEARNINGS */}
-            {project.learnings && (
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }} 
-                whileInView={{ opacity: 1, y: 0 }} 
-                viewport={{ once: true }}
-                className="space-y-6"
-              >
-                <h3 className="text-xl font-bold text-white flex items-center gap-3">
-                  <Lightbulb className="text-yellow-400" /> Key Learnings
-                </h3>
-                <div className="space-y-4">
-                  {project.learnings.map((item, idx) => (
-                    <div 
-                      key={idx} 
-                      className="glow-card p-6 border-l-4 border-l-yellow-500/50 rounded-l-none"
-                    >
-                      <p className="text-gray-300 italic text-sm">"{item}"</p>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-            )}
-
           </div>
 
-          {/* RIGHT COLUMN (Sidebar) */}
-          <div className="lg:col-span-1 space-y-8">
-            
-            {/* Tech Stack Widget */}
-            <div className="p-6.5 rounded-2xl glow-card">
-              <h3 className="font-bold text-white text-sm uppercase tracking-wider mb-6 flex items-center gap-2">
-                <Layers size={18} className="text-cyan-400" /> Technologies
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {project.techStack.map((tech) => (
-                  <span 
-                    key={tech} 
-                    className="px-3 py-1.5 text-xs font-semibold bg-neutral-950/80 border border-white/5 rounded-lg text-gray-300 hover:text-cyan-400 hover:border-cyan-500/20 transition-colors cursor-default"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
+          {/* Solution */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12 items-start">
+            <div className="md:col-span-4 flex items-baseline gap-2">
+              <span className="text-purple-400 font-mono text-xs uppercase tracking-widest font-black">02.</span>
+              <h2 className="text-xs uppercase tracking-widest text-gray-400 font-mono font-bold">The Architecture</h2>
             </div>
-
-            {/* Achievements Widget */}
-            {project.achievements && (
-              <div className="p-6.5 rounded-2xl glow-card">
-                 <h3 className="font-bold text-white text-sm uppercase tracking-wider mb-6 flex items-center gap-2">
-                  <Trophy size={18} className="text-orange-400" /> Achievements
-                </h3>
-                <ul className="space-y-4">
-                  {project.achievements.map((item, idx) => (
-                    <li key={idx} className="flex gap-3 text-xs leading-relaxed text-gray-400">
-                      <div className="w-1.5 h-1.5 rounded-full bg-orange-500 mt-1.5 shrink-0"></div>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            {/* Resources Widget */}
-            <div className="p-6.5 rounded-2xl glow-card">
-              <h3 className="font-bold text-white text-sm uppercase tracking-wider mb-6 flex items-center gap-2">
-                <Code2 size={18} className="text-blue-400" /> Resources
-              </h3>
-              <ul className="space-y-4">
-                <li>
-                  <a 
-                    href={project.repoLink} 
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex items-center justify-between text-gray-400 hover:text-cyan-400 transition-colors group text-sm"
-                  >
-                    <span>GitHub Repository</span>
-                    <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"/>
-                  </a>
-                </li>
-                {project.liveLink !== "#" && (
-                  <li>
-                    <a 
-                      href={project.liveLink} 
-                      target="_blank"
-                      rel="noreferrer"
-                      className="flex items-center justify-between text-gray-400 hover:text-cyan-400 transition-colors group text-sm"
-                    >
-                      <span>Live Deployment</span>
-                      <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"/>
-                    </a>
-                  </li>
-                )}
-              </ul>
+            <div className="md:col-span-8">
+              <p className="text-base sm:text-lg text-gray-400 leading-relaxed font-light pl-6 border-l border-purple-500/20">
+                {project.solution}
+              </p>
             </div>
-
           </div>
-
         </div>
       </section>
 
-      {/* --- LIGHTBOX MODAL --- */}
-      <AnimatePresence>
-        {isLightboxOpen && project.images && project.images.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-black/95 p-4 md:p-8 flex flex-col justify-center items-center"
-          >
-            <button
-              type="button"
-              onClick={closeLightbox}
-              className="absolute right-6 top-6 rounded-full border border-white/10 bg-black/60 px-5 py-2.5 text-xs font-bold text-white hover:bg-white hover:text-black transition-colors"
-            >
-              Close Viewer
-            </button>
+      {/* 3. MEDIA SHOWCASE (High-Fidelity 3D Angled Mockup Frame) */}
+      {project.images && project.images.length > 0 && (
+        <section className="py-20 px-6 bg-gradient-to-b from-[#050505] via-neutral-900/10 to-[#050505] overflow-hidden">
+          <div className="max-w-5xl mx-auto flex flex-col items-center">
+            
+            {/* Gallery Control Tabs */}
+            <div className="flex flex-wrap gap-2.5 mb-10 justify-center">
+              {project.images.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setCurrentImgIndex(idx)}
+                  className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 border ${
+                    idx === currentImgIndex
+                      ? "bg-white text-black border-white"
+                      : "bg-white/5 text-gray-400 border-white/5 hover:text-white hover:bg-white/10"
+                  }`}
+                >
+                  Screen {idx + 1}
+                </button>
+              ))}
+            </div>
 
-            <div className="relative w-full h-[80vh] max-w-5xl flex items-center justify-center">
-              <Image
-                src={project.images[currentImageIndex]}
-                alt={`${project.title} fullscreen screenshot`}
-                fill
-                className="object-contain"
-                sizes="100vw"
-              />
+            {/* 3D Angled Frame Container */}
+            <div className="relative w-full flex justify-center py-10 scale-90 sm:scale-100">
+              
+              {/* Radial Backdrop Glow */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="w-[500px] h-[300px] bg-cyan-500/10 rounded-full blur-[80px]" />
+              </div>
 
-              {project.images.length > 1 && (
-                <>
-                  <button
-                    type="button"
-                    onClick={prevImage}
-                    className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-white/5 hover:bg-cyan-500 border border-white/10 p-3 text-white transition-all"
-                    aria-label="Previous image"
+              {/* device wrapper */}
+              <div className="relative z-10 transition-transform duration-500 hover:scale-[1.02]">
+                
+                {isMobileApp ? (
+                  /* 3D Angled iPhone mockup */
+                  <div 
+                    className="relative w-[280px] h-[570px] bg-[#1a1a1a] rounded-[48px] p-3 shadow-2xl border-[4px] border-[#2d2d2d] flex flex-col overflow-hidden"
+                    style={{
+                      transform: "perspective(1000px) rotateX(6deg) rotateY(12deg) rotateZ(-2deg)",
+                      boxShadow: "-20px 20px 50px rgba(0, 0, 0, 0.8), inset 0 2px 4px rgba(255,255,255,0.1)"
+                    }}
                   >
-                    <ChevronLeft size={24} />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={nextImage}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white/5 hover:bg-cyan-500 border border-white/10 p-3 text-white transition-all"
-                    aria-label="Next image"
-                  >
-                    <ChevronRight size={24} />
-                  </button>
-
-                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-black/70 border border-white/5 px-4 py-1.5 text-xs font-semibold text-gray-300">
-                    {currentImageIndex + 1} / {project.images.length}
+                    {/* Speaker Bezel */}
+                    <div className="absolute top-4 left-1/2 -translate-x-1/2 w-28 h-5.5 bg-black rounded-full z-30 flex items-center justify-center">
+                      {/* Dynamic Island */}
+                      <div className="w-16 h-3 bg-[#0a0a0a] rounded-full" />
+                    </div>
+                    {/* Screen View */}
+                    <div className="relative flex-1 bg-black rounded-[38px] overflow-hidden">
+                      <Image
+                        src={project.images[currentImgIndex]}
+                        alt="Mobile screen visual"
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
                   </div>
-                </>
-              )}
+                ) : (
+                  /* 3D Angled MacBook mockup */
+                  <div 
+                    className="relative w-[320px] sm:w-[640px] md:w-[760px] aspect-[16/10] bg-[#1f1f23] rounded-t-2xl p-1.5 shadow-2xl border border-white/10 flex flex-col overflow-hidden"
+                    style={{
+                      transform: "perspective(1000px) rotateX(4deg) rotateY(-8deg) rotateZ(1deg)",
+                      boxShadow: "20px 20px 60px rgba(0, 0, 0, 0.9)"
+                    }}
+                  >
+                    {/* macOS Style window controls */}
+                    <div className="h-6 w-full bg-[#161619] flex items-center px-4 gap-1.5 border-b border-black/30 shrink-0">
+                      <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
+                    </div>
+                    {/* Screen View */}
+                    <div className="relative flex-1 bg-black overflow-hidden">
+                      <Image
+                        src={project.images[currentImgIndex]}
+                        alt="Web screen visual"
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  </div>
+                )}
+
+              </div>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+
+          </div>
+        </section>
+      )}
+
+      {/* 4. TECHNOLOGIES (Glowing Micro-tags in open space) */}
+      <section className="py-20 px-6 max-w-5xl mx-auto border-t border-white/5">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+          <div className="md:col-span-4 flex items-baseline gap-2">
+            <span className="text-cyan-400 font-mono text-xs uppercase tracking-widest font-black">03.</span>
+            <h2 className="text-xs uppercase tracking-widest text-gray-400 font-mono font-bold">Tech Stack</h2>
+          </div>
+          <div className="md:col-span-8">
+            <h3 className="text-2xl sm:text-3xl font-black mb-8">System Architecture & Tools</h3>
+            <div className="flex flex-wrap gap-2.5">
+              {project.techStack.map((tech) => (
+                <span 
+                  key={tech} 
+                  className="px-5 py-2.5 text-xs font-semibold bg-white/[0.02] border border-white/5 rounded-full text-gray-300 hover:text-cyan-400 hover:border-cyan-500/30 transition-all duration-300 hover:-translate-y-0.5"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. ALTERNATING FEATURES (Visual storytelling layout) */}
+      {project.features && project.features.length > 0 && (
+        <section className="py-24 px-6 max-w-5xl mx-auto border-t border-white/5">
+          <div className="space-y-6 mb-16">
+            <div className="flex items-baseline gap-2">
+              <span className="text-purple-400 font-mono text-xs uppercase tracking-widest font-black">04.</span>
+              <h2 className="text-xs uppercase tracking-widest text-gray-400 font-mono font-bold">Guided Walkthrough</h2>
+            </div>
+            <h3 className="text-3xl sm:text-4xl font-black text-white">Features Breakdown</h3>
+          </div>
+
+          <div className="space-y-32">
+            {project.features.map((feature, idx) => {
+              // Sequentially pick mockups if available
+              const hasImage = project.images && project.images.length > 0;
+              const imgIndex = idx % (project.images ? project.images.length : 1);
+              const imgSrc = hasImage ? project.images[imgIndex] : null;
+
+              return (
+                <div 
+                  key={idx}
+                  className={`flex flex-col md:flex-row gap-12 items-center ${
+                    idx % 2 === 0 ? "" : "md:flex-row-reverse"
+                  }`}
+                >
+                  {/* Image side */}
+                  <div className="w-full md:w-1/2">
+                    {imgSrc ? (
+                      <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-white/5 bg-neutral-900 shadow-xl group">
+                        <Image
+                          src={imgSrc}
+                          alt={feature.title}
+                          fill
+                          className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-[#050505]/20" />
+                      </div>
+                    ) : (
+                      <div className="w-full aspect-video bg-white/[0.02] border border-white/5 rounded-2xl flex items-center justify-center">
+                        <Code2 size={40} className="text-cyan-500/40" />
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Info side */}
+                  <div className="w-full md:w-1/2 space-y-4">
+                    <span className="text-xs font-mono text-purple-400 font-bold uppercase tracking-widest">
+                      Feature 0{idx + 1}
+                    </span>
+                    <h4 className="text-2xl font-bold text-white tracking-tight">
+                      {feature.title}
+                    </h4>
+                    <p className="text-gray-400 leading-relaxed text-sm font-light">
+                      {feature.desc}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
+      {/* 6. LEARNINGS & RESULTS (Editorial metrics, outcomes) */}
+      <section className="py-24 px-6 max-w-5xl mx-auto border-t border-white/5">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
+          
+          {/* Key Learnings */}
+          <div className="md:col-span-7 space-y-8">
+            <div className="flex items-baseline gap-2">
+              <span className="text-cyan-400 font-mono text-xs uppercase tracking-widest font-black">05.</span>
+              <h2 className="text-xs uppercase tracking-widest text-gray-400 font-mono font-bold">Key Learnings</h2>
+            </div>
+            
+            <div className="space-y-6">
+              {project.learnings.map((item, idx) => (
+                <div key={idx} className="flex gap-4 items-start pl-6 border-l border-cyan-500/20">
+                  <span className="text-xs font-mono text-cyan-400 mt-1">/0{idx + 1}</span>
+                  <p className="text-gray-300 leading-relaxed text-base italic font-light">
+                    "{item}"
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* High-Impact Stat Metrics */}
+          <div className="md:col-span-5 space-y-8">
+            <div className="flex items-baseline gap-2">
+              <span className="text-purple-400 font-mono text-xs uppercase tracking-widest font-black">06.</span>
+              <h2 className="text-xs uppercase tracking-widest text-gray-400 font-mono font-bold">Key Metrics</h2>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+              {project.achievements.map((item, idx) => (
+                <div key={idx} className="space-y-2">
+                  <h4 className="text-5xl sm:text-6xl font-black bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent tracking-tight">
+                    {item.stat}
+                  </h4>
+                  <p className="text-xs uppercase tracking-wider text-gray-500 font-mono font-bold leading-normal">
+                    {item.sub}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* 7. NEXT CASE STUDY (Teaser navigator) */}
+      <section className="py-20 border-t border-white/5 bg-gradient-to-b from-[#050505] to-black">
+        <div className="max-w-5xl mx-auto px-6 flex flex-col items-center text-center">
+          <span className="text-[10px] uppercase tracking-widest text-gray-500 font-mono">07. NEXT CASE STUDY</span>
+          
+          <Link 
+            href={`/projects/${nextProjectKey}`}
+            className="mt-6 group block max-w-2xl"
+          >
+            <h3 className="text-4xl sm:text-6xl md:text-7xl font-black text-white hover:text-cyan-400 transition-colors duration-300 tracking-tight leading-none">
+              {nextProject.title}
+            </h3>
+            
+            <p className="text-gray-400 font-light mt-4 text-base flex items-center justify-center gap-2 hover:text-white transition-colors">
+              Read project narrative <ArrowRight size={16} className="group-hover:translate-x-1.5 transition-transform" />
+            </p>
+          </Link>
+        </div>
+      </section>
 
     </div>
   );
