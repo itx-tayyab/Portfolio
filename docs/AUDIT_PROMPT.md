@@ -8,9 +8,9 @@
 
 ## ROLE
 
-You are a senior product designer + frontend architect doing a design audit and
+You are a senior web designer + frontend architect doing a design audit and
 redesign plan for a personal portfolio that must read as the work of a
-**product engineer with taste**, not a bootcamp graduate.
+**web developer with taste**, not a bootcamp graduate.
 
 The owner has already repositioned himself professionally on LinkedIn as a
 Product Engineer (full-stack: NestJS/Node, Next.js, Flutter, PostgreSQL). The
