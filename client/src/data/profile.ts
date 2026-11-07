@@ -9,7 +9,13 @@ export const profile = {
   remote: true,
   siteUrl: "https://tayyabtariq.vercel.app",
   email: "tayyabtariq838@gmail.com",
+  /** Kept at its original path: external sites may link to it. */
   resumeUrl: "/images/tayyab.pdf",
+  portrait: {
+    photo: { src: "/images/profile/portrait.jpg", width: 400, height: 400 },
+    cutout: { src: "/images/profile/portrait-cutout.png", width: 400, height: 400 },
+    alt: "Portrait of Tayyab Tariq",
+  },
   summary:
     "Full-stack developer building Node.js and NestJS backends, Next.js interfaces and Flutter apps.",
   availability: {
