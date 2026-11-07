@@ -1,194 +1,114 @@
-"use client";
-import React, { useState } from "react";
-import { motion, Variants } from "framer-motion";
-import {
-  Github, Linkedin, Mail, MapPin, Send, MessageSquare,
-  Clock, CheckCircle
-} from "lucide-react";
-import Link from "next/link";
+import type { Metadata } from "next";
+import { profile } from "@/data/profile";
+import { Container } from "@/components/ui/Container";
+import { CopyButton } from "@/components/ui/CopyButton";
+import { ArrowLink } from "@/components/ui/ArrowLink";
+import { StatusDot } from "@/components/ui/StatusDot";
+import { ContactForm } from "@/components/contact/ContactForm";
+import { contactConfig } from "./config";
 
-// Animation Variants
-const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as any } }
+export const metadata: Metadata = {
+  title: "Contact",
+  description:
+    "Get in touch with Tayyab Tariq about a web, mobile or backend project, or a full-time role.",
+  alternates: { canonical: "/contact" },
 };
 
-const staggerContainer: Variants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.1 } }
-};
+function Details() {
+  return (
+    <div className="space-y-10">
+      <StatusDot state={profile.availability.open ? "live" : "idle"} className="text-ink">
+        {profile.availability.label}
+      </StatusDot>
 
-export default function Contact() {
-  const [formStatus, setFormStatus] = useState("idle"); // idle, submitting, success
+      <div>
+        <h2 className="text-label text-stone-dark">Email</h2>
+        <div className="mt-2 flex flex-wrap items-center gap-3">
+          <a
+            href={`mailto:${profile.email}`}
+            className="break-all font-display text-h4 font-semibold underline decoration-ink/30 decoration-2 underline-offset-[0.25em] transition-[text-decoration-color] duration-(--duration-ui) ease-out hover:decoration-ink"
+          >
+            {profile.email}
+          </a>
+          <CopyButton value={profile.email} label="email address" />
+        </div>
+      </div>
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setFormStatus("submitting");
-    setTimeout(() => {
-      setFormStatus("success");
-    }, 1500);
-  };
+      <div>
+        <h2 className="text-label text-stone-dark">Elsewhere</h2>
+        <ul className="mt-2 space-y-1">
+          <li className="flex min-h-11 items-center">
+            <ArrowLink href={profile.links.linkedin} external>LinkedIn</ArrowLink>
+          </li>
+          <li className="flex min-h-11 items-center">
+            <ArrowLink href={profile.links.github} external>GitHub</ArrowLink>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 className="text-label text-stone-dark">Based in</h2>
+        <p className="mt-2">
+          {profile.location}
+          {profile.remote ? ". Open to remote work." : "."}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+/** Shown when delivery isn't configured: no form, so nothing can fake a send. */
+function EmailFallback() {
+  return (
+    <div className="flex h-full flex-col justify-center rounded-media border border-ink/15 p-8">
+      <p className="font-display text-h3 font-semibold">Email is the fastest way to reach me.</p>
+      <p className="mt-3 max-w-[44ch] text-stone-dark">
+        Tell me what you’re building, roughly when, and anything I should know.
+      </p>
+      <a
+        href={`mailto:${profile.email}`}
+        className="mt-8 inline-flex min-h-12 w-fit items-center rounded-full bg-ink px-6 font-medium text-bone transition-colors duration-(--duration-ui) ease-out hover:bg-ink-raised"
+      >
+        Write an email
+      </a>
+    </div>
+  );
+}
+
+export default function ContactPage() {
+  const formEnabled = contactConfig() !== null;
 
   return (
-    <div className="min-h-screen mesh-gradient-bg text-white font-sans selection:bg-cyan-500/30 selection:text-white">
+    <>
+      <Container className="pt-12 md:pt-20">
+        <h1 className="max-w-[16ch] font-display text-h1 font-semibold">
+          Let’s talk about what you’re building.
+        </h1>
+        <p className="mt-6 max-w-[52ch] text-lead text-stone">
+          Freelance projects, full-time roles or a question about my work: send a message and I’ll
+          get back to you by email.
+        </p>
+      </Container>
 
-      {/* --- PAGE HEADER --- */}
-      <section className="pt-12 pb-16 px-6 max-w-6xl mx-auto text-center lg:text-left">
-        
-      </section>
-
-      {/* --- MAIN CONTACT SECTION --- */}
-      <section className="pb-24 px-6 max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-
-          {/* Left Column: Contact Info & Status */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="lg:col-span-5 space-y-10"
-          >
-            {/* Status Card with Glowing pulse dot */}
-            <div className="glow-card p-6 flex items-start gap-4">
-              <div className="p-3 bg-green-500/10 text-green-400 rounded-xl border border-green-500/20 shrink-0 relative">
-                <Clock size={20} />
-              </div>
-              <div>
-                <h3 className="text-base font-bold text-white mb-1">Current Availability</h3>
-                <p className="text-gray-400 text-sm leading-relaxed">
-                  I am currently <span className="text-green-400 font-bold">Available</span> for freelance projects and open to discussing full-time opportunities.
-                </p>
-              </div>
+      <section aria-label="Contact details and form" className="px-2 py-14 sm:px-4 md:py-20">
+        <div className="mx-auto max-w-[calc(var(--container-page)+4rem)] rounded-band bg-bone text-ink [--focus-ring:var(--color-ink)]">
+          <Container className="grid gap-12 py-12 md:py-16 lg:grid-cols-12 lg:gap-16">
+            <div className="lg:col-span-5">
+              <Details />
             </div>
-
-            {/* Direct Contact Details */}
-            <div className="space-y-6">
-              <h3 className="text-lg font-black text-white tracking-wide uppercase text-xs text-cyan-400">Contact Details</h3>
-
-              <a href="mailto:tayyabtariq838@gmail.com" className="flex items-center gap-4 text-gray-300 hover:text-cyan-400 transition-colors group">
-                <div className="w-12 h-12 bg-neutral-900/60 rounded-xl flex items-center justify-center border border-white/5 group-hover:border-cyan-500/30 transition-colors">
-                  <Mail size={18} />
-                </div>
-                <div>
-                  <p className="text-[10px] text-gray-500 uppercase tracking-widest font-mono">Email</p>
-                  <p className="font-semibold text-sm">tayyabtariq838@gmail.com</p>
-                </div>
-              </a>
-
-              <div className="flex items-center gap-4 text-gray-300">
-                <div className="w-12 h-12 bg-neutral-900/60 rounded-xl flex items-center justify-center border border-white/5">
-                  <MapPin size={18} />
-                </div>
-                <div>
-                  <p className="text-[10px] text-gray-500 uppercase tracking-widest font-mono">Location</p>
-                  <p className="font-semibold text-sm">Pakistan (Remote Available)</p>
-                </div>
-              </div>
+            <div className="lg:col-span-7">
+              {formEnabled ? (
+                <>
+                  <h2 className="sr-only">Send a message</h2>
+                  <ContactForm />
+                </>
+              ) : (
+                <EmailFallback />
+              )}
             </div>
-
-            {/* Socials */}
-            <div className="space-y-6">
-              <h3 className="text-lg font-black text-white tracking-wide uppercase text-xs text-purple-400">Social Profiles</h3>
-              <div className="flex gap-4">
-                <a
-                  href="https://github.com/itx-tayyab"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="p-4 bg-white/5 rounded-xl border border-white/5 text-gray-400 hover:bg-white hover:text-black hover:scale-105 transition-all duration-300"
-                >
-                  <Github size={20} />
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/tayyab-tariq-a51379260/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="p-4 bg-white/5 rounded-xl border border-white/5 text-gray-400 hover:bg-[#0077b5] hover:text-white hover:border-[#0077b5] hover:scale-105 transition-all duration-300"
-                >
-                  <Linkedin size={20} />
-                </a>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Right Column: Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="lg:col-span-7 glow-card p-8 md:p-10 relative overflow-hidden"
-          >
-            {/* Ambient Background Glow inside Form */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
-
-            <h3 className="text-xl font-bold mb-6 text-white flex items-center gap-2">
-              <MessageSquare className="text-cyan-400" size={20} /> Send a Message
-            </h3>
-
-            <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="text-xs text-gray-400 font-mono tracking-wider">Your Name</label>
-                  <input
-                    type="text"
-                    placeholder="John Doe"
-                    className="w-full bg-neutral-950/60 border border-white/5 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-500/40 focus:ring-1 focus:ring-cyan-500/40 transition-all placeholder:text-gray-700 text-sm"
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-xs text-gray-400 font-mono tracking-wider">Your Email</label>
-                  <input
-                    type="email"
-                    placeholder="john@example.com"
-                    className="w-full bg-neutral-950/60 border border-white/5 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-500/40 focus:ring-1 focus:ring-cyan-500/40 transition-all placeholder:text-gray-700 text-sm"
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-xs text-gray-400 font-mono tracking-wider">Subject</label>
-                <input
-                  type="text"
-                  placeholder="Project Inquiry / Collaboration"
-                  className="w-full bg-neutral-950/60 border border-white/5 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-500/40 focus:ring-1 focus:ring-cyan-500/40 transition-all placeholder:text-gray-700 text-sm"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-xs text-gray-400 font-mono tracking-wider">Message</label>
-                <textarea
-                  rows={4}
-                  placeholder="Tell me about your project..."
-                  className="w-full bg-neutral-950/60 border border-white/5 rounded-xl px-4 py-3 focus:outline-none focus:border-cyan-500/40 focus:ring-1 focus:ring-cyan-500/40 transition-all placeholder:text-gray-700 text-sm resize-none"
-                  required
-                ></textarea>
-              </div>
-
-              <button
-                type="submit"
-                disabled={formStatus === "submitting" || formStatus === "success"}
-                className={`w-full py-4 rounded-xl font-bold text-sm sm:text-base flex items-center justify-center gap-2 transition-all duration-300 ${formStatus === "success"
-                    ? "bg-green-500 text-white hover:bg-green-600 shadow-md"
-                    : "bg-white text-black hover:bg-gradient-to-r hover:from-cyan-400 hover:to-purple-500 hover:text-white hover:scale-[1.01] shadow-lg hover:shadow-cyan-400/20"
-                  }`}
-              >
-                {formStatus === "idle" && (
-                  <>Send Message <Send size={16} /></>
-                )}
-                {formStatus === "submitting" && (
-                  <span className="animate-pulse">Sending...</span>
-                )}
-                {formStatus === "success" && (
-                  <>Message Sent! <CheckCircle size={18} /></>
-                )}
-              </button>
-            </form>
-          </motion.div>
-
+          </Container>
         </div>
       </section>
-
-    </div>
+    </>
   );
 }
