@@ -22,6 +22,9 @@
   --color-signal-ink: #151311; /* text placed on signal */
   --color-success: #5fc48a;
   --color-danger: #ff6b6b;
+  /* Status colors for text on bone surfaces (signal/danger above are for ink). */
+  --color-success-ink: #186a3f; /* 5.6:1 on bone */
+  --color-danger-ink: #b42318; /* 5.6:1 on bone */
 
   /* Type families (variables come from next/font in layout.tsx) */
   --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
@@ -60,7 +63,8 @@
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --duration-press: 120ms;
   --duration-ui: 200ms;
-  --duration-reveal: 600ms;
+  --duration-media: 300ms; /* image drift on hover: slower than UI, at the 300ms ceiling */
+  --duration-reveal: 500ms;
 
   /* Layout */
   --container-page: 77.5rem; /* 1240px */
@@ -68,6 +72,7 @@
   /* Keyframes */
   --animate-marquee: marquee 40s linear infinite;
   --animate-rise: rise var(--duration-reveal) var(--ease-out) both;
+  --animate-line-up: line-up 600ms var(--ease-out) both;
 
   @keyframes marquee {
     from { transform: translate3d(0, 0, 0); }
@@ -77,6 +82,12 @@
   @keyframes rise {
     from { opacity: 0; transform: translate3d(0, 0.4em, 0); }
     to { opacity: 1; transform: translate3d(0, 0, 0); }
+  }
+
+  /* Headline lines slide up from behind a clipping mask. */
+  @keyframes line-up {
+    from { transform: translate3d(0, 105%, 0); }
+    to { transform: translate3d(0, 0, 0); }
   }
 }
 
@@ -144,6 +155,43 @@
 }
 
 /* --------------------------------------------------------------------------
+   Modal sheet (native <dialog>: mobile menu, gallery lightbox). Fades and rises 8px on open, reverses
+   on close. `display`/`overlay` transition discretely so the exit animation
+   plays before the dialog leaves the top layer. Browsers without
+   @starting-style simply open without motion.
+   -------------------------------------------------------------------------- */
+.modal-sheet {
+  opacity: 0;
+  translate: 0 0.5rem;
+  transition:
+    opacity var(--duration-ui) var(--ease-out),
+    translate var(--duration-ui) var(--ease-out),
+    display var(--duration-ui) allow-discrete,
+    overlay var(--duration-ui) allow-discrete;
+}
+
+.modal-sheet[open] {
+  opacity: 1;
+  translate: 0 0;
+}
+
+@starting-style {
+  .modal-sheet[open] {
+    opacity: 0;
+    translate: 0 0.5rem;
+  }
+}
+
+.modal-sheet::backdrop {
+  background: var(--color-ink);
+}
+
+/* Lock page scroll while any modal dialog is open. */
+html:has(dialog[open]:modal) {
+  overflow: hidden;
+}
+
+/* --------------------------------------------------------------------------
    Notch: cuts a rounded pocket out of a media frame's bottom-right corner to
    hold a round action button. The pocket is painted in the surrounding
    surface color (--notch-bg), so set that to whatever the frame sits on.
@@ -189,62 +237,18 @@
   bottom: 0;
 }
 
-/* ==========================================================================
-   LEGACY: classes used by the pre-redesign pages. Delete each one once the
-   last page using it has been rebuilt (tracked in Phases 3-7, removed by 9).
-   ========================================================================== */
-
-.mesh-gradient-bg {
-  background-image:
-    radial-gradient(at 0% 0%, rgba(6, 182, 212, 0.1) 0px, transparent 50%),
-    radial-gradient(at 100% 0%, rgba(168, 85, 247, 0.1) 0px, transparent 50%),
-    radial-gradient(at 50% 50%, rgba(59, 130, 246, 0.06) 0px, transparent 50%),
-    radial-gradient(at 0% 100%, rgba(168, 85, 247, 0.05) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.05) 0px, transparent 50%);
+/* --------------------------------------------------------------------------
+   Work filter. Tiles are server-rendered; the client filter only sets
+   data-filter on the grid, and CSS hides the non-matching tiles. Without JS
+   every project shows. Re-shown tiles replay a short rise (display:none
+   restarts CSS animations), but only after the first interaction so the
+   initial page load stays still.
+   -------------------------------------------------------------------------- */
+.filter-grid[data-filter="web"] > [data-type="mobile"],
+.filter-grid[data-filter="mobile"] > [data-type="web"] {
+  display: none;
 }
 
-.glass-pill {
-  background: rgba(10, 10, 10, 0.6);
-  backdrop-filter: blur(20px) saturate(140%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow:
-    0 4px 30px rgba(0, 0, 0, 0.4),
-    inset 0 1px 1px rgba(255, 255, 255, 0.05);
-}
-
-.glass-card {
-  background: rgba(10, 10, 10, 0.4);
-  backdrop-filter: blur(16px) saturate(120%);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
-}
-
-.glow-card {
-  position: relative;
-  background: linear-gradient(135deg, rgba(15, 15, 15, 0.4) 0%, rgba(8, 8, 8, 0.2) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.03);
-  border-radius: 1.5rem;
-  box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.6);
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.glow-card::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(to bottom right, rgba(6, 182, 212, 0.12), rgba(168, 85, 247, 0.12));
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-}
-
-.glow-card:hover {
-  transform: translateY(-4px);
-}
-
-.pulse-glow-dot {
-  position: relative;
+.filter-grid[data-interacted] > * {
+  animation: rise 320ms var(--ease-out) both;
 }

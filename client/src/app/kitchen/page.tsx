@@ -91,7 +91,7 @@ export default function KitchenPage() {
   if (process.env.NODE_ENV === "production") notFound();
 
   return (
-    <main id="main" className="pt-24">
+    <div className="pt-8">
       <Section spacing="compact">
         <SectionHead
           as="h1"
@@ -161,11 +161,11 @@ export default function KitchenPage() {
                   }
                 >
                   <Image
-                    src="/images/Harmonihome.png"
+                    src="/images/projects/harmoni/illustration-workspace.jpg"
                     alt="Harmoni dashboard"
                     fill
                     sizes="(min-width: 768px) 50vw, 100vw"
-                    className="object-cover object-top transition-transform duration-500 ease-out group-hover/tile:scale-[1.02]"
+                    className="object-cover object-top transition-transform duration-(--duration-media) ease-out group-hover/tile:scale-[1.02]"
                   />
                 </MediaFrame>
                 <div className="mt-4 flex items-baseline justify-between gap-4">
@@ -182,6 +182,6 @@ export default function KitchenPage() {
         <SectionHead title="Raised band" intro="Rounded inset band, used for one emphasized section per page." />
         <Primitives />
       </Section>
-    </main>
+    </div>
   );
 }

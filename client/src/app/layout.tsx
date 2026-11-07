@@ -1,8 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import { Header } from "@/components/shell/Header";
+import { Footer } from "@/components/shell/Footer";
+import { SkipLink } from "@/components/shell/SkipLink";
 import { profile } from "@/data/profile";
 
 const bricolage = Bricolage_Grotesque({
@@ -58,9 +59,12 @@ export default function RootLayout({
       lang="en"
       className={`${bricolage.variable} ${geistSans.variable} ${geistMono.variable}`}
     >
-      <body>
-        <Navbar />
-        {children}
+      <body className="flex min-h-dvh flex-col">
+        <SkipLink />
+        <Header />
+        <main id="main" tabIndex={-1} className="flex-1 outline-none">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>
