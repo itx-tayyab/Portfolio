@@ -14,7 +14,7 @@ type ArrowLinkProps = {
 /** Inline text link with an arrow that nudges in its direction on hover. */
 export function ArrowLink({ href, children, external, className }: ArrowLinkProps) {
   const classes = cn(
-    "group/arrow inline-flex items-center gap-1.5 font-medium underline decoration-line-strong",
+    "group/arrow inline-flex min-h-11 items-center gap-1.5 font-medium underline decoration-line-strong",
     "underline-offset-[0.3em] transition-[text-decoration-color] duration-(--duration-ui) ease-out hover:decoration-current",
     className,
   );

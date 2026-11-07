@@ -10,6 +10,11 @@ export const metadata: Metadata = {
   description:
     "Full-stack and mobile projects by Tayyab Tariq: NestJS and Node.js backends, Next.js interfaces and Flutter apps.",
   alternates: { canonical: "/projects" },
+  openGraph: {
+    title: "Work | Tayyab Tariq",
+    description: "Full-stack and mobile projects by Tayyab Tariq: NestJS and Node.js backends, Next.js interfaces and Flutter apps.",
+    url: "/projects",
+  },
 };
 
 export default function WorkPage() {

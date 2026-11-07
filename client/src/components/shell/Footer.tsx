@@ -20,7 +20,7 @@ export function Footer() {
             <div className="mt-5 flex flex-wrap items-center gap-3">
               <a
                 href={`mailto:${profile.email}`}
-                className="break-all font-display text-h4 underline decoration-signal decoration-2 underline-offset-[0.25em] transition-colors duration-(--duration-ui) ease-out hover:text-signal"
+                className="inline-block break-all py-2 font-display text-h4 underline decoration-signal decoration-2 underline-offset-[0.25em] transition-colors duration-(--duration-ui) ease-out hover:text-signal"
               >
                 {profile.email}
               </a>
@@ -55,7 +55,7 @@ export function Footer() {
 
         <p className="mt-16 text-label text-stone">
           © {year} {profile.name}. {profile.location}
-          {profile.remote ? ", working remotely." : "."}
+          {profile.remote ? ". Open to remote work." : "."}
         </p>
       </Container>
     </footer>

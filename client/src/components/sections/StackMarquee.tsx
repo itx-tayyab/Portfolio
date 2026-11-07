@@ -58,7 +58,7 @@ export function StackMarquee() {
         onClick={() => setPaused((p) => !p)}
         aria-pressed={paused}
         className={cn(
-          "absolute right-3 top-1/2 grid size-10 -translate-y-1/2 place-items-center rounded-full",
+          "absolute right-3 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full",
           "bg-signal-ink text-signal transition-transform duration-(--duration-press) ease-out active:scale-[0.94]",
           "focus-visible:outline-signal-ink",
         )}

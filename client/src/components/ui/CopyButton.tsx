@@ -42,7 +42,7 @@ export function CopyButton({ value, label, className }: CopyButtonProps) {
         type="button"
         onClick={copy}
         className={cn(
-          "inline-flex min-h-10 items-center gap-2 rounded-full border border-current/50 px-4 text-label font-medium",
+          "inline-flex min-h-11 items-center gap-2 rounded-full border border-current/50 px-4 text-label font-medium",
           "transition-[border-color,transform] duration-(--duration-ui) ease-out hover:border-current active:scale-[0.97]",
           className,
         )}

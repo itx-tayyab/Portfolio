@@ -44,7 +44,7 @@ const variants: Record<Variant, string> = {
 };
 
 const sizes: Record<Size, { plain: string; knob: string; knobIcon: string }> = {
-  sm: { plain: "min-h-10 px-4 text-label", knob: "min-h-10 pl-4 pr-1 text-label", knobIcon: "size-8" },
+  sm: { plain: "min-h-11 px-4 text-label", knob: "min-h-11 pl-4 pr-1.5 text-label", knobIcon: "size-8" },
   md: { plain: "min-h-12 px-6 text-body", knob: "min-h-12 pl-6 pr-1.5 text-body", knobIcon: "size-9" },
 };
 
@@ -87,7 +87,12 @@ export function Button(props: ButtonProps) {
   if (props.href !== undefined) {
     const { variant, size, icon, children, className, href, external, ...anchorProps } = props;
     const classes = buttonStyles({ variant, size, icon, className });
-    const content = <ButtonContent variant={variant} size={size} icon={icon}>{children}</ButtonContent>;
+    const content = (
+      <ButtonContent variant={variant} size={size} icon={icon}>
+        {children}
+        {external ? <span className="sr-only"> (opens in a new tab)</span> : null}
+      </ButtonContent>
+    );
     const isPlainAnchor =
       external || anchorProps.download !== undefined || /^(mailto:|tel:|https?:)/.test(href);
 

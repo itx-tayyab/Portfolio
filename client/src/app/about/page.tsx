@@ -12,6 +12,11 @@ export const metadata: Metadata = {
   description:
     "Tayyab Tariq is a full-stack developer in Lahore who designs backends in NestJS and PostgreSQL and builds the Next.js and Flutter apps on top of them.",
   alternates: { canonical: "/about" },
+  openGraph: {
+    title: "About | Tayyab Tariq",
+    description: "Tayyab Tariq is a full-stack developer in Lahore who designs backends in NestJS and PostgreSQL and builds the Next.js and Flutter apps on top of them.",
+    url: "/about",
+  },
 };
 
 export default function AboutPage() {

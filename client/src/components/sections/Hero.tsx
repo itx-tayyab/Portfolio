@@ -23,13 +23,16 @@ function Headline({ id, className }: { id?: string; className?: string }) {
     <h1 id={id} className={cn("font-display text-display font-semibold", className)}>
       {headline.map((line, i) => (
         // Each line clips its own overflow so the text slides up from a mask.
-        // pb/-mb keep the mask edge from clipping glyphs.
+        // pb/-mb keep the mask edge from clipping glyphs. The trailing space
+        // keeps the accessible name a sentence ("backend and", not "backendand"),
+        // since block spans don't add word breaks for screen readers.
         <span key={line} className="block overflow-hidden pb-[0.08em] -mb-[0.08em]">
           <span
             className="block animate-line-up"
             style={{ animationDelay: `${LINE_START + i * LINE_STAGGER}ms` }}
           >
             {line}
+            {i < headline.length - 1 ? " " : null}
           </span>
         </span>
       ))}

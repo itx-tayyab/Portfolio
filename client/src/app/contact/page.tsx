@@ -12,6 +12,11 @@ export const metadata: Metadata = {
   description:
     "Get in touch with Tayyab Tariq about a web, mobile or backend project, or a full-time role.",
   alternates: { canonical: "/contact" },
+  openGraph: {
+    title: "Contact | Tayyab Tariq",
+    description: "Get in touch with Tayyab Tariq about a web, mobile or backend project, or a full-time role.",
+    url: "/contact",
+  },
 };
 
 function Details() {
@@ -26,7 +31,7 @@ function Details() {
         <div className="mt-2 flex flex-wrap items-center gap-3">
           <a
             href={`mailto:${profile.email}`}
-            className="break-all font-display text-h4 font-semibold underline decoration-ink/30 decoration-2 underline-offset-[0.25em] transition-[text-decoration-color] duration-(--duration-ui) ease-out hover:decoration-ink"
+            className="inline-block break-all py-2 font-display text-h4 font-semibold underline decoration-ink/30 decoration-2 underline-offset-[0.25em] transition-[text-decoration-color] duration-(--duration-ui) ease-out hover:decoration-ink"
           >
             {profile.email}
           </a>

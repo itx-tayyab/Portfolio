@@ -1,7 +1,18 @@
+import type { Metadata } from "next";
+import { profile } from "@/data/profile";
 import { Hero } from "@/components/sections/Hero";
 import { StackMarquee } from "@/components/sections/StackMarquee";
 import { SelectedWork } from "@/components/sections/SelectedWork";
 import { StackList } from "@/components/sections/StackList";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: `${profile.name}, ${profile.role}`,
+    description: profile.summary,
+    url: "/",
+  },
+};
 
 /**
  * Home. A server component: the only client code is the marquee's pause
