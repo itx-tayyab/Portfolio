@@ -1,41 +1,199 @@
 @import "tailwindcss";
 
-:root {
-  --background: #030303;
-  --foreground: #ededed;
+/* ==========================================================================
+   Design tokens: "Signal"
+   Warm graphite surfaces, bone type, one signal-orange accent reserved for
+   things that are live or actionable. See the redesign plan, section 5.
+   ========================================================================== */
+
+@theme {
+  /* Color */
+  --color-ink: #151311;
+  --color-ink-raised: #1f1c19;
+  --color-ink-sunken: #100e0c;
+  --color-line: #34302b;
+  --color-line-strong: #4a443d;
+  --color-bone: #f1ece4;
+  --color-bone-dim: #e4ddd2;
+  --color-stone: #a69d92;
+  --color-stone-dark: #6b6359; /* secondary text on bone surfaces */
+  --color-signal: #ff5b1f;
+  --color-signal-hover: #ff7440;
+  --color-signal-ink: #151311; /* text placed on signal */
+  --color-success: #5fc48a;
+  --color-danger: #ff6b6b;
+
+  /* Type families (variables come from next/font in layout.tsx) */
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  /* Type scale: 1.25 ratio, 16px base */
+  --text-label: 0.875rem;
+  --text-label--line-height: 1.4;
+  --text-body: 1rem;
+  --text-body--line-height: 1.6;
+  --text-lead: 1.125rem;
+  --text-lead--line-height: 1.6;
+  --text-h4: 1.375rem;
+  --text-h4--line-height: 1.3;
+  --text-h3: 1.75rem;
+  --text-h3--line-height: 1.2;
+  --text-h2: clamp(2rem, 1.4rem + 2.4vw, 3rem);
+  --text-h2--line-height: 1.05;
+  --text-h2--letter-spacing: -0.02em;
+  --text-h1: clamp(2.5rem, 1.6rem + 3.6vw, 4rem);
+  --text-h1--line-height: 1;
+  --text-h1--letter-spacing: -0.025em;
+  --text-display: clamp(3rem, 1rem + 8vw, 7.5rem);
+  --text-display--line-height: 0.95;
+  --text-display--letter-spacing: -0.035em;
+
+  /* Radius hierarchy: bands > media > cards > inputs */
+  --radius-band: 1.75rem;
+  --radius-media: 1.25rem;
+  --radius-card: 1rem;
+  --radius-input: 0.75rem;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-press: 120ms;
+  --duration-ui: 200ms;
+  --duration-reveal: 600ms;
+
+  /* Layout */
+  --container-page: 77.5rem; /* 1240px */
+
+  /* Keyframes */
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-rise: rise var(--duration-reveal) var(--ease-out) both;
+
+  @keyframes marquee {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(-50%, 0, 0); }
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translate3d(0, 0.4em, 0); }
+    to { opacity: 1; transform: translate3d(0, 0, 0); }
+  }
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+@layer base {
+  html {
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    background-color: var(--color-ink);
+    color: var(--color-bone);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Signal on dark surfaces; bone surfaces override --focus-ring to ink
+     because signal on bone is only 2.6:1. */
+  :focus-visible {
+    outline: 2px solid var(--focus-ring, var(--color-signal));
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: var(--color-signal);
+    color: var(--color-signal-ink);
+  }
 }
 
-body {
-  background-color: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
-  overflow-x: hidden;
-  position: relative;
-
+/* Reduced motion: keep opacity changes, drop movement and loops. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
-/* Subtle organic grain overlay over the entire screen */
-body::before {
+/* Display type uses Bricolage's optical-size axis at large sizes. */
+.font-display {
+  font-optical-sizing: auto;
+}
+
+/* --------------------------------------------------------------------------
+   Notch: cuts a rounded pocket out of a media frame's bottom-right corner to
+   hold a round action button. The pocket is painted in the surrounding
+   surface color (--notch-bg), so set that to whatever the frame sits on.
+   The two pseudo-elements draw the inverted corners that blend the pocket
+   into the frame's edges.
+   -------------------------------------------------------------------------- */
+.notch {
+  --notch-size: 4.25rem;
+  --notch-r: 1rem;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: var(--notch-size);
+  height: var(--notch-size);
+  display: grid;
+  place-items: end;
+  padding: 0.375rem 0 0 0.375rem;
+  background: var(--notch-bg, var(--color-ink));
+  border-top-left-radius: var(--notch-r);
+}
+
+.notch::before,
+.notch::after {
   content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.018;
+  position: absolute;
+  width: var(--notch-r);
+  height: var(--notch-r);
+  background: radial-gradient(
+    circle at 0 0,
+    transparent calc(var(--notch-r) - 0.5px),
+    var(--notch-bg, var(--color-ink)) var(--notch-r)
+  );
   pointer-events: none;
-  z-index: 9999;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
-/* Base mesh gradient setup */
+.notch::before {
+  right: 0;
+  top: calc(var(--notch-r) * -1);
+}
+
+.notch::after {
+  left: calc(var(--notch-r) * -1);
+  bottom: 0;
+}
+
+/* ==========================================================================
+   LEGACY: classes used by the pre-redesign pages. Delete each one once the
+   last page using it has been rebuilt (tracked in Phases 3-7, removed by 9).
+   ========================================================================== */
+
 .mesh-gradient-bg {
   background-image:
     radial-gradient(at 0% 0%, rgba(6, 182, 212, 0.1) 0px, transparent 50%),
@@ -43,10 +201,8 @@ body::before {
     radial-gradient(at 50% 50%, rgba(59, 130, 246, 0.06) 0px, transparent 50%),
     radial-gradient(at 0% 100%, rgba(168, 85, 247, 0.05) 0px, transparent 50%),
     radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.05) 0px, transparent 50%);
-  background-attachment: fixed;
 }
 
-/* Glassmorphism containers */
 .glass-pill {
   background: rgba(10, 10, 10, 0.6);
   backdrop-filter: blur(20px) saturate(140%);
@@ -63,19 +219,17 @@ body::before {
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
 }
 
-/* Reusable premium card with dynamic gradient border and external ambient glow on hover */
 .glow-card {
   position: relative;
   background: linear-gradient(135deg, rgba(15, 15, 15, 0.4) 0%, rgba(8, 8, 8, 0.2) 100%);
-  backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.03);
   border-radius: 1.5rem;
   box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.6);
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glow-card::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: -1px;
   border-radius: inherit;
@@ -85,69 +239,12 @@ body::before {
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glow-card:hover {
-  transform: translateY(-4px) scale(1.005);
-  box-shadow:
-    0 20px 40px -15px rgba(6, 182, 212, 0.12),
-    0 0 30px 2px rgba(168, 85, 247, 0.04),
-    0 4px 24px 0 rgba(0, 0, 0, 0.8);
-}
-
-.glow-card:hover::before {
-  background: linear-gradient(to bottom right, rgba(6, 182, 212, 0.45), rgba(168, 85, 247, 0.45));
-}
-
-/* Pulsing dot animation for status indicator */
-@keyframes pulse-glow {
-
-  0%,
-  100% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.7);
-  }
-
-  50% {
-    transform: scale(1.15);
-    box-shadow: 0 0 0 8px rgba(34, 211, 238, 0);
-  }
+  transform: translateY(-4px);
 }
 
 .pulse-glow-dot {
   position: relative;
-}
-
-.pulse-glow-dot::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 9999px;
-  animation: pulse-glow 2s infinite;
-  background: inherit;
-}
-
-/* Premium Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #030303;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 9999px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(6, 182, 212, 0.35);
-}
-
-/* Selection style */
-::selection {
-  background: rgba(6, 182, 212, 0.3);
-  color: #fff;
 }
