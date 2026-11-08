@@ -1,15 +1,15 @@
 import type { Metadata, Viewport } from "next";
-import { Bricolage_Grotesque, Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Outfit } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/shell/Header";
 import { Footer } from "@/components/shell/Footer";
 import { SkipLink } from "@/components/shell/SkipLink";
+import { ScrollTop } from "@/components/shell/ScrollTop";
 import { profile } from "@/data/profile";
 
-const bricolage = Bricolage_Grotesque({
-  variable: "--font-bricolage",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
-  axes: ["opsz", "wdth"],
   display: "swap",
 });
 
@@ -44,8 +44,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#151311",
-  colorScheme: "dark",
+  themeColor: "#141414",
 };
 
 /** Structured data for search engines: who the site is about. */
@@ -68,7 +67,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${bricolage.variable} ${geistSans.variable} ${geistMono.variable}`}
+      className={`${outfit.variable} ${geistSans.variable} ${geistMono.variable}`}
     >
       <body className="flex min-h-dvh flex-col">
         <script
@@ -84,6 +83,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <ScrollTop />
       </body>
     </html>
   );

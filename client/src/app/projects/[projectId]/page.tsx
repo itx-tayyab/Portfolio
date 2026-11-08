@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Check } from "lucide-react";
 import { getAdjacentProjects, getProject, projects, type Project } from "@/data/projects";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
+import { SectionHead } from "@/components/ui/SectionHead";
+import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Button } from "@/components/ui/Button";
 import { Tag } from "@/components/ui/Tag";
 import { StatusDot } from "@/components/ui/StatusDot";
@@ -39,50 +41,52 @@ function Facts({ project }: { project: Project }) {
     { term: "Type", value: project.type === "web" ? "Web platform" : "Mobile app" },
     {
       term: "Status",
-      value:
-        project.status === "in-progress" ? (
-          <StatusDot>In progress</StatusDot>
-        ) : (
-          `Completed ${project.period}`
-        ),
+      value: project.status === "in-progress" ? <StatusDot>In progress</StatusDot> : `Completed ${project.period}`,
     },
   ];
   return (
-    <dl className="grid gap-x-8 gap-y-5 border-t border-line pt-6 sm:grid-cols-3">
+    <dl className="grid gap-4 sm:grid-cols-3">
       {facts.map(({ term, value }) => (
-        <div key={term}>
-          <dt className="text-label text-stone">{term}</dt>
-          <dd className="mt-1">{value}</dd>
+        <div key={term} className="rounded-card bg-surface px-6 py-5">
+          <dt className="font-display text-eyebrow font-semibold uppercase text-brand-text">{term}</dt>
+          <dd className="mt-1.5 font-display text-h4 font-semibold">{value}</dd>
         </div>
       ))}
     </dl>
   );
 }
 
-/**
- * The written case study on a bone "paper" panel. Numbered because it is a
- * real sequence: problem, then approach, then what came out of it.
- */
+/** The written case study on a grey band; numbered because it is a real sequence. */
 function CaseStudy({ project }: { project: Project }) {
   const steps = [
-    { title: "The problem", body: <p>{project.problem}</p> },
-    { title: "My approach", body: <p>{project.approach}</p> },
+    { title: "The Problem", body: <p>{project.problem}</p> },
+    { title: "My Approach", body: <p>{project.approach}</p> },
     {
-      title: "What it does",
+      title: "What It Does",
       body: (
-        <ul className="list-disc space-y-2 pl-5 marker:text-stone-dark">
+        <ul className="space-y-2.5">
           {project.features.map((f) => (
-            <li key={f}>{f}</li>
+            <li key={f} className="flex gap-3">
+              <span aria-hidden="true" className="mt-1.5 grid size-5 shrink-0 place-items-center rounded-full bg-brand text-white">
+                <Check size={12} strokeWidth={3} />
+              </span>
+              {f}
+            </li>
           ))}
         </ul>
       ),
     },
     {
-      title: "What I learned",
+      title: "What I Learned",
       body: (
-        <ul className="list-disc space-y-2 pl-5 marker:text-stone-dark">
+        <ul className="space-y-2.5">
           {project.learnings.map((l) => (
-            <li key={l}>{l}</li>
+            <li key={l} className="flex gap-3">
+              <span aria-hidden="true" className="mt-1.5 grid size-5 shrink-0 place-items-center rounded-full bg-ink text-white">
+                <Check size={12} strokeWidth={3} />
+              </span>
+              {l}
+            </li>
           ))}
         </ul>
       ),
@@ -90,23 +94,22 @@ function CaseStudy({ project }: { project: Project }) {
   ];
 
   return (
-    <Section tone="bone" shape="band" aria-labelledby="case-title">
-      <h2 id="case-title" className="sr-only">
-        Case study
-      </h2>
-      <ol>
+    <Section tone="surface" shape="band" aria-labelledby="case-title">
+      <SectionHead id="case-title" eyebrow="Case study" title={`How I Built ${project.title}`} layout="stacked" />
+      <ol className="grid gap-6 md:grid-cols-2">
         {steps.map((step, i) => (
-          <li
-            key={step.title}
-            className="grid gap-4 border-t border-ink/15 py-10 first:border-t-0 first:pt-0 last:pb-0 md:grid-cols-12 md:gap-6"
-          >
-            <h3 className="font-display text-h3 font-semibold md:col-span-4">
-              <span aria-hidden="true" className="mr-3 tabular-nums text-stone-dark">
-                {String(i + 1).padStart(2, "0")}
+          <li key={step.title} className="rounded-card bg-page p-7 md:p-9">
+            <div className="flex items-start justify-between gap-4">
+              <h3 className="font-display text-h3 font-semibold">{step.title}</h3>
+              <span
+                aria-hidden="true"
+                data-n={String(i + 1).padStart(2, "0")}
+                className="font-display text-[2.75rem] font-semibold leading-none text-brand before:text-[#e4e4e8] before:content-[attr(data-n)]"
+              >
+                .
               </span>
-              {step.title}
-            </h3>
-            <div className="max-w-[62ch] text-lead md:col-span-8">{step.body}</div>
+            </div>
+            <div className="mt-5 text-muted">{step.body}</div>
           </li>
         ))}
       </ol>
@@ -123,23 +126,24 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[proj
 
   return (
     <article>
-      <Container className="pt-8 md:pt-12">
+      <Container className="pt-10 md:pt-14">
         <Link
           href="/projects"
-          className="group/back inline-flex min-h-11 items-center gap-2 text-label text-stone transition-colors duration-(--duration-ui) ease-out hover:text-bone"
+          className="group/back inline-flex min-h-11 items-center gap-2 font-display text-label font-semibold uppercase tracking-[0.04em] text-muted transition-colors duration-(--duration-ui) ease-out hover:text-brand-text"
         >
           <ArrowLeft aria-hidden="true" size={16} className="transition-transform duration-(--duration-ui) ease-out group-hover/back:-translate-x-1" />
           All work
         </Link>
 
-        <header className="mt-8 grid gap-10 md:mt-12 lg:grid-cols-12">
-          <div className="lg:col-span-8">
-            <h1 className="font-display text-h1 font-semibold">{project.title}</h1>
-            <p className="mt-5 max-w-[48ch] text-lead text-stone">{project.summary}</p>
+        <header className="mt-6 grid gap-10 lg:grid-cols-12">
+          <div className="lg:col-span-7">
+            <Eyebrow>{project.type === "web" ? "Web platform" : "Mobile app"}</Eyebrow>
+            <h1 className="mt-3 font-display text-h1 font-semibold">{project.title}</h1>
+            <p className="mt-5 max-w-[52ch] text-lead text-muted">{project.summary}</p>
             {project.links.repo || project.links.live ? (
               <div className="mt-8 flex flex-wrap gap-3">
                 {project.links.live ? (
-                  <Button href={project.links.live} external icon={<ArrowUpRight size={18} />}>
+                  <Button href={project.links.live} external icon={<ArrowUpRight size={16} />}>
                     Open live site
                   </Button>
                 ) : null}
@@ -147,8 +151,8 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[proj
                   <Button
                     href={project.links.repo}
                     external
-                    variant={project.links.live ? "secondary" : "primary"}
-                    icon={<ArrowUpRight size={18} />}
+                    variant={project.links.live ? "dark" : "primary"}
+                    icon={<ArrowUpRight size={16} />}
                   >
                     View code on GitHub
                   </Button>
@@ -156,8 +160,8 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[proj
               </div>
             ) : null}
           </div>
-          <div className="lg:col-span-4 lg:pt-3">
-            <p className="text-label text-stone">Built with</p>
+          <div className="lg:col-span-5 lg:pt-8">
+            <p className="font-display text-eyebrow font-semibold uppercase text-brand-text">Built with</p>
             <ul className="mt-3 flex flex-wrap gap-2">
               {project.stack.map((tech) => (
                 <li key={tech}>
@@ -178,7 +182,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[proj
           <Gallery title={project.title} images={project.gallery} />
         ) : (
           <figure>
-            <div className="relative aspect-[16/9] overflow-hidden rounded-media bg-ink-raised">
+            <div className="relative aspect-[16/9] overflow-hidden rounded-card bg-surface">
               <Image
                 src={project.cover.src}
                 alt={project.cover.alt}
@@ -188,9 +192,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[proj
                 className="object-cover"
               />
             </div>
-            <figcaption className="mt-3 text-label text-stone">
-              Illustration, not a screenshot of the app.
-            </figcaption>
+            <figcaption className="mt-3 text-label text-muted">Illustration, not a screenshot of the app.</figcaption>
           </figure>
         )}
       </Container>
@@ -198,7 +200,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[proj
       <CaseStudy project={project} />
 
       {adjacent ? (
-        <Container className="py-20 md:py-28">
+        <Container className="pt-20 md:pt-28">
           <ProjectPager prev={adjacent.prev} next={adjacent.next} />
         </Container>
       ) : null}

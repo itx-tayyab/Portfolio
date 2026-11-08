@@ -19,7 +19,7 @@ export function StatusDot({ state = "live", children, className }: StatusDotProp
         aria-hidden="true"
         className={cn(
           "size-2 shrink-0 rounded-full",
-          state === "live" ? "bg-signal shadow-[0_0_0_4px_color-mix(in_oklab,var(--color-signal)_22%,transparent)]" : "bg-stone",
+          state === "live" ? "bg-brand shadow-[0_0_0_4px_color-mix(in_oklab,var(--color-brand)_22%,transparent)]" : "bg-muted",
         )}
       />
       {children}

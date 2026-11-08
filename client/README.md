@@ -62,37 +62,41 @@ best-effort (each instance counts separately).
 
 ## Design system
 
-"Signal": warm graphite surfaces, bone type, and one signal-orange accent
-reserved for things that are live or actionable (primary buttons, the current
-page, focus rings, availability).
+The visual design follows the reference images in the repository root
+(`image*.png`): white and light-grey sections, near-black bands (the home
+hero and "why work with me"), one orange accent, bold geometric headings in
+Outfit, uppercase pill buttons with a round icon "knob", orange eyebrow labels
+with a sparkle, numbered service cards with a notched "+" corner, and large
+rounded project tiles.
 
 - Tokens (color, type scale, radii, motion) are in `src/app/globals.css`
-  under `@theme`, so they're available as Tailwind utilities
-  (`bg-ink`, `text-bone`, `text-h2`, `rounded-band`, `duration-(--duration-ui)`).
-- Fonts: Bricolage Grotesque for display, Geist for text, both via `next/font`.
-- Shared primitives are in `src/components/ui/` (Button, Section,
-  SectionHead, MediaFrame with the notched corner, Tag, StatusDot,
-  CopyButton, ArrowLink).
-- `/kitchen` renders every primitive in every state. It's development-only
-  and returns 404 in production.
+  under `@theme`, so they work as Tailwind utilities (`bg-ink`, `bg-surface`,
+  `text-muted`, `text-brand`, `text-h2`, `rounded-card`).
+- Orange comes in three steps for contrast: `brand` (#F45B16, the reference
+  orange) for fills, icons, large text and text on dark; `brand-strong` for
+  buttons with white text; `brand-text` for small orange text on light.
+- Fonts: Outfit for headings, Geist for text, both via `next/font`.
+- Shared primitives: `src/components/ui/` (Button, Eyebrow, Section,
+  SectionHead, MediaFrame, Tag, StatusDot, CopyButton, ArrowLink).
+- Page sections: `src/components/home/` (Hero, Marquee, AboutIntro,
+  Services, WhyChoose, RecentWork), reused on About.
+- Services shown on the home page live in `src/data/services.ts`.
 
-Motion rules: only the home hero's load sequence and the stack marquee move
-without user input; everything else responds to an action. Only `transform`
-and `opacity` animate, UI transitions run 120–300ms, and
-`prefers-reduced-motion` stops all movement.
+Motion: only the stack marquee moves without user input (with a pause
+button); everything else responds to an action. Only `transform` and
+`opacity` animate, and `prefers-reduced-motion` stops all movement.
 
 ## Accessibility and quality bar
 
 WCAG 2.1 AA: text contrast ≥ 4.5:1 on both surfaces, visible focus on every
 control, a skip link, 44px minimum targets, a native `<dialog>` for the menu
 and lightbox (focus trap and Esc), labelled form fields with inline errors,
-and a pause button for the marquee. Lighthouse (mobile) at the time of the
-redesign: Performance 91–94, Accessibility, Best Practices and SEO 100 on
-every page.
+and a pause button for the marquee. Lighthouse (mobile) after the reference-matched redesign: Performance
+91–98, Accessibility, Best Practices and SEO 100 on every page.
 
 ## SEO
 
 Per-page titles, descriptions and canonical URLs; generated social preview
 images (`src/app/opengraph-image.tsx` and one per project, rendered by
-`src/app/_og/render.tsx` with the bundled Bricolage font, SIL Open Font
+`src/app/_og/render.tsx` with the bundled Outfit font, SIL Open Font
 License); `sitemap.xml`, `robots.txt` and a JSON-LD `Person` record.

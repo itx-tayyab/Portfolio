@@ -5,37 +5,23 @@ type MediaFrameProps = {
   children: ReactNode;
   /** CSS aspect ratio, e.g. "16 / 10". */
   ratio?: string;
-  /**
-   * Content for the notched bottom-right pocket (usually a round arrow).
-   * The notch is reserved for project tiles; leave empty elsewhere.
-   */
+  /** Content for the notched bottom-right pocket (a round button). */
   notch?: ReactNode;
-  /** Surface color around the frame, used to paint the notch pocket. */
-  surface?: "ink" | "ink-raised" | "bone";
+  /** Surface the frame sits on, used to paint the notch pocket. */
+  surface?: "page" | "surface";
   className?: string;
 };
 
 const surfaceVar = {
-  ink: "[--notch-bg:var(--color-ink)]",
-  "ink-raised": "[--notch-bg:var(--color-ink-raised)]",
-  bone: "[--notch-bg:var(--color-bone)]",
+  page: "[--notch-bg:var(--color-page)]",
+  surface: "[--notch-bg:var(--color-surface)]",
 } as const;
 
 /** Rounded media container with an optional notched action pocket. */
-export function MediaFrame({
-  children,
-  ratio = "16 / 10",
-  notch,
-  surface = "ink",
-  className,
-}: MediaFrameProps) {
+export function MediaFrame({ children, ratio = "16 / 10", notch, surface = "page", className }: MediaFrameProps) {
   return (
     <div
-      className={cn(
-        "relative overflow-hidden rounded-media bg-ink-raised",
-        surfaceVar[surface],
-        className,
-      )}
+      className={cn("relative overflow-hidden rounded-media bg-surface", surfaceVar[surface], className)}
       style={{ aspectRatio: ratio }}
     >
       {children}
@@ -44,18 +30,15 @@ export function MediaFrame({
   );
 }
 
-/**
- * Round icon "button" sized for the notch pocket. Always decorative: the
- * whole tile is the link and carries the accessible name.
- */
+/** Round button for the notch: black circle with a white icon (reference "+"). */
 export function NotchButton({ children }: { children: ReactNode }) {
   return (
     <span
       aria-hidden="true"
       className={cn(
-        "grid size-14 place-items-center rounded-full bg-bone text-ink",
-        "transition-[background-color,color,transform] duration-(--duration-ui) ease-out",
-        "group-hover/tile:bg-signal group-hover/tile:text-signal-ink group-hover/tile:-rotate-45",
+        "grid size-14 place-items-center rounded-full bg-ink text-white",
+        "transition-[background-color,transform] duration-(--duration-ui) ease-out",
+        "group-hover/card:bg-brand-strong group-hover/card:rotate-90",
       )}
     >
       {children}

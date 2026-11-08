@@ -3,7 +3,7 @@ import { profile } from "@/data/profile";
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: { userAgent: "*", allow: "/", disallow: "/kitchen" },
+    rules: { userAgent: "*", allow: "/" },
     sitemap: `${profile.siteUrl}/sitemap.xml`,
     host: profile.siteUrl,
   };

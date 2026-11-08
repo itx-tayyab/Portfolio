@@ -1,46 +1,40 @@
-import { timeline, type TimelineEntry } from "@/data/timeline";
+import { GraduationCap, Briefcase } from "lucide-react";
+import { timeline } from "@/data/timeline";
 import { Section } from "@/components/ui/Section";
 import { SectionHead } from "@/components/ui/SectionHead";
 
-const typeLabel: Record<TimelineEntry["type"], string> = {
-  education: "Education",
-  work: "Work",
-};
-
-/**
- * Chronological list, newest first. The years carry the sequence, so there
- * are no extra 01/02 markers.
- */
+/** Education and work, newest first, as cards in the reference card style. */
 export function Timeline() {
   const entries = [...timeline].reverse();
   const hasWork = entries.some((e) => e.type === "work");
 
   return (
-    <Section aria-labelledby="timeline-title">
+    <Section tone="surface" shape="band" aria-labelledby="timeline-title">
       <SectionHead
         id="timeline-title"
-        title={hasWork ? "Experience and education" : "Education"}
+        eyebrow="My journey"
+        title={hasWork ? "Experience And Education" : "My Education"}
         intro="Where I learned the fundamentals behind the projects."
       />
-      <ol className="border-t border-line">
-        {entries.map((entry) => (
-          <li
-            key={entry.id}
-            className="grid gap-x-6 gap-y-3 border-b border-line py-8 md:grid-cols-12 md:py-10"
-          >
-            <p className="font-display text-h4 font-semibold tabular-nums md:col-span-3">
-              {entry.period}
-            </p>
-            <div className="md:col-span-9">
-              <h3 className="font-display text-h3 font-semibold">{entry.title}</h3>
-              <p className="mt-1 text-stone">
+      <ol className="grid gap-6 md:grid-cols-2">
+        {entries.map((entry) => {
+          const Icon = entry.type === "work" ? Briefcase : GraduationCap;
+          return (
+            <li key={entry.id} className="flex flex-col rounded-card bg-page p-7 md:p-9">
+              <div className="flex items-start justify-between gap-4">
+                <Icon aria-hidden="true" size={44} strokeWidth={1.3} className="text-brand" />
+                <span className="rounded-full bg-surface px-4 py-1.5 font-display text-label font-semibold tabular-nums">
+                  {entry.period}
+                </span>
+              </div>
+              <h3 className="mt-6 font-display text-h3 font-semibold">{entry.title}</h3>
+              <p className="mt-1 font-display text-label font-semibold uppercase tracking-[0.04em] text-brand-text">
                 {entry.org}, {entry.location}
-                {hasWork ? <span className="sr-only"> ({typeLabel[entry.type]})</span> : null}
               </p>
-              <p className="mt-4 max-w-[60ch]">{entry.description}</p>
-            </div>
-          </li>
-        ))}
+              <p className="mt-4 text-muted">{entry.description}</p>
+            </li>
+          );
+        })}
       </ol>
     </Section>
   );

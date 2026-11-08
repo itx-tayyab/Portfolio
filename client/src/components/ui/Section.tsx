@@ -2,24 +2,23 @@ import type { ComponentPropsWithoutRef } from "react";
 import { cn } from "@/lib/cn";
 import { Container } from "./Container";
 
-type Tone = "ink" | "raised" | "bone";
+type Tone = "page" | "surface" | "dark";
 
 type SectionProps = ComponentPropsWithoutRef<"section"> & {
-  /** Surface color. "bone" flips text to dark for light "paper" panels. */
+  /** page = white, surface = light grey, dark = near-black. */
   tone?: Tone;
   /**
-   * "band" draws the section as a rounded inset panel inside the page
-   * gutters (from the reference "why us" band) instead of full-bleed.
+   * "band" draws the section as a rounded panel inset from the page edges,
+   * like the reference services (grey) and why-choose-us (dark) sections.
    */
   shape?: "bleed" | "band";
-  /** Vertical rhythm. */
   spacing?: "default" | "compact" | "none";
 };
 
 const toneClass: Record<Tone, string> = {
-  ink: "bg-ink text-bone",
-  raised: "bg-ink-raised text-bone",
-  bone: "bg-bone text-ink [--focus-ring:var(--color-ink)]",
+  page: "bg-page text-ink",
+  surface: "bg-surface text-ink",
+  dark: "on-dark bg-ink text-white",
 };
 
 const spacingClass = {
@@ -29,7 +28,7 @@ const spacingClass = {
 } as const;
 
 export function Section({
-  tone = "ink",
+  tone = "page",
   shape = "bleed",
   spacing = "default",
   className,
@@ -38,15 +37,15 @@ export function Section({
 }: SectionProps) {
   if (shape === "band") {
     return (
-      <section className={cn("px-2 sm:px-4", className)} {...props}>
+      <section className={cn("px-3 sm:px-5 lg:px-8", className)} {...props}>
         <div
           className={cn(
-            "mx-auto max-w-[calc(var(--container-page)+4rem)] rounded-band",
+            "relative mx-auto max-w-[96rem] overflow-hidden rounded-band",
             toneClass[tone],
             spacingClass[spacing],
           )}
         >
-          <Container>{children}</Container>
+          <Container className="relative">{children}</Container>
         </div>
       </section>
     );

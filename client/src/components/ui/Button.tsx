@@ -2,16 +2,21 @@ import Link from "next/link";
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
-type Variant = "primary" | "secondary" | "ghost";
+/**
+ * Pill buttons from the reference designs: uppercase label, and on the
+ * primary/dark variants a round "knob" holding the icon ("DISCOVER MORE").
+ *
+ * primary   orange pill, white text, dark knob
+ * dark      near-black pill, white text, orange knob ("SEND A MESSAGE")
+ * secondary outlined pill in the current text color
+ * ghost     text only
+ */
+type Variant = "primary" | "dark" | "secondary" | "ghost";
 type Size = "sm" | "md";
 
 type StyleProps = {
   variant?: Variant;
   size?: Size;
-  /**
-   * Optional icon. On "primary" it sits in a round knob at the end of the
-   * pill (the reference CTA detail); on other variants it sits inline.
-   */
   icon?: ReactNode;
   children: ReactNode;
   className?: string;
@@ -20,7 +25,7 @@ type StyleProps = {
 type LinkProps = StyleProps &
   Omit<AnchorHTMLAttributes<HTMLAnchorElement>, keyof StyleProps | "href"> & {
     href: string;
-    /** Opens in a new tab with a safe rel. */
+    /** Opens in a new tab with a safe rel, and says so to screen readers. */
     external?: boolean;
   };
 
@@ -32,37 +37,44 @@ type NativeButtonProps = StyleProps &
 export type ButtonProps = LinkProps | NativeButtonProps;
 
 const base =
-  "group/button inline-flex shrink-0 items-center justify-center gap-2 rounded-full font-medium select-none " +
+  "group/button inline-flex shrink-0 items-center justify-center gap-3 rounded-full font-display font-semibold uppercase tracking-[0.04em] select-none " +
   "transition-[background-color,border-color,color,transform] duration-(--duration-ui) ease-out " +
   "active:scale-[0.97] active:duration-(--duration-press) " +
-  "disabled:pointer-events-none disabled:opacity-50";
+  "disabled:pointer-events-none disabled:opacity-60";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-signal text-signal-ink hover:bg-signal-hover",
+  primary: "bg-brand-strong text-white hover:bg-ink",
+  dark: "bg-ink text-white hover:bg-brand-strong",
   secondary: "border border-current/50 text-current hover:border-current",
-  ghost: "text-current hover:bg-current/10",
+  ghost: "text-current hover:text-brand-text",
+};
+
+const knobColors: Partial<Record<Variant, string>> = {
+  primary: "bg-ink text-white group-hover/button:bg-brand",
+  dark: "bg-brand text-white group-hover/button:bg-ink",
 };
 
 const sizes: Record<Size, { plain: string; knob: string; knobIcon: string }> = {
-  sm: { plain: "min-h-11 px-4 text-label", knob: "min-h-11 pl-4 pr-1.5 text-label", knobIcon: "size-8" },
-  md: { plain: "min-h-12 px-6 text-body", knob: "min-h-12 pl-6 pr-1.5 text-body", knobIcon: "size-9" },
+  sm: { plain: "min-h-11 px-5 text-[0.75rem]", knob: "min-h-11 pl-5 pr-1.5 text-[0.75rem]", knobIcon: "size-8" },
+  md: { plain: "min-h-12 px-7 text-[0.8125rem]", knob: "min-h-12 pl-7 pr-1.5 text-[0.8125rem]", knobIcon: "size-9" },
 };
 
 function buttonStyles({ variant = "primary", size = "md", icon, className }: Omit<StyleProps, "children">) {
-  const hasKnob = Boolean(icon) && variant === "primary";
+  const hasKnob = Boolean(icon) && Boolean(knobColors[variant]);
   return cn(base, variants[variant], hasKnob ? sizes[size].knob : sizes[size].plain, className);
 }
 
 function ButtonContent({ variant = "primary", size = "md", icon, children }: StyleProps) {
-  if (icon && variant === "primary") {
+  const knob = knobColors[variant];
+  if (icon && knob) {
     return (
       <>
         <span>{children}</span>
         <span
           aria-hidden="true"
           className={cn(
-            "grid place-items-center rounded-full bg-ink text-bone",
-            "transition-transform duration-(--duration-ui) ease-out group-hover/button:-rotate-45",
+            "grid place-items-center rounded-full transition-[background-color,transform] duration-(--duration-ui) ease-out group-hover/button:-rotate-45",
+            knob,
             sizes[size].knobIcon,
           )}
         >
@@ -118,7 +130,9 @@ export function Button(props: ButtonProps) {
   const { variant, size, icon, children, className, type = "button", ...buttonProps } = props;
   return (
     <button type={type} className={buttonStyles({ variant, size, icon, className })} {...buttonProps}>
-      <ButtonContent variant={variant} size={size} icon={icon}>{children}</ButtonContent>
+      <ButtonContent variant={variant} size={size} icon={icon}>
+        {children}
+      </ButtonContent>
     </button>
   );
 }

@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { profile } from "@/data/profile";
-import { Hero } from "@/components/sections/Hero";
-import { StackMarquee } from "@/components/sections/StackMarquee";
-import { SelectedWork } from "@/components/sections/SelectedWork";
-import { StackList } from "@/components/sections/StackList";
+import { Hero } from "@/components/home/Hero";
+import { Marquee } from "@/components/home/Marquee";
+import { AboutIntro } from "@/components/home/AboutIntro";
+import { Services } from "@/components/home/Services";
+import { WhyChoose } from "@/components/home/WhyChoose";
+import { RecentWork } from "@/components/home/RecentWork";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
@@ -14,19 +16,16 @@ export const metadata: Metadata = {
   },
 };
 
-/**
- * Home. A server component: the only client code is the marquee's pause
- * button. The footer (in the layout) is the closing call to action, so the
- * page doesn't repeat one.
- */
+/** Home, in the order of the reference designs. */
 export default function Home() {
   return (
     <>
       <Hero />
-      <StackMarquee />
-      <SelectedWork />
-      <StackList />
-      <div className="h-20 md:h-28" aria-hidden="true" />
+      <Marquee />
+      <AboutIntro />
+      <Services />
+      <WhyChoose />
+      <RecentWork />
     </>
   );
 }

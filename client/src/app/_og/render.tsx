@@ -5,8 +5,8 @@ import { profile } from "@/data/profile";
 
 /**
  * Shared renderer for social preview (Open Graph) images, 1200×630.
- * Mirrors the site: ink background, bone display type, and the signal
- * band from the home page carrying a short stack line.
+ * Mirrors the home hero: near-black background, white Outfit headings and
+ * the orange band carrying a short stack line.
  *
  * The font is bundled (SIL Open Font License) because the image renderer
  * needs raw font data and can't use next/font.
@@ -15,10 +15,10 @@ export const ogSize = { width: 1200, height: 630 };
 export const ogContentType = "image/png";
 
 const colors = {
-  ink: "#151311",
-  bone: "#F1ECE4",
-  stone: "#A69D92",
-  signal: "#FF5B1F",
+  ink: "#141414",
+  bone: "#FFFFFF",
+  stone: "#A3A3A3",
+  signal: "#F45B16",
 };
 
 type OgProps = {
@@ -32,7 +32,7 @@ type OgProps = {
 };
 
 export async function renderOgImage({ kicker, title, summary, band }: OgProps) {
-  const font = await readFile(join(process.cwd(), "src/app/_og/BricolageGrotesque-SemiBold.ttf"));
+  const font = await readFile(join(process.cwd(), "src/app/_og/Outfit-SemiBold.ttf"));
   const titleSize = title.length > 28 ? 84 : 112;
 
   return new ImageResponse(
@@ -45,7 +45,7 @@ export async function renderOgImage({ kicker, title, summary, band }: OgProps) {
           flexDirection: "column",
           background: colors.ink,
           color: colors.bone,
-          fontFamily: "Bricolage",
+          fontFamily: "Outfit",
         }}
       >
         <div style={{ display: "flex", flexDirection: "column", flex: 1, padding: "72px 80px 0" }}>
@@ -104,7 +104,7 @@ export async function renderOgImage({ kicker, title, summary, band }: OgProps) {
     ),
     {
       ...ogSize,
-      fonts: [{ name: "Bricolage", data: font, weight: 600, style: "normal" }],
+      fonts: [{ name: "Outfit", data: font, weight: 600, style: "normal" }],
     },
   );
 }

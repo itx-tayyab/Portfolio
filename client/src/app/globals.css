@@ -1,78 +1,82 @@
 @import "tailwindcss";
 
 /* ==========================================================================
-   Design tokens: "Signal"
-   Warm graphite surfaces, bone type, one signal-orange accent reserved for
-   things that are live or actionable. See the redesign plan, section 5.
+   Design tokens, matched to the reference designs (repo root image*.png):
+   white and light-grey sections, near-black bands, one orange accent,
+   bold geometric headings (Outfit).
    ========================================================================== */
 
 @theme {
-  /* Color */
-  --color-ink: #151311;
-  --color-ink-raised: #1f1c19;
-  --color-ink-sunken: #100e0c;
-  --color-line: #34302b;
-  --color-line-strong: #4a443d;
-  --color-bone: #f1ece4;
-  --color-bone-dim: #e4ddd2;
-  --color-stone: #a69d92;
-  --color-stone-dark: #6b6359; /* secondary text on bone surfaces */
-  --color-signal: #ff5b1f;
-  --color-signal-hover: #ff7440;
-  --color-signal-ink: #151311; /* text placed on signal */
-  --color-success: #5fc48a;
-  --color-danger: #ff6b6b;
-  /* Status colors for text on bone surfaces (signal/danger above are for ink). */
-  --color-success-ink: #186a3f; /* 5.6:1 on bone */
-  --color-danger-ink: #b42318; /* 5.6:1 on bone */
+  /* Surfaces */
+  --color-page: #ffffff;
+  --color-surface: #f4f4f6; /* light grey section (reference: services) */
+  --color-ink: #141414; /* text on light; dark bands */
+  --color-ink-2: #1e1e1e; /* raised surface on dark */
+  --color-line: #e6e6e8;
+  --color-line-dark: #2e2e2e;
 
-  /* Type families (variables come from next/font in layout.tsx) */
-  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  /* Text */
+  --color-muted: #6b6b6b; /* 5.3:1 on white, 4.9:1 on surface */
+  --color-muted-dark: #a3a3a3; /* 7.3:1 on ink */
+
+  /* Orange. The reference orange (#F45B16) is only 3.3:1 against white,
+     so it is used for fills, icons, large text and text on dark. Buttons
+     with white text and small orange text on light use deeper steps. */
+  --color-brand: #f45b16;
+  --color-brand-strong: #d2440b; /* button fill with white text: 4.6:1 */
+  --color-brand-text: #c8410b; /* small orange text on white: 5.0:1 */
+
+  /* Status on light surfaces */
+  --color-success-ink: #186a3f;
+  --color-danger-ink: #b42318;
+
+  /* Type */
+  --font-display: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
-  /* Type scale: 1.25 ratio, 16px base */
+  --text-eyebrow: 0.8125rem;
+  --text-eyebrow--line-height: 1.2;
+  --text-eyebrow--letter-spacing: 0.06em;
   --text-label: 0.875rem;
-  --text-label--line-height: 1.4;
+  --text-label--line-height: 1.5;
   --text-body: 1rem;
-  --text-body--line-height: 1.6;
+  --text-body--line-height: 1.7;
   --text-lead: 1.125rem;
-  --text-lead--line-height: 1.6;
-  --text-h4: 1.375rem;
+  --text-lead--line-height: 1.7;
+  --text-h4: 1.25rem;
   --text-h4--line-height: 1.3;
-  --text-h3: 1.75rem;
+  --text-h3: 1.625rem;
   --text-h3--line-height: 1.2;
-  --text-h2: clamp(2rem, 1.4rem + 2.4vw, 3rem);
-  --text-h2--line-height: 1.05;
-  --text-h2--letter-spacing: -0.02em;
-  --text-h1: clamp(2.5rem, 1.6rem + 3.6vw, 4rem);
-  --text-h1--line-height: 1;
-  --text-h1--letter-spacing: -0.025em;
-  --text-display: clamp(3rem, 1rem + 8vw, 7.5rem);
-  --text-display--line-height: 0.95;
-  --text-display--letter-spacing: -0.035em;
+  --text-h2: clamp(1.75rem, 1.15rem + 1.9vw, 2.375rem);
+  --text-h2--line-height: 1.15;
+  --text-h2--letter-spacing: -0.01em;
+  --text-h1: clamp(2.5rem, 1.5rem + 3.8vw, 4.25rem);
+  --text-h1--line-height: 1.08;
+  --text-h1--letter-spacing: -0.015em;
+  --text-display: clamp(2.5rem, 1rem + 3.6vw, 4rem);
+  --text-display--line-height: 1.06;
+  --text-display--letter-spacing: -0.02em;
 
-  /* Radius hierarchy: bands > media > cards > inputs */
-  --radius-band: 1.75rem;
+  /* Radii (reference: large rounded cards, pill buttons) */
+  --radius-band: 2rem;
+  --radius-card: 1.75rem;
   --radius-media: 1.25rem;
-  --radius-card: 1rem;
-  --radius-input: 0.75rem;
+  --radius-input: 0.625rem;
 
   /* Motion */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --duration-press: 120ms;
   --duration-ui: 200ms;
-  --duration-media: 300ms; /* image drift on hover: slower than UI, at the 300ms ceiling */
+  --duration-media: 300ms;
   --duration-reveal: 500ms;
 
   /* Layout */
   --container-page: 77.5rem; /* 1240px */
 
-  /* Keyframes */
   --animate-marquee: marquee 40s linear infinite;
   --animate-rise: rise var(--duration-reveal) var(--ease-out) both;
-  --animate-line-up: line-up 600ms var(--ease-out) both;
 
   @keyframes marquee {
     from { transform: translate3d(0, 0, 0); }
@@ -80,14 +84,8 @@
   }
 
   @keyframes rise {
-    from { opacity: 0; transform: translate3d(0, 0.4em, 0); }
+    from { opacity: 0; transform: translate3d(0, 0.6em, 0); }
     to { opacity: 1; transform: translate3d(0, 0, 0); }
-  }
-
-  /* Headline lines slide up from behind a clipping mask. */
-  @keyframes line-up {
-    from { transform: translate3d(0, 105%, 0); }
-    to { transform: translate3d(0, 0, 0); }
   }
 }
 
@@ -97,14 +95,13 @@
 
 @layer base {
   html {
-    color-scheme: dark;
     -webkit-text-size-adjust: 100%;
-    scroll-padding-top: 5rem;
+    scroll-padding-top: 6rem;
   }
 
   body {
-    background-color: var(--color-ink);
-    color: var(--color-bone);
+    background-color: var(--color-page);
+    color: var(--color-ink);
     font-family: var(--font-sans);
     font-size: var(--text-body);
     line-height: var(--text-body--line-height);
@@ -123,18 +120,23 @@
     text-wrap: pretty;
   }
 
-  /* Signal on dark surfaces; bone surfaces override --focus-ring to ink
-     because signal on bone is only 2.6:1. */
+  /* Orange ring on dark surfaces; ink ring on light ones (orange on white
+     is only 3.3:1, which is fine for a 2px ring but ink reads better). */
   :focus-visible {
-    outline: 2px solid var(--focus-ring, var(--color-signal));
+    outline: 2px solid var(--focus-ring, var(--color-ink));
     outline-offset: 3px;
     border-radius: 4px;
   }
 
   ::selection {
-    background: var(--color-signal);
-    color: var(--color-signal-ink);
+    background: var(--color-brand);
+    color: #fff;
   }
+}
+
+/* Dark surfaces set this so focus rings stay visible. */
+.on-dark {
+  --focus-ring: var(--color-brand);
 }
 
 /* Reduced motion: keep opacity changes, drop movement and loops. */
@@ -149,16 +151,10 @@
   }
 }
 
-/* Display type uses Bricolage's optical-size axis at large sizes. */
-.font-display {
-  font-optical-sizing: auto;
-}
-
 /* --------------------------------------------------------------------------
-   Modal sheet (native <dialog>: mobile menu, gallery lightbox). Fades and rises 8px on open, reverses
-   on close. `display`/`overlay` transition discretely so the exit animation
-   plays before the dialog leaves the top layer. Browsers without
-   @starting-style simply open without motion.
+   Modal sheet (native <dialog>: mobile menu, gallery lightbox). Fades and
+   rises 8px on open, reverses on close. Browsers without @starting-style
+   simply open without motion.
    -------------------------------------------------------------------------- */
 .modal-sheet {
   opacity: 0;
@@ -183,7 +179,7 @@
 }
 
 .modal-sheet::backdrop {
-  background: var(--color-ink);
+  background: rgb(20 20 20 / 0.6);
 }
 
 /* Lock page scroll while any modal dialog is open. */
@@ -192,15 +188,13 @@ html:has(dialog[open]:modal) {
 }
 
 /* --------------------------------------------------------------------------
-   Notch: cuts a rounded pocket out of a media frame's bottom-right corner to
-   hold a round action button. The pocket is painted in the surrounding
-   surface color (--notch-bg), so set that to whatever the frame sits on.
-   The two pseudo-elements draw the inverted corners that blend the pocket
-   into the frame's edges.
+   Notch: the rounded pocket cut out of a card's bottom-right corner that
+   holds a round button (reference: service cards). The pocket is painted
+   in the surrounding surface color, set with --notch-bg.
    -------------------------------------------------------------------------- */
 .notch {
-  --notch-size: 4.25rem;
-  --notch-r: 1rem;
+  --notch-size: 4.5rem;
+  --notch-r: 1.25rem;
   position: absolute;
   right: 0;
   bottom: 0;
@@ -208,8 +202,8 @@ html:has(dialog[open]:modal) {
   height: var(--notch-size);
   display: grid;
   place-items: end;
-  padding: 0.375rem 0 0 0.375rem;
-  background: var(--notch-bg, var(--color-ink));
+  padding: 0.5rem 0 0 0.5rem;
+  background: var(--notch-bg, var(--color-surface));
   border-top-left-radius: var(--notch-r);
 }
 
@@ -222,7 +216,7 @@ html:has(dialog[open]:modal) {
   background: radial-gradient(
     circle at 0 0,
     transparent calc(var(--notch-r) - 0.5px),
-    var(--notch-bg, var(--color-ink)) var(--notch-r)
+    var(--notch-bg, var(--color-surface)) var(--notch-r)
   );
   pointer-events: none;
 }
@@ -239,10 +233,7 @@ html:has(dialog[open]:modal) {
 
 /* --------------------------------------------------------------------------
    Work filter. Tiles are server-rendered; the client filter only sets
-   data-filter on the grid, and CSS hides the non-matching tiles. Without JS
-   every project shows. Re-shown tiles replay a short rise (display:none
-   restarts CSS animations), but only after the first interaction so the
-   initial page load stays still.
+   data-filter on the grid, and CSS hides the non-matching tiles.
    -------------------------------------------------------------------------- */
 .filter-grid[data-filter="web"] > [data-type="mobile"],
 .filter-grid[data-filter="mobile"] > [data-type="web"] {

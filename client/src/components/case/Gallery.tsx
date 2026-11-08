@@ -57,7 +57,7 @@ export function Gallery({ title, images }: GalleryProps) {
             <button
               type="button"
               onClick={(e) => open(i, e.currentTarget)}
-              className="group/shot block w-full overflow-hidden rounded-card bg-ink-raised ring-1 ring-line transition-[box-shadow] duration-(--duration-ui) ease-out hover:ring-line-strong"
+              className="group/shot block w-full overflow-hidden rounded-media bg-surface ring-1 ring-line transition-[box-shadow] duration-(--duration-ui) ease-out hover:ring-ink/30"
             >
               <span className="sr-only">
                 Open screenshot {i + 1} of {count} in the viewer:{" "}
@@ -84,11 +84,11 @@ export function Gallery({ title, images }: GalleryProps) {
         aria-label={`${title} screenshots`}
         onKeyDown={onKeyDown}
         onClose={() => returnFocusRef.current?.focus()}
-        className="modal-sheet m-0 h-dvh max-h-none w-full max-w-none bg-ink/95 p-0 text-bone backdrop:bg-ink/80"
+        className="modal-sheet on-dark m-0 h-dvh max-h-none w-full max-w-none bg-ink/95 p-0 text-white"
       >
         <div className="flex h-full flex-col px-4 pb-4 sm:px-6">
           <div className="flex h-16 items-center justify-between gap-4">
-            <p className="text-label text-stone" aria-live="polite">
+            <p className="text-label text-muted-dark" aria-live="polite">
               <span className="tabular-nums">
                 {index + 1} / {count}
               </span>
@@ -116,7 +116,7 @@ export function Gallery({ title, images }: GalleryProps) {
                 className="animate-rise object-contain [animation-duration:200ms]"
               />
             </div>
-            <figcaption className="mx-auto mt-4 max-w-[60ch] text-center text-label text-stone">
+            <figcaption className="mx-auto mt-4 max-w-[60ch] text-center text-label text-muted-dark">
               {current.alt}
             </figcaption>
           </figure>

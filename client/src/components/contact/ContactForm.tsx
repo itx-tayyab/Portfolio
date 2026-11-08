@@ -1,17 +1,19 @@
 "use client";
 
 import { useActionState, useEffect, useRef, type ReactNode } from "react";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import { sendContactMessage } from "@/app/contact/actions";
 import { limits, projectTypes, type ContactField, type ContactState } from "@/lib/contact";
 import { cn } from "@/lib/cn";
 
 const initialState: ContactState = { status: "idle" };
 
+// Filled fields, as in the reference contact form. Visible labels above
+// each field identify them (the reference relies on placeholders).
 const fieldClass =
-  "block w-full rounded-input border border-ink/50 bg-white/60 px-4 py-3 text-body text-ink " +
-  "placeholder:text-stone-dark transition-[border-color,background-color] duration-(--duration-ui) ease-out " +
-  "hover:border-ink focus-visible:border-ink focus-visible:bg-white " +
+  "block w-full rounded-input border border-transparent bg-surface px-4 py-3.5 text-body text-ink " +
+  "placeholder:text-muted transition-[border-color,background-color] duration-(--duration-ui) ease-out " +
+  "hover:border-ink/25 focus-visible:border-ink focus-visible:bg-white " +
   "aria-[invalid=true]:border-danger-ink";
 
 function Field({
@@ -29,11 +31,11 @@ function Field({
 }) {
   return (
     <div>
-      <label htmlFor={id} className="block font-medium">
+      <label htmlFor={id} className="block font-display text-label font-semibold">
         {label}
       </label>
       {hint ? (
-        <p id={`${id}-hint`} className="mt-1 text-label text-stone-dark">
+        <p id={`${id}-hint`} className="mt-1 text-label text-muted">
           {hint}
         </p>
       ) : null}
@@ -82,7 +84,7 @@ export function ContactForm() {
         <h3 ref={successRef} tabIndex={-1} className="mt-4 font-display text-h3 font-semibold outline-none">
           Message sent
         </h3>
-        <p className="mt-2 max-w-[42ch] text-stone-dark">
+        <p className="mt-2 max-w-[42ch] text-muted">
           Thanks for getting in touch. I’ll reply to the email address you gave.
         </p>
       </div>
@@ -189,18 +191,12 @@ export function ContactForm() {
         type="submit"
         disabled={isPending}
         className={cn(
-          "group/button inline-flex min-h-12 items-center gap-2 rounded-full bg-ink pl-6 pr-1.5 font-medium text-bone",
-          "transition-[background-color,transform] duration-(--duration-ui) ease-out hover:bg-ink-raised",
-          "active:scale-[0.97] active:duration-(--duration-press) disabled:cursor-progress disabled:opacity-70",
+          "inline-flex min-h-13 w-full items-center justify-center gap-2 rounded-full bg-ink px-8 py-4 font-display text-[0.8125rem] font-semibold uppercase tracking-[0.06em] text-white",
+          "transition-[background-color,transform] duration-(--duration-ui) ease-out hover:bg-brand-strong",
+          "active:scale-[0.99] active:duration-(--duration-press) disabled:cursor-progress disabled:opacity-70",
         )}
       >
-        <span>{isPending ? "Sending…" : "Send message"}</span>
-        <span
-          aria-hidden="true"
-          className="grid size-9 place-items-center rounded-full bg-signal text-signal-ink transition-transform duration-(--duration-ui) ease-out group-hover/button:-rotate-45"
-        >
-          <ArrowRight size={18} />
-        </span>
+        {isPending ? "Sending…" : "Send a message"}
       </button>
       <p role="status" aria-live="polite" className="sr-only">
         {isPending ? "Sending your message" : ""}

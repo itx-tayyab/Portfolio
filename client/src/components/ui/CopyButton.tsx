@@ -48,7 +48,7 @@ export function CopyButton({ value, label, className }: CopyButtonProps) {
         )}
       >
         {state === "copied" ? (
-          <Check aria-hidden="true" size={16} className="text-success" />
+          <Check aria-hidden="true" size={16} className="text-brand" />
         ) : (
           <Copy aria-hidden="true" size={16} />
         )}

@@ -11,12 +11,12 @@ function PagerLink({ project, direction }: { project: Project; direction: "prev"
       href={`/projects/${project.slug}`}
       rel={isNext ? "next" : "prev"}
       className={cn(
-        "group/pager flex min-h-28 flex-col justify-between gap-6 rounded-card border border-line p-6",
-        "transition-[border-color] duration-(--duration-ui) ease-out hover:border-line-strong",
+        "group/pager flex min-h-32 flex-col justify-between gap-6 rounded-card bg-surface p-7",
+        "transition-[background-color,color] duration-(--duration-ui) ease-out hover:bg-ink hover:text-white",
         isNext && "md:items-end md:text-right",
       )}
     >
-      <span className="inline-flex items-center gap-2 text-label text-stone">
+      <span className="inline-flex items-center gap-2 font-display text-eyebrow font-semibold uppercase text-brand-text group-hover/pager:text-brand">
         {!isNext && (
           <Icon aria-hidden="true" size={16} className="transition-transform duration-(--duration-ui) ease-out group-hover/pager:-translate-x-1" />
         )}

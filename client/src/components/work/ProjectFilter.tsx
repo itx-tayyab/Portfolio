@@ -66,15 +66,13 @@ export function ProjectFilter({ counts, children }: ProjectFilterProps) {
               aria-pressed={active}
               onClick={() => select(value)}
               className={cn(
-                "inline-flex min-h-11 items-center gap-2 rounded-full border px-5 text-label font-medium",
-                "transition-[background-color,border-color,color,transform] duration-(--duration-ui) ease-out active:scale-[0.97]",
-                active
-                  ? "border-bone bg-bone text-ink"
-                  : "border-current/50 text-bone hover:border-bone",
+                "inline-flex min-h-11 items-center gap-2 rounded-full px-6 font-display text-[0.8125rem] font-semibold uppercase tracking-[0.04em]",
+                "transition-[background-color,color,transform] duration-(--duration-ui) ease-out active:scale-[0.97]",
+                active ? "bg-ink text-white" : "bg-surface text-ink hover:bg-[#e9e9ec]",
               )}
             >
               {label}
-              <span className={cn("tabular-nums", active ? "text-ink/70" : "text-stone")}>
+              <span className={cn("tabular-nums", active ? "text-brand" : "text-muted")}>
                 {counts[value]}
               </span>
             </button>
@@ -84,7 +82,7 @@ export function ProjectFilter({ counts, children }: ProjectFilterProps) {
       <p role="status" aria-live="polite" className="sr-only">
         Showing {shown} {shown === 1 ? noun.replace(/s$/, "") : noun}
       </p>
-      <div ref={gridRef} data-filter={filter} className="filter-grid grid gap-x-8 gap-y-16 md:grid-cols-2">
+      <div ref={gridRef} data-filter={filter} className="filter-grid grid gap-x-6 gap-y-12 md:grid-cols-2">
         {children}
       </div>
     </>
