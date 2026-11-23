@@ -12,7 +12,7 @@ export function Timeline() {
     <Section tone="surface" shape="band" aria-labelledby="timeline-title">
       <SectionHead
         id="timeline-title"
-        eyebrow="My journey"
+        eyebrow="Education"
         title={hasWork ? "Experience And Education" : "My Education"}
         intro="Where I learned the fundamentals behind the projects."
       />

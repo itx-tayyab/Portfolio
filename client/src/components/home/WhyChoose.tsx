@@ -55,9 +55,9 @@ export function WhyChoose() {
         </div>
 
         <div className="lg:col-span-7">
-          <Eyebrow tone="dark">Why work with me</Eyebrow>
+          <Eyebrow tone="dark">Engineering philosophy</Eyebrow>
           <h2 id="why-title" className="mt-3 font-display text-h2 font-semibold">
-            Why Teams Choose Me To Build Their Products
+            How I Approach Engineering
           </h2>
           <p className="mt-5 max-w-[56ch] text-muted-dark">
             I care about the parts users never see as much as the parts they do. That’s what keeps a

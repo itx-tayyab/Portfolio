@@ -54,6 +54,13 @@ export function ProjectFilter({ counts, children }: ProjectFilterProps) {
   const shown = counts[filter];
   const noun = filter === "all" ? "projects" : `${filter} projects`;
 
+  // With only one project type there is nothing to filter: show the grid alone.
+  // The chips come back automatically once a second type has projects.
+  const typesWithProjects = options.filter((o) => o.value !== "all" && counts[o.value] > 0).length;
+  if (typesWithProjects < 2) {
+    return <div className="grid gap-x-6 gap-y-12 md:grid-cols-2">{children}</div>;
+  }
+
   return (
     <>
       <div role="group" aria-label="Filter projects by type" className="mb-12 flex flex-wrap gap-2">

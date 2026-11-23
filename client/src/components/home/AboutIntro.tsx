@@ -18,7 +18,7 @@ const features = [
   },
 ];
 
-const strengths = ["Scalable APIs", "Real-time features", "Responsive UI", "Cross-platform apps"];
+const strengths = ["Scalable APIs", "Real-time features", "Responsive UI", "Workflow automation"];
 
 /**
  * "Who I am" block after reference image 2: a three-image collage in
@@ -38,7 +38,7 @@ export function AboutIntro({ headingLevel: H = "h2" }: { headingLevel?: "h1" | "
           <div className="grid gap-3">
             <div className="relative aspect-square overflow-hidden rounded-[50%_50%_45%_55%/55%_50%_50%_45%] bg-surface">
               <Image
-                src="/images/projects/covid19-tracker/illustration-cover.jpg"
+                src="/images/projects/harmoni/illustration-cover.jpg"
                 alt=""
                 fill
                 sizes="(min-width: 1024px) 17rem, 45vw"

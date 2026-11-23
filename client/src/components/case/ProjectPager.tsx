@@ -33,7 +33,7 @@ function PagerLink({ project, direction }: { project: Project; direction: "prev"
 export function ProjectPager({ prev, next }: { prev: Project; next: Project }) {
   return (
     <nav aria-label="More projects" className="grid gap-4 md:grid-cols-2">
-      <PagerLink project={prev} direction="prev" />
+      {prev.slug !== next.slug ? <PagerLink project={prev} direction="prev" /> : <span aria-hidden="true" className="hidden md:block" />}
       <PagerLink project={next} direction="next" />
     </nav>
   );

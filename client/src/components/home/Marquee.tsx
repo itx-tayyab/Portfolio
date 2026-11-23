@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Pause, Play } from "lucide-react";
 import { cn } from "@/lib/cn";
 
-const phrases = ["Backend first", "Pixel-perfect UI", "Built to scale", "Full-stack delivery", "Web and mobile"];
+const phrases = ["Backend first", "Pixel-perfect UI", "Built to scale", "Full-stack delivery", "SaaS products"];
 
 /** Eight-spoke asterisk between phrases (reference). */
 function Asterisk() {
@@ -39,7 +39,7 @@ export function Marquee() {
     <div className="relative overflow-hidden bg-brand text-white">
       <div
         className={cn(
-          "flex w-max animate-marquee py-6 font-display text-[clamp(1.75rem,1rem+2.4vw,2.75rem)] font-medium uppercase md:py-8",
+          "flex w-max animate-marquee py-4 font-display text-[clamp(1.5rem,1rem+1.6vw,2.25rem)] font-medium uppercase leading-[1.15] md:py-5",
           "hover:[animation-play-state:paused]",
           paused && "[animation-play-state:paused]",
         )}

@@ -5,7 +5,7 @@ import { projects } from "@/data/projects";
 /** Public pages only; the dev-only /kitchen route is excluded. */
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = profile.siteUrl;
-  const pages = ["", "/projects", "/about", "/contact"].map((path) => ({
+  const pages = ["", "/about", "/work", "/services", "/contact"].map((path) => ({
     url: `${base}${path}`,
     changeFrequency: "monthly" as const,
     priority: path === "" ? 1 : 0.8,

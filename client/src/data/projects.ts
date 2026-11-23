@@ -28,14 +28,16 @@ export type Project = {
   /** One line: what it is. */
   summary: string;
   type: ProjectType;
-  status: ProjectStatus;
+  /** Optional: leave out for a project without a fixed end, and no status is shown. */
+  status?: ProjectStatus;
   /** Display string, e.g. "Dec 2024". */
   period: string;
   role: string;
   stack: string[];
   /** Feature on the home page. */
   featured: boolean;
-  cover: ProjectImage;
+  /** Optional: without one, cards show a plain panel with the project name. */
+  cover?: ProjectImage;
   gallery: ProjectImage[];
   links: { repo?: string; live?: string };
   problem: string;
@@ -114,6 +116,56 @@ export const projects: Project[] = [
     // Removed pending confirmation: "1000+ concurrent users",
     // "reduced context-switching by 40% in beta", "deployed on AWS with
     // Docker Swarm". Repo link was a placeholder (github.com/yourusername).
+  },
+  {
+    slug: "deepkhata",
+    title: "DeepKhata",
+    summary:
+      "Multi-branch point of sale, inventory and ledger platform for retail shops, with offline selling that syncs once the connection returns.",
+    type: "web",
+    status: "completed",
+    // Needs your input: no date given.
+    period: "",
+    role: "Product development lead at Deep Dev Solutions",
+    stack: ["Next.js", "NestJS", "TypeScript", "PostgreSQL", "Prisma", "Docker", "Vitest", "Supertest", "Playwright"],
+    featured: false,
+    // No screenshots yet: add a cover and gallery once they exist.
+    gallery: [],
+    links: { live: "https://deepkhata.vercel.app" },
+    problem:
+      "DeepKhata is a business management platform for retail shops. It brings point of sale, inventory, customer and supplier ledgers, payments, and multi-branch stock into one system, so an owner can see what is in stock at each branch and who owes what.",
+    approach:
+      "Shop owners get a POS, branch-aware inventory, a cash register with daily reports, and credit tracking. Selling keeps working offline and syncs when the connection returns. An agency admin console handles shop onboarding, plans and limits, deals and billing, and signups, with role-based access across both apps. One codebase serves many shops. It is built with Next.js, NestJS, TypeScript, PostgreSQL with Prisma, and Docker, and tested with Vitest, Supertest, and Playwright. It was built for retail shops in Pakistan.",
+    features: [
+      "Multi-branch inventory with per-branch stock visibility",
+      "Offline selling with sync",
+      "Role-based admin console for onboarding and billing",
+      "End-to-end test coverage with Playwright",
+    ],
+    // Needs your input: no learnings given; the section is hidden while empty.
+    learnings: [],
+  },
+  {
+    slug: "deepdev-erp",
+    title: "DeepDev ERP for Schools and Academies",
+    summary: "Modular management system for schools and academies.",
+    type: "web",
+    // No status: the project runs to the present, so none is shown.
+    // Needs your input: start date not provided.
+    period: "",
+    role: "Lead Developer at Deep Dev Solutions",
+    stack: ["Next.js", "React", "Tailwind CSS", "Redux", "shadcn/ui", "EdTech"],
+    featured: false,
+    // No screenshots yet: add a cover and gallery once they exist.
+    gallery: [],
+    links: {},
+    // Not provided; the section is hidden while empty.
+    problem: "",
+    approach:
+      "DeepDev ERP is a modular management platform for schools and academies. It covers student management, including attendance, test records and fees; staff and teacher management with access controlled by role; and a test system that generates question papers by board, class, subject and chapter, weighted toward questions that repeat in past papers. The frontend is built with Next.js, Tailwind CSS, shadcn/ui and Redux, organised module by module.",
+    // Not provided; these sections are hidden while empty.
+    features: [],
+    learnings: [],
   },
   // Gallery omits messages.png, project-chat.png and project-milestones.png:
   // they show placeholder test data ("ffffff", "hi", "ok bye"). Re-shoot them
@@ -202,76 +254,6 @@ export const projects: Project[] = [
       "JWT authentication with protected routes so clients only see their own data",
       "Real-time messaging with Socket.io",
       "Secure file uploads and storage",
-    ],
-  },
-  {
-    slug: "covid19-tracker-app",
-    title: "Covid-19 Tracker",
-    summary: "A mobile app for checking Covid-19 case numbers by country.",
-    type: "mobile",
-    status: "completed",
-    period: "Jul 2025",
-    role: "Mobile developer",
-    stack: ["Flutter", "Dart", "Provider", "MVVM", "REST API"],
-    featured: false,
-    cover: {
-      src: `${IMG}/covid19-tracker/illustration-cover.jpg`,
-      alt: "Illustration of a phone showing pandemic statistics",
-      width: 1408,
-      height: 768,
-      kind: "illustration",
-    },
-    gallery: [],
-    links: { repo: "https://github.com/itx-tayyab/covid19_tracker_app_with_api" },
-    problem:
-      "During the pandemic, up-to-date case numbers for a specific country were hard to find in one simple view.",
-    approach:
-      "The app pulls data from a public Covid-19 API and presents it as a dashboard with global totals, per-country figures and search.",
-    features: [
-      "Global and per-country statistics",
-      "Charts for active and recovered cases",
-      "Search by country",
-      "Offline caching of the last fetched data",
-    ],
-    learnings: [
-      "Parsing nested JSON in Dart",
-      "Separating UI and data with MVVM",
-      "Handling API errors and network timeouts",
-    ],
-    // Removed pending confirmation: "99.9% crash-free sessions".
-  },
-  {
-    slug: "weather-app",
-    title: "Weather App",
-    summary: "A mobile weather app with location-based forecasts.",
-    type: "mobile",
-    status: "completed",
-    period: "Aug 2025",
-    role: "Mobile developer",
-    stack: ["Flutter", "Dart", "Provider", "MVVM", "OpenWeather API"],
-    featured: false,
-    cover: {
-      src: `${IMG}/weather-app/illustration-cover.jpg`,
-      alt: "Illustration of two phones showing a weather forecast",
-      width: 1408,
-      height: 768,
-      kind: "illustration",
-    },
-    gallery: [],
-    links: { repo: "https://github.com/itx-tayyab/weather_app" },
-    problem: "Checking the weather often means wading through cluttered apps and ads.",
-    approach:
-      "A cross-platform Flutter app on the OpenWeather API that shows current conditions and the week ahead for your location or any city you search.",
-    features: [
-      "Weather for your current location",
-      "7-day forecast",
-      "Backgrounds that change with the conditions",
-      "Search any city",
-    ],
-    learnings: [
-      "Requesting and handling location permissions",
-      "Managing asynchronous data streams in Flutter",
-      "Caching responses locally to cut repeat API calls",
     ],
   },
 ];

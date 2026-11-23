@@ -6,7 +6,7 @@
 
 export const projectTypes = [
   "A website or web app",
-  "A mobile app",
+  "Workflow automation",
   "Backend or API work",
   "A full-time role",
   "Something else",

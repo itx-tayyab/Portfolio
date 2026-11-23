@@ -26,8 +26,8 @@ export function Footer() {
           <div className="lg:col-span-4">
             <Logo />
             <p className="mt-5 max-w-[36ch] text-muted-dark">
-              Full-stack developer building NestJS and Node.js backends, Next.js interfaces and
-              Flutter apps.
+              Full-stack developer building NestJS and Node.js backends and Next.js
+              interfaces.
             </p>
             <div className="mt-6 flex gap-3">
               <a
@@ -71,7 +71,7 @@ export function Footer() {
               <ul>
                 {services.map((s) => (
                   <li key={s.id}>
-                    <Link href={`/#${s.id}`} className="inline-flex min-h-11 items-center gap-2 text-muted-dark transition-colors duration-(--duration-ui) ease-out hover:text-brand">
+                    <Link href={`/services#${s.id}`} className="inline-flex min-h-11 items-center gap-2 text-muted-dark transition-colors duration-(--duration-ui) ease-out hover:text-brand">
                       <ArrowRight aria-hidden="true" size={14} className="text-brand" />
                       {s.title}
                     </Link>

@@ -1,8 +1,7 @@
 import type { ProjectImage } from "./projects";
 
 /**
- * Services shown as numbered cards on the home page (reference: "What we
- * are offering"). Images are the owner's own project artwork, used
+ * Services, each shown as its own section on /services. Images are the owner's own project artwork, used
  * decoratively (empty alt); `link` points at the work that shows the service.
  */
 export type Service = {
@@ -10,8 +9,9 @@ export type Service = {
   number: string;
   title: string;
   description: string;
-  icon: "web" | "mobile" | "backend" | "fullstack";
-  image: Pick<ProjectImage, "src" | "alt" | "width" | "height">;
+  icon: "web" | "mobile" | "backend" | "fullstack" | "automation";
+  /** Optional: without one, the section shows the service icon in the same frame. */
+  image?: Pick<ProjectImage, "src" | "alt" | "width" | "height">;
   link: { href: string; label: string };
 };
 
@@ -28,21 +28,7 @@ export const services: Service[] = [
       width: 1536,
       height: 1024,
     },
-    link: { href: "/projects?type=web", label: "See web projects" },
-  },
-  {
-    id: "mobile-apps",
-    number: "02",
-    title: "Mobile Apps",
-    description: "Cross-platform Flutter apps for Android and iOS, from one codebase.",
-    icon: "mobile",
-    image: {
-      src: "/images/projects/weather-app/illustration-cover.jpg",
-      alt: "",
-      width: 1408,
-      height: 768,
-    },
-    link: { href: "/projects?type=mobile", label: "See mobile projects" },
+    link: { href: "/work?type=web", label: "See web projects" },
   },
   {
     id: "backend-apis",
@@ -71,5 +57,14 @@ export const services: Service[] = [
       height: 768,
     },
     link: { href: "/projects/clientbridge", label: "See ClientBridge" },
+  },
+  {
+    id: "automation",
+    number: "05",
+    title: "Automation",
+    // Description and link written from your offerings list; replace if you prefer.
+    description: "Workflow automation with n8n, messaging flows and AI agents that handle bookings and follow-ups.",
+    icon: "automation",
+    link: { href: "/contact", label: "Discuss an automation" },
   },
 ];

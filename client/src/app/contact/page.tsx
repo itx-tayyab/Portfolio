@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Mail, MapPin, Send, UserRound } from "lucide-react";
+import { CalendarCheck, Mail, MapPin, Send, UserRound } from "lucide-react";
 import { profile } from "@/data/profile";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
@@ -9,7 +9,7 @@ import { ContactForm } from "@/components/contact/ContactForm";
 import { contactConfig } from "./config";
 
 const description =
-  "Get in touch with Tayyab Tariq about a web, mobile or backend project, or a full-time role.";
+  "Get in touch with Tayyab Tariq about a web, backend or automation project, or a full-time role.";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -59,30 +59,6 @@ export default function ContactPage() {
       </Container>
 
       <Container className="mt-12">
-        <ul className="grid gap-6 md:grid-cols-3">
-          <InfoCard icon={MapPin} title="Location">
-            <p>{profile.location}</p>
-            <p>{profile.remote ? "Open to remote work" : null}</p>
-          </InfoCard>
-          <InfoCard icon={Mail} title="Email Address">
-            <a href={`mailto:${profile.email}`} className="inline-flex min-h-11 items-center underline-offset-4 hover:text-brand-text hover:underline">
-              {profile.email}
-            </a>
-            <p>I reply by email</p>
-          </InfoCard>
-          <InfoCard icon={UserRound} title="Profiles">
-            <a href={profile.links.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center underline-offset-4 hover:text-brand-text hover:underline">
-              LinkedIn<span className="sr-only"> (opens in a new tab)</span>
-            </a>
-            <span aria-hidden="true"> · </span>
-            <a href={profile.links.github} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center underline-offset-4 hover:text-brand-text hover:underline">
-              GitHub<span className="sr-only"> (opens in a new tab)</span>
-            </a>
-          </InfoCard>
-        </ul>
-      </Container>
-
-      <Container className="mt-16 md:mt-20">
         <div className="grid gap-10 rounded-band bg-page p-5 shadow-[0_10px_40px_-18px_rgb(20_20_20/0.25)] sm:p-8 lg:grid-cols-12 lg:gap-12 lg:p-10">
           <div className="relative min-h-72 overflow-hidden rounded-card bg-surface lg:col-span-5">
             <iframe
@@ -99,6 +75,35 @@ export default function ContactPage() {
             {formEnabled ? <ContactForm /> : <EmailFallback />}
           </div>
         </div>
+      </Container>
+
+      <Container className="mt-16 md:mt-20">
+        <ul className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+          <InfoCard icon={Mail} title="Email Address">
+            <a href={`mailto:${profile.email}`} className="inline-flex min-h-11 items-center underline-offset-4 hover:text-brand-text hover:underline">
+              {profile.email}
+            </a>
+            <p>I reply by email</p>
+          </InfoCard>
+          <InfoCard icon={UserRound} title="Profiles">
+            <a href={profile.links.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center underline-offset-4 hover:text-brand-text hover:underline">
+              LinkedIn<span className="sr-only"> (opens in a new tab)</span>
+            </a>
+            <span aria-hidden="true"> · </span>
+            <a href={profile.links.github} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center underline-offset-4 hover:text-brand-text hover:underline">
+              GitHub<span className="sr-only"> (opens in a new tab)</span>
+            </a>
+          </InfoCard>
+          {profile.availability.open ? (
+            <InfoCard icon={CalendarCheck} title="Availability">
+              <p>{profile.availability.label}</p>
+            </InfoCard>
+          ) : null}
+          <InfoCard icon={MapPin} title="Location">
+            <p>{profile.location}</p>
+            <p>{profile.remote ? "Open to remote work" : null}</p>
+          </InfoCard>
+        </ul>
       </Container>
     </div>
   );

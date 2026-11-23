@@ -39,13 +39,17 @@ function Facts({ project }: { project: Project }) {
   const facts = [
     { term: "Role", value: project.role },
     { term: "Type", value: project.type === "web" ? "Web platform" : "Mobile app" },
-    {
-      term: "Status",
-      value: project.status === "in-progress" ? <StatusDot>In progress</StatusDot> : `Completed ${project.period}`,
-    },
+    ...(project.status
+      ? [
+          {
+            term: "Status",
+            value: project.status === "in-progress" ? <StatusDot>In progress</StatusDot> : `Completed ${project.period}`.trim(),
+          },
+        ]
+      : []),
   ];
   return (
-    <dl className="grid gap-4 sm:grid-cols-3">
+    <dl className={facts.length === 3 ? "grid gap-4 sm:grid-cols-3" : "grid gap-4 sm:grid-cols-2"}>
       {facts.map(({ term, value }) => (
         <div key={term} className="rounded-card bg-surface px-6 py-5">
           <dt className="font-display text-eyebrow font-semibold uppercase text-brand-text">{term}</dt>
@@ -91,7 +95,14 @@ function CaseStudy({ project }: { project: Project }) {
         </ul>
       ),
     },
-  ];
+  ].filter((step) => {
+    // Hide any section this project has no content for yet.
+    if (step.title === "The Problem") return project.problem.trim().length > 0;
+    if (step.title === "My Approach") return project.approach.trim().length > 0;
+    if (step.title === "What It Does") return project.features.length > 0;
+    if (step.title === "What I Learned") return project.learnings.length > 0;
+    return true;
+  });
 
   return (
     <Section tone="surface" shape="band" aria-labelledby="case-title">
@@ -128,7 +139,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[proj
     <article>
       <Container className="pt-10 md:pt-14">
         <Link
-          href="/projects"
+          href="/work"
           className="group/back inline-flex min-h-11 items-center gap-2 font-display text-label font-semibold uppercase tracking-[0.04em] text-muted transition-colors duration-(--duration-ui) ease-out hover:text-brand-text"
         >
           <ArrowLeft aria-hidden="true" size={16} className="transition-transform duration-(--duration-ui) ease-out group-hover/back:-translate-x-1" />
@@ -180,7 +191,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[proj
       <Container className="py-14 md:py-20">
         {hasScreenshots ? (
           <Gallery title={project.title} images={project.gallery} />
-        ) : (
+        ) : !project.cover ? null : (
           <figure>
             <div className="relative aspect-[16/9] overflow-hidden rounded-card bg-surface">
               <Image

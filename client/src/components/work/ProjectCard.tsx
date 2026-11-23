@@ -24,7 +24,22 @@ export function ProjectCard({
   return (
     <Link href={`/projects/${project.slug}`} className={cn("group/card block", className)}>
       <div className="relative aspect-[1.42] overflow-hidden rounded-card bg-ink">
-        {project.cover.kind === "screenshot" ? (
+        {!project.cover ? (
+          // No image yet: the same dark tile and orange glow, with the name.
+          <>
+            <div
+              aria-hidden="true"
+              className="absolute inset-0"
+              style={{ background: "radial-gradient(80% 80% at 100% 100%, rgb(244 91 22 / 0.45), transparent 60%)" }}
+            />
+            <span
+              aria-hidden="true"
+              className="absolute bottom-[11%] left-[8%] font-display text-h2 font-semibold text-white transition-transform duration-(--duration-media) ease-out group-hover/card:-translate-y-1"
+            >
+              {project.title}
+            </span>
+          </>
+        ) : project.cover.kind === "screenshot" ? (
           // Light UI screenshots sit inset in a dark rounded frame and bleed
           // off its right and bottom edges, so the tile keeps the solid
           // rounded shape of the reference tiles.

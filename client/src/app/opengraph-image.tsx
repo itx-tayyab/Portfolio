@@ -10,6 +10,6 @@ export default function Image() {
   return renderOgImage({
     kicker: defaultKicker,
     title: "I build the backend and the interface it deserves.",
-    band: ["NestJS", "Next.js", "PostgreSQL", "Flutter"],
+    band: ["NestJS", "Next.js", "PostgreSQL", "Redis"],
   });
 }

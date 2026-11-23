@@ -21,25 +21,19 @@ export const stack: StackGroup[] = [
     id: "frontend",
     title: "Frontend",
     statement: "Responsive, accessible interfaces that match the system behind them.",
-    tools: ["Next.js", "React", "TypeScript", "Tailwind CSS", "shadcn/ui", "Framer Motion"],
-  },
-  {
-    id: "mobile",
-    title: "Mobile",
-    statement: "Cross-platform apps for Android and iOS from one codebase.",
-    tools: ["Flutter", "Dart", "Provider", "MVVM"],
+    tools: ["Next.js", "React", "TypeScript", "Tailwind CSS", "shadcn/ui", "Framer Motion", "Redux"],
   },
   {
     id: "data",
     title: "Data",
     statement: "Schemas and queries designed for how the product actually reads and writes.",
-    tools: ["PostgreSQL", "MySQL", "MongoDB", "Prisma", "Redis"],
+    tools: ["PostgreSQL", "MySQL", "Prisma", "Redis", "Sanity"],
   },
   {
     id: "tooling",
     title: "Tooling",
     statement: "A clean path from commit to deployment.",
-    tools: ["Git", "GitHub", "Docker", "Postman", "CI/CD"],
+    tools: ["Git", "GitHub", "Docker", "Postman", "CI/CD", "Vercel", "n8n"],
   },
 ];
 
@@ -49,7 +43,6 @@ export const marqueeStack = [
   "NestJS",
   "Node.js",
   "PostgreSQL",
-  "Flutter",
   "Socket.io",
   "TypeScript",
   "Prisma",

@@ -17,7 +17,7 @@ export const profile = {
     alt: "Portrait of Tayyab Tariq",
   },
   summary:
-    "Full-stack developer building Node.js and NestJS backends, Next.js interfaces and Flutter apps.",
+    "Full-stack developer building Node.js and NestJS backends and Next.js interfaces.",
   availability: {
     open: true,
     label: "Available for freelance and full-time work",

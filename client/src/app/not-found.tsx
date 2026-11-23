@@ -22,7 +22,7 @@ export default function NotFound() {
         for is probably on the work page.
       </p>
       <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-        <Button href="/projects" icon={<ArrowRight size={16} />}>
+        <Button href="/work" icon={<ArrowRight size={16} />}>
           See all work
         </Button>
         <Button href="/" variant="secondary">
