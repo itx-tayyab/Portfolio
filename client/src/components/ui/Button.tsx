@@ -38,7 +38,7 @@ export type ButtonProps = LinkProps | NativeButtonProps;
 
 const base =
   "group/button inline-flex shrink-0 items-center justify-center gap-3 rounded-full font-display font-semibold uppercase tracking-[0.04em] select-none " +
-  "transition-[background-color,border-color,color,transform] duration-(--duration-ui) ease-out " +
+  "transition-[background-color,border-color,color,transform,box-shadow] duration-(--duration-ui) ease-out " +
   "active:scale-[0.97] active:duration-(--duration-press) " +
   "disabled:pointer-events-none disabled:opacity-60";
 

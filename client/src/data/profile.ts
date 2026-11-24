@@ -12,6 +12,10 @@ export const profile = {
   /** Kept at its original path: external sites may link to it. */
   resumeUrl: "/images/tayyab.pdf",
   portrait: {
+    /** Full photo used in the home hero, with the studio background removed. */
+    hero: { src: "/images/profile/portrait-hero-cutout.webp", width: 1000, height: 1154 },
+    /** New full portrait used by the About page layout options. */
+    about: { src: "/images/profile/about-profile.webp", width: 1000, height: 1152 },
     photo: { src: "/images/profile/portrait.jpg", width: 400, height: 400 },
     cutout: { src: "/images/profile/portrait-cutout.png", width: 400, height: 400 },
     alt: "Portrait of Tayyab Tariq",

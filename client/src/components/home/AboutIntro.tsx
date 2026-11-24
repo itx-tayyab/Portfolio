@@ -1,126 +1,119 @@
+"use client";
+
 import Image from "next/image";
-import { ArrowRight, Check, Download, LayoutTemplate, Server } from "lucide-react";
+import { motion } from "framer-motion";
+import { Check, Download } from "lucide-react";
 import { profile } from "@/data/profile";
 import { Container } from "@/components/ui/Container";
-import { Button } from "@/components/ui/Button";
-import { Eyebrow, Sparkle } from "@/components/ui/Eyebrow";
+import { Eyebrow } from "@/components/ui/Eyebrow";
 
-const features = [
-  {
-    icon: Server,
-    title: "Backend Architecture",
-    text: "Database schemas and APIs designed for how the product reads and writes.",
-  },
-  {
-    icon: LayoutTemplate,
-    title: "Clean Interfaces",
-    text: "Responsive, accessible screens that match the system behind them.",
-  },
-];
+const bio =
+  "I’m Tayyab, a developer in Lahore. I started programming to solve real problems, and I still care most about how things work under the hood: the schema, the API and the interface people actually use.";
 
 const strengths = ["Scalable APIs", "Real-time features", "Responsive UI", "Workflow automation"];
 
-/**
- * "Who I am" block after reference image 2: a three-image collage in
- * organic shapes with an orange sparkle, then eyebrow, heading, two
- * features, a dark strip of checks and a CTA beside the name.
- */
-export function AboutIntro({ headingLevel: H = "h2" }: { headingLevel?: "h1" | "h2" }) {
-  // On the About page itself the CTA offers the resume instead of linking to itself.
-  const onAboutPage = H === "h1";
-  // Feature titles sit one level below the section heading.
-  const FeatureHeading = H === "h1" ? "h2" : "h3";
+function PortraitFrame() {
+  const about = profile.portrait.about;
+
   return (
-    <section aria-labelledby="about-title" className="py-20 md:py-28">
-      <Container className="grid items-center gap-14 lg:grid-cols-12 lg:gap-16">
-        {/* Collage */}
-        <div className="relative mx-auto grid w-full max-w-[34rem] grid-cols-2 gap-3 lg:col-span-6">
-          <div className="grid gap-3">
-            <div className="relative aspect-square overflow-hidden rounded-[50%_50%_45%_55%/55%_50%_50%_45%] bg-surface">
-              <Image
-                src="/images/projects/harmoni/illustration-cover.jpg"
-                alt=""
-                fill
-                sizes="(min-width: 1024px) 17rem, 45vw"
-                className="object-cover"
-              />
-            </div>
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[45%_55%_0_0/40%_40%_0_0] bg-surface">
-              <Image
-                src="/images/projects/clientbridge/illustration-cover.jpg"
-                alt=""
-                fill
-                sizes="(min-width: 1024px) 17rem, 45vw"
-                className="object-cover"
-              />
-            </div>
-          </div>
-          <div className="relative overflow-hidden rounded-full bg-surface">
-            <Image
-              src={profile.portrait.cutout.src}
-              alt={profile.portrait.alt}
-              fill
-              sizes="(min-width: 1024px) 17rem, 45vw"
-              className="object-cover object-[50%_30%]"
-            />
-          </div>
-          <Sparkle className="absolute left-1/2 top-1/2 size-16 -translate-x-1/2 -translate-y-1/2 text-brand drop-shadow-[0_0_0_white]" />
-        </div>
+    <div className="relative mx-auto w-full max-w-[30rem]">
+      <div className="relative aspect-[4/5] overflow-hidden rounded-card border border-brand/40 bg-ink-2 ring-2 ring-brand/50 shadow-[0_28px_70px_-28px_rgb(244_91_22/0.4)]">
+        <Image
+          src={about.src}
+          alt={profile.portrait.alt}
+          fill
+          priority
+          sizes="(min-width: 1024px) 30rem, 100vw"
+          className="object-cover"
+        />
+      </div>
+    </div>
+  );
+}
 
-        {/* Text */}
-        <div className="lg:col-span-6">
-          <Eyebrow>Who I am</Eyebrow>
-          <H id="about-title" className="mt-3 font-display text-h2 font-semibold">
-            A Full-Stack Developer Focused On Real Results
-          </H>
-          <p className="mt-5 max-w-[56ch] text-muted">
-            I’m Tayyab, a developer in Lahore. I started programming to solve real problems, and I
-            still care most about how things work under the hood: the schema, the API and the
-            interface people actually use.
-          </p>
-          <hr className="my-8 border-line" />
-          <ul className="grid gap-8 sm:grid-cols-2">
-            {features.map(({ icon: Icon, title, text }) => (
-              <li key={title} className="flex gap-4">
-                <Icon aria-hidden="true" size={40} strokeWidth={1.4} className="shrink-0 text-brand" />
-                <div>
-                  <FeatureHeading className="font-display text-h4 font-semibold">{title}</FeatureHeading>
-                  <p className="mt-1 text-label text-muted">{text}</p>
+function CapabilityPills({ items }: { items: string[] }) {
+  return (
+    <ul className="mt-6 flex flex-wrap gap-2">
+      {items.map((item) => (
+        <li
+          key={item}
+          className="group/badge inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-3 py-1.5 text-label text-white transition-all duration-300 hover:-translate-y-0.5 hover:border-brand/50 hover:bg-white/[0.1] hover:shadow-[0_8px_20px_-14px_rgb(244_91_22/0.6)]"
+        >
+          <span className="grid size-5 shrink-0 place-items-center rounded-full bg-brand text-white shadow-[0_0_14px_rgb(244_91_22/0.55)] transition-transform duration-300 group-hover/badge:scale-110">
+            <Check size={11} strokeWidth={3} />
+          </span>
+          {item}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function ResumeButton() {
+  return (
+    <a
+      href={profile.resumeUrl}
+      download
+      className="group/resume inline-flex min-h-12 items-center gap-3 rounded-full border border-white/40 px-6 font-display text-[0.8125rem] font-semibold uppercase tracking-[0.04em] text-white transition-all duration-300 hover:-translate-y-1 hover:border-brand hover:text-brand hover:shadow-[0_16px_32px_-12px_rgb(244_91_22/0.35)] active:scale-[0.97]"
+    >
+      Download résumé
+      <span className="grid size-9 place-items-center rounded-full bg-white/10 transition-colors duration-300 group-hover/resume:bg-brand group-hover/resume:text-white">
+        <Download
+          size={16}
+          className="transition-transform duration-300 ease-out group-hover/resume:translate-y-1"
+        />
+      </span>
+    </a>
+  );
+}
+
+/**
+ * Permanent "Who I am" section: the premium dark showcase with the new
+ * About portrait and shared profile copy.
+ */
+export function AboutIntro() {
+  return (
+    <section aria-labelledby="about-title" className="pt-14 md:pt-20">
+      <Container>
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.12 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+        >
+          <div className="rounded-card bg-ink p-6 text-white shadow-2xl md:p-10">
+            <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
+              <div className="order-2 lg:order-1 lg:col-span-5">
+                <PortraitFrame />
+              </div>
+
+              <div className="order-1 lg:order-2 lg:col-span-7">
+                <Eyebrow tone="dark">Who I am</Eyebrow>
+                <h1
+                  id="about-title"
+                  className="mt-3 font-display text-h2 font-semibold text-white"
+                >
+                  A Full-Stack Developer Focused On Real Results
+                </h1>
+                <p className="mt-5 max-w-[56ch] text-body leading-relaxed text-muted-dark">
+                  {bio}
+                </p>
+
+                <CapabilityPills items={strengths} />
+
+                <div className="mt-8 flex flex-wrap items-center gap-6">
+                  <ResumeButton />
+                  <div className="leading-tight">
+                    <p className="font-display text-h4 font-semibold text-white">
+                      {profile.name}
+                    </p>
+                    <p className="text-label text-muted-dark">{profile.role}</p>
+                  </div>
                 </div>
-              </li>
-            ))}
-          </ul>
-
-          <div className="relative mt-8 rounded-media border-b-2 border-brand bg-ink px-6 py-5 text-white">
-            <ul className="grid gap-x-10 gap-y-3 sm:grid-cols-2">
-              {strengths.map((s) => (
-                <li key={s} className="flex items-center gap-3 text-label">
-                  <span aria-hidden="true" className="grid size-5 place-items-center rounded-full bg-brand">
-                    <Check size={12} strokeWidth={3} />
-                  </span>
-                  {s}
-                </li>
-              ))}
-            </ul>
-            <Sparkle className="absolute left-1/2 top-1/2 hidden size-6 -translate-x-1/2 -translate-y-1/2 text-white/80 sm:block" />
-          </div>
-
-          <div className="mt-8 flex flex-wrap items-center gap-6">
-            {onAboutPage ? (
-              <Button href={profile.resumeUrl} download icon={<Download size={16} />}>
-                Download résumé
-              </Button>
-            ) : (
-              <Button href="/about" icon={<ArrowRight size={16} />}>
-                More about me
-              </Button>
-            )}
-            <div className="leading-tight">
-              <p className="font-display text-h4 font-semibold">{profile.name}</p>
-              <p className="text-label text-muted">{profile.role}</p>
+              </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </Container>
     </section>
   );

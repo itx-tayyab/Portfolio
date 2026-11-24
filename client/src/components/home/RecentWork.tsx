@@ -19,8 +19,8 @@ export function RecentWork() {
         intro="Web platforms built end to end, from the database schema to the interface."
       />
       <div className="grid gap-x-6 gap-y-12 md:grid-cols-2">
-        {getFeaturedProjects().map((p) => (
-          <ProjectCard key={p.slug} project={p} />
+        {getFeaturedProjects().map((p, i) => (
+          <ProjectCard key={p.slug} project={p} reveal={i * 100} />
         ))}
       </div>
       <div className="mt-14 flex justify-center">

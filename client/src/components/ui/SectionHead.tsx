@@ -11,6 +11,8 @@ type SectionHeadProps = {
   as?: "h1" | "h2";
   id?: string;
   tone?: "light" | "dark";
+  /** Tighter gap below the header, for compact page compositions. */
+  compact?: boolean;
   className?: string;
 };
 
@@ -23,9 +25,11 @@ export function SectionHead({
   as = "h2",
   id,
   tone = "light",
+  compact = false,
   className,
 }: SectionHeadProps) {
   const Heading = as;
+  const marginClass = compact ? "mb-6" : "mb-12 md:mb-14";
   const introClass = cn("text-body", tone === "dark" ? "text-muted-dark" : "text-muted");
   const heading = (
     <Heading id={id} className={cn("mt-3 font-display font-semibold", as === "h1" ? "text-h1" : "text-h2")}>
@@ -35,7 +39,7 @@ export function SectionHead({
 
   if (layout === "split") {
     return (
-      <div className={cn("mb-12 grid gap-6 md:mb-14 md:grid-cols-12 md:items-end", className)}>
+      <div data-reveal="" className={cn(marginClass, "grid gap-6 md:grid-cols-12 md:items-end", className)}>
         <div className="md:col-span-7">
           {eyebrow ? <Eyebrow tone={tone}>{eyebrow}</Eyebrow> : null}
           {heading}
@@ -46,7 +50,7 @@ export function SectionHead({
   }
 
   return (
-    <div className={cn("mb-12 md:mb-14", layout === "center" && "mx-auto text-center", className)}>
+    <div data-reveal="" className={cn(marginClass, layout === "center" && "mx-auto text-center", className)}>
       {eyebrow ? <Eyebrow tone={tone}>{eyebrow}</Eyebrow> : null}
       {heading}
       {intro ? (

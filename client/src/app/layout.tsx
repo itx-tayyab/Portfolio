@@ -5,6 +5,7 @@ import { Header } from "@/components/shell/Header";
 import { Footer } from "@/components/shell/Footer";
 import { SkipLink } from "@/components/shell/SkipLink";
 import { ScrollTop } from "@/components/shell/ScrollTop";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { profile } from "@/data/profile";
 
 const outfit = Outfit({
@@ -78,6 +79,7 @@ export default function RootLayout({
           }}
         />
         <SkipLink />
+        <ScrollReveal />
         <Header />
         <main id="main" tabIndex={-1} className="flex-1 outline-none">
           {children}

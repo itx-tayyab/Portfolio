@@ -3,7 +3,6 @@ import { ArrowRight, Github, Linkedin, Mail, MapPin } from "lucide-react";
 import { profile } from "@/data/profile";
 import { services } from "@/data/services";
 import { Container } from "@/components/ui/Container";
-import { CopyButton } from "@/components/ui/CopyButton";
 import { Logo } from "./Logo";
 import { navItems } from "./nav";
 
@@ -93,7 +92,6 @@ export function Footer() {
                     <a href={`mailto:${profile.email}`} className="inline-flex min-h-11 items-center break-all text-muted-dark underline-offset-4 hover:text-brand hover:underline">
                       {profile.email}
                     </a>
-                    <CopyButton value={profile.email} label="email address" className="mt-2 border-white/30" />
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
@@ -114,9 +112,8 @@ export function Footer() {
         </div>
       </Container>
       <div className="border-t border-line-dark">
-        <Container className="flex flex-wrap items-center justify-between gap-3 py-6 text-label text-muted-dark">
+        <Container className="py-6 text-center text-label text-muted-dark">
           <p>© {year} {profile.name}. All rights reserved.</p>
-          <p>Built with Next.js and Tailwind CSS.</p>
         </Container>
       </div>
     </footer>

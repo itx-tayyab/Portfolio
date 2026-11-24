@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import type { Project } from "@/data/projects";
 import { cn } from "@/lib/cn";
+import { revealDelay } from "@/lib/reveal";
 
 function PagerLink({ project, direction }: { project: Project; direction: "prev" | "next" }) {
   const isNext = direction === "next";
@@ -10,6 +11,8 @@ function PagerLink({ project, direction }: { project: Project; direction: "prev"
     <Link
       href={`/projects/${project.slug}`}
       rel={isNext ? "next" : "prev"}
+      data-reveal=""
+      style={revealDelay(isNext ? 80 : 0)}
       className={cn(
         "group/pager flex min-h-32 flex-col justify-between gap-6 rounded-card bg-surface p-7",
         "transition-[background-color,color] duration-(--duration-ui) ease-out hover:bg-ink hover:text-white",

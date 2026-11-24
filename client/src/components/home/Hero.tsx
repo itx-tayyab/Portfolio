@@ -41,17 +41,24 @@ export function Hero() {
 
       <Container className="grid items-end gap-8 pt-12 lg:flex-1 lg:grid-cols-12 lg:pt-8">
         <div className="pb-12 lg:col-span-7 lg:self-center lg:pb-10">
-          <p className="inline-flex items-center gap-2 font-display text-eyebrow font-semibold uppercase text-brand">
+          <p
+            className="inline-flex animate-rise items-center gap-2 font-display text-eyebrow font-semibold uppercase text-brand"
+            style={{ animationDelay: "60ms" }}
+          >
             <span aria-hidden="true" className="size-1.5 rounded-[1px] bg-brand" />
             Full-stack developer helping teams ship
           </p>
           <h1
             id="hero-title"
-            className="mt-5 max-w-[11ch] font-display text-display font-semibold lg:text-[length:clamp(2.5rem,min(1rem+3.6vw,8svh),4rem)]"
+            className="mt-5 max-w-[11ch] animate-rise font-display text-display font-semibold lg:text-[length:clamp(2.5rem,min(1rem+3.6vw,8svh),4rem)]"
+            style={{ animationDelay: "140ms" }}
           >
             I Build Web Products That Scale
           </h1>
-          <div className="mt-10 flex flex-col gap-6 sm:flex-row sm:items-center">
+          <div
+            className="mt-10 flex animate-rise flex-col gap-6 sm:flex-row sm:items-center"
+            style={{ animationDelay: "220ms" }}
+          >
             <Button href="/work" icon={<Send size={16} />}>
               See my work
             </Button>
@@ -62,16 +69,19 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="relative mx-auto w-full max-w-[26rem] self-end lg:col-span-5 lg:mr-0 lg:max-w-none">
+        <div
+          className="relative mx-auto w-full max-w-[26rem] animate-rise self-end lg:col-span-5 lg:mr-0 lg:max-w-none"
+          style={{ animationDelay: "180ms" }}
+        >
           <PaperPlaneDoodle className="absolute -left-10 top-6 hidden w-44 lg:block" />
           <div className="relative mx-auto aspect-square w-full max-w-[27rem] lg:max-w-[min(27rem,calc(100svh-17rem))]">
             <Image
-              src={profile.portrait.cutout.src}
+              src={profile.portrait.hero.src}
               alt={profile.portrait.alt}
               fill
               priority
               sizes="(min-width: 1024px) 30rem, 26rem"
-              className="object-contain object-bottom"
+              className="h-full w-full object-cover object-top"
             />
           </div>
           {/* Static until the project it names has its own page to link to. */}

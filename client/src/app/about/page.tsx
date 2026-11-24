@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { AboutIntro } from "@/components/home/AboutIntro";
+import { AboutMotion } from "@/components/about/AboutMotion";
 import { WhyChoose } from "@/components/home/WhyChoose";
 import { Timeline } from "@/components/about/Timeline";
 import { Journey } from "@/components/about/Journey";
@@ -20,12 +21,12 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <>
-      <AboutIntro headingLevel="h1" />
+    <AboutMotion>
+      <AboutIntro />
       <Journey />
       <Timeline />
       <WhyChoose />
       <Toolkit />
-    </>
+    </AboutMotion>
   );
 }

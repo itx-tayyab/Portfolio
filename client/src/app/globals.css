@@ -77,6 +77,8 @@
 
   --animate-marquee: marquee 40s linear infinite;
   --animate-rise: rise var(--duration-reveal) var(--ease-out) both;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pin-bounce: pin-bounce 2.4s ease-in-out infinite;
 
   @keyframes marquee {
     from { transform: translate3d(0, 0, 0); }
@@ -86,6 +88,16 @@
   @keyframes rise {
     from { opacity: 0; transform: translate3d(0, 0.6em, 0); }
     to { opacity: 1; transform: translate3d(0, 0, 0); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(0, -8px, 0); }
+  }
+
+  @keyframes pin-bounce {
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(0, -10px, 0); }
   }
 }
 
@@ -139,6 +151,47 @@
   --focus-ring: var(--color-brand);
 }
 
+/* --------------------------------------------------------------------------
+   Scroll reveal. Elements marked [data-reveal] fade and rise in once when
+   they enter the viewport; use --reveal-delay for a stagger. Only hidden
+   when scripting is available, so without JS the content stays visible.
+   `backwards` fill keeps the start state during the delay, then lets the
+   element go, so hover transforms are not overridden after it finishes.
+   -------------------------------------------------------------------------- */
+@media (scripting: enabled) {
+  [data-reveal]:not([data-revealed]) {
+    opacity: 0;
+  }
+
+  [data-reveal][data-revealed] {
+    animation: reveal-up var(--duration-reveal) var(--ease-out) var(--reveal-delay, 0ms) backwards;
+  }
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 1.5rem, 0);
+  }
+}
+
+@media print {
+  [data-reveal] {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Framer Motion server-renders its hidden initial styles. If JavaScript is
+   unavailable, show the animated About content instead of leaving it blank. */
+@media (scripting: none) {
+  [data-motion-root] [style*="opacity"] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 /* Reduced motion: keep opacity changes, drop movement and loops. */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -148,6 +201,13 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  /* Never hide content waiting for a reveal when motion is reduced. */
+  [data-reveal] {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 

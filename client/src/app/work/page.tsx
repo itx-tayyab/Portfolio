@@ -45,9 +45,9 @@ export default function WorkPage() {
       <Section aria-labelledby="explorer-title">
         <SectionHead id="explorer-title" eyebrow="Project explorer" title="All Projects" layout="stacked" />
         <ProjectFilter counts={counts}>
-          {projects.map((project) => (
+          {projects.map((project, i) => (
             <div key={project.slug} data-type={project.type}>
-              <ProjectCard project={project} />
+              <ProjectCard project={project} reveal={(i % 2) * 100} />
             </div>
           ))}
         </ProjectFilter>

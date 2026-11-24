@@ -6,6 +6,7 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Button } from "@/components/ui/Button";
 import { Tag } from "@/components/ui/Tag";
 import { StatusDot } from "@/components/ui/StatusDot";
+import { revealDelay } from "@/lib/reveal";
 
 /**
  * One project given room on the Work page, in the dark band style. Uses the
@@ -15,8 +16,8 @@ export function FeaturedProject({ project }: { project: Project }) {
   const category = project.type === "web" ? "Web platform" : "Mobile app";
   return (
     <Section tone="dark" shape="band" aria-labelledby="featured-title">
-      <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
-        <div className="relative aspect-[1.42] overflow-hidden rounded-media bg-ink-2 lg:col-span-7">
+      <div className="group/featured grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
+        <div className="relative aspect-[1.42] overflow-hidden rounded-media bg-ink-2 lg:col-span-7" data-reveal="">
           <div
             aria-hidden="true"
             className="absolute inset-0"
@@ -34,20 +35,20 @@ export function FeaturedProject({ project }: { project: Project }) {
                 width={project.cover.width}
                 height={project.cover.height}
                 sizes="(min-width: 1024px) 60vw, 140vw"
-                className="block h-auto w-full"
+                className="block h-auto w-full transition-transform duration-500 ease-out group-hover/featured:scale-105"
               />
             </div>
           ) : (
-            <Image src={project.cover.src} alt={project.cover.alt} fill sizes="(min-width: 1024px) 42vw, 100vw" className="object-cover" />
+            <Image src={project.cover.src} alt={project.cover.alt} fill sizes="(min-width: 1024px) 42vw, 100vw" className="object-cover transition-transform duration-500 ease-out group-hover/featured:scale-105" />
           )}
         </div>
-        <div className="lg:col-span-5">
+        <div className="lg:col-span-5" data-reveal="" style={revealDelay(90)}>
           <Eyebrow tone="dark">Featured project</Eyebrow>
           <h2 id="featured-title" className="mt-3 font-display text-h2 font-semibold">
             {project.title}
           </h2>
           <p className="mt-2 text-label text-muted-dark">
-            {project.status === "in-progress" ? <StatusDot>{category}, in progress</StatusDot> : `${category}, ${project.period}`}
+            {project.status === "in-progress" ? <StatusDot pulse>{category}, in progress</StatusDot> : `${category}, ${project.period}`}
           </p>
           <p className="mt-5 max-w-[48ch] text-muted-dark">{project.summary}</p>
           <p className="mt-6 font-display text-eyebrow font-semibold uppercase text-brand">My role</p>
@@ -55,11 +56,22 @@ export function FeaturedProject({ project }: { project: Project }) {
           <ul className="mt-6 flex flex-wrap gap-2">
             {project.stack.map((tech) => (
               <li key={tech}>
-                <Tag>{tech}</Tag>
+                <Tag className="cursor-default transition-all duration-200 hover:scale-110 hover:border-brand-strong hover:bg-brand-strong hover:text-white hover:shadow-md">
+                  {tech}
+                </Tag>
               </li>
             ))}
           </ul>
-          <Button href={`/projects/${project.slug}`} className="mt-8" icon={<ArrowRight size={16} />}>
+          <Button
+            href={`/projects/${project.slug}`}
+            className="mt-8 hover:-translate-y-1 hover:shadow-[0_16px_32px_-12px_rgb(244_91_22/0.55)]"
+            icon={
+              <ArrowRight
+                size={16}
+                className="transition-transform duration-300 ease-out group-hover/button:-translate-y-1 group-hover/button:translate-x-1"
+              />
+            }
+          >
             View case study
           </Button>
         </div>
